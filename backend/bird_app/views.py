@@ -4,7 +4,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.core import serializers
 from rest_framework.decorators import api_view
 from django.views.decorators.csrf import csrf_exempt
-# from .models import Preference
+from . models import User
 
 def send_the_homepage(request):
     print('home')
@@ -14,8 +14,13 @@ def send_the_homepage(request):
 @api_view(['POST'])
 def sign_up(request):
     try:
-        User.objects.create_user(username=request.data['email'], password=request.data['password'], email=request.data['email'])
+        User.objects.create_user(
+            username=request.data['email'],
+            password=request.data['password'],
+            email=request.data['email']
+        )
     except Exception as e:
+        print("error")
         print(str(e))
     return HttpResponse('hi')
 

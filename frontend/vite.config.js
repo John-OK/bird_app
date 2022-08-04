@@ -8,8 +8,9 @@ export default defineConfig({
   base: '/static/',
   build: {
     // this is the folder where vite will generate its output. Make sure django can serve files from here!
-    outDir: '../bird_proj/static',
+    outDir: '../backend/static',
     emptyOutDir: true,
+    sourcemap: true, // aids in debugging by giving line numbers and readable code
   },
   plugins: [react()]
 })

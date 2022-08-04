@@ -82,7 +82,7 @@ DATABASES = {
     }
 }
 
-AUTH_USER_MODEL = 'bird_app.AppUser'
+AUTH_USER_MODEL = 'bird_app.User'
 
 
 # Password validation
