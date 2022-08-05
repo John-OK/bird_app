@@ -5,6 +5,10 @@ from django.core import serializers
 from rest_framework.decorators import api_view
 from django.views.decorators.csrf import csrf_exempt
 from . models import User
+import requests as HTTP_Client
+import pprint
+
+pp = pprint.PrettyPrinter(indent=2, depth=4)
 
 def send_the_homepage(request):
     print('home')
@@ -70,3 +74,16 @@ def who_am_i(request):
         return HttpResponse(data)
     else:
         return JsonResponse({'user':None})
+
+def xeno_canto_api(request):
+    print('received request for xeno-canto data')
+
+    endpoint = "https://www.xeno-canto.org/api/2/recordings?query=Violet Wood Hoopoe"
+    API_response = HTTP_Client.get(endpoint)
+    responseJSON = API_response.json()
+    # pp.pprint(responseJSON)
+    pp.pprint(responseJSON['recordings'][0]['sp'])
+    species = responseJSON['recordings'][0]['sp']
+
+    response = render(request, 'bird_app/search.html', {'species': species})
+    return response
