@@ -1,0 +1,7 @@
+{
+  "error": {
+    "message": "Free plan is limited to 1 request per second. Please wait or upgrade to remove this restriction.",
+    "code": "too_many_requests",
+    "details": null
+  }
+}

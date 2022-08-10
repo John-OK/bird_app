@@ -26,21 +26,29 @@ def get_ip(request):
     return ip
 
 def geolocate(request):
-    # ip = get_ip(request)
-    # ip = "208.185.59.34"
+    # ip = "208.185.59.34" # WeWork Chicago
     # ip = "23.19.122.235" # Windscribe Chicago Wrigley
     ip = "185.253.99.155" # Windscribe Barcelona Batllo
-    print(f'IP ADDRESS FOR GEOLOCATE: {ip}')
+    # ip = get_ip(request)
+    print(f'*****************  IP ADDRESS FOR GEOLOCATE: {ip}')
     endpoint = f"https://ipgeolocation.abstractapi.com/v1/?api_key=631f880632664f8d9641d5dedeec4e13&ip_address={ip}"
-    print(f'endpoint: {endpoint}')
-    API_response = HTTP_Client.get(endpoint)
-    responseJSON = API_response.json()
-    status_code = API_response.status_code
-    content = API_response.content
-    print(f'GEO STATUS: {status_code}')
-    print(f'GEO CONTENT: {content}')
-    pp.pprint(responseJSON)
-    return JsonResponse({lat: 0, lng: 0})
+    # print(f'endpoint: {endpoint}')
+    # API_response = HTTP_Client.get(endpoint)
+    # responseJSON = API_response.json()
+    # status_code = API_response.status_code
+    # content = API_response.content
+    # lat = API_response.latitude
+    # lng = API_response.longitude
+    # print(f'GEO STATUS: {status_code}')
+    # print(f'GEO CONTENT: ')
+    # print(f'GEO CONTENT: {responseJSON}')
+    # pp.pprint(responseJSON)
+
+    # with open(f'geolocation_data.json', 'w') as f:
+    #     json.dump(responseJSON, f, indent=2)
+    #     print('file saved')
+
+    return JsonResponse({'lat': -17.896, 'lng': 177.943}) # Fiji
 
 def send_the_homepage(request):
     print('home')

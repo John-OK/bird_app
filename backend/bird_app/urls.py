@@ -8,5 +8,5 @@ urlpatterns = [
     path('logout/', views.log_out),
     path('whoami/', views.who_am_i),
     path('xeno-canto-api/', views.xeno_canto_api),
-    # path('geolocate/', views.geolocate),
+    path('geolocate/', views.geolocate),
 ]
