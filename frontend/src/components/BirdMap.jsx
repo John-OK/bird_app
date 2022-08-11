@@ -13,7 +13,7 @@ function getIcon(iconSize) {
 
 function BirdMap(props) {
     const defaultPosition = [39.240, -5.740];
-
+    
     return(
         <div>
             <MapContainer className='map'
