@@ -7,12 +7,12 @@ function LogInPage() {
     const submitLogIn = function(event){
         // LOGIC FOR CHECKING CORRECT PASS (BACKEND?) AND RETURNING PROPER RESPONSE (I.E., REDIRECT TO SEARCH, OR WRONG PASSWORD MSG)
         event.preventDefault();
-        axios.post('/login', {email: event.target[0].value, password: event.target[1].value})
+        axios.post('/login/', {email: event.target[0].value, password: event.target[1].value})
             .then((response)=>{
                 console.log('login response from server: ', response)
                 window.location.reload()
         })
-        navigate("../search");   
+        navigate("/");   
       }
 
     return (

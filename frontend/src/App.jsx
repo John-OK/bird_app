@@ -30,7 +30,6 @@ const csrftoken = getCookie('csrftoken');
 axios.defaults.headers.common['X-CSRFToken'] = csrftoken
 
 function App() {
-  const [count, setCount] = useState(0)
   const [user, setUser] = useState(null)
 
   const whoAmI = async () => {
@@ -41,9 +40,9 @@ function App() {
     setUser(user)
   }  
 
-  useEffect(()=>{
-    whoAmI()
-  }, [])
+  // useEffect(()=>{
+  //   whoAmI()
+  // }, [])
 
   const handleSubmit = (event) => {
     console.dir(`authentication submit: ${event.target[0].value}, ${event.target[1].value}`);
@@ -53,10 +52,9 @@ function App() {
   return (
     <div className="App">
       <NavBarBC />
-      <h1>Bird Confirm&trade;</h1>
       <Router>
         <Routes>
-          <Route path='/' element={<HomePage whoAmI={whoAmI} /> } />
+          <Route path='/' element={<HomePage whoAmI={whoAmI} user={user} /> } />
           <Route path='/signup' element={<SignUpPage />} />
           <Route path='/login' element={<LogInPage /> } />
           <Route path='/search' element={<Search /> } />

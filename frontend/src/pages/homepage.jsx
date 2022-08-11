@@ -1,36 +1,31 @@
 import axios from 'axios';
 import {useEffect, useState} from 'react';
+import BirdMap from '../components/BirdMap';
 
 function HomePage(props) {
+    const [position, setPosition] = useState([39.240, -5.740])
+
     useEffect( ()=> {
         props.whoAmI()
-        console.log('HomePage')
+        console.log('HomePage: whoAmI');
+        getUserLocation();
     }, [])
 
-    const [birdName, setBirdName] = useState("")
+    function getUserLocation() { 
+        axios.get('/geolocate/')
+            .then((response) => {
+                const lat = response.data.lat;
+                const long = response.data.lng;
+                console.log(response)
+                setPosition([lat, long])
+    })
+        }
 
-    const handleInput = event => {
-        setBirdName(event.target.value)
-    }
-
-    const checkBird = () => {
-        event.preventDefault();
-        console.log("Caw!!! Caw!!!")
-        console.log(birdName)
-        axios.get(`https://xeno-canto.org/api/2/recordings?query=${birdName}`)
-            .then(response => {
-                console.log(response);
-            })
-    }
 
     return(
         <div>
-            <form onSubmit={checkBird} >
-            <label>
-                <input type="text" value={birdName} onChange={handleInput} placeholder="Commmon name of bird" />
-            </label>
-            <input type="submit" value="Check" onClick={checkBird} />
-            </form>
+            <BirdMap position={position} />
+
         </div>
     )
 }

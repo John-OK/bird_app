@@ -9,7 +9,7 @@ function SignUpPage() {
         // CHECK IF ALREADY A USER AND RETURN PROPER RESPONSE/BEHAVIOR
         event.preventDefault()        
 
-        axios.post('/signup', {email: event.target[0].value, password: event.target[1].value})
+        axios.post('/signup/', {email: event.target[0].value, password: event.target[1].value})
         .then((response)=>{
             console.log('signup response from server: ', response)
         })
