@@ -2,7 +2,7 @@ import React, {Component, useEffect, useState} from "react";
 import { MapContainer, TileLayer, Popup, useMap, Marker } from 'react-leaflet'
 import L from 'leaflet'
 import axios from 'axios';
-import pin from '../assets/icons/icons8-crane-bird-50.png'
+import pin from '../assets/icons/origami_bird.png'
 
 function getIcon(iconSize) {
     return L.icon({
