@@ -8,11 +8,9 @@ from . models import User
 import requests as HTTP_Client
 import pprint
 import json
+from . xeno_canto_processing import get_perimeter_corner_coords
 
 pp = pprint.PrettyPrinter(indent=2, depth=4)
-
-ip_address = None
-geolocation_data = None
 
 def get_ip(request):
     try:
@@ -25,30 +23,44 @@ def get_ip(request):
         ip = ''
     return ip
 
+user_coords = [-90, 42]
+perimeter_corners_coords = {
+
+}
+
 def geolocate(request):
     # ip = "208.185.59.34" # WeWork Chicago
     # ip = "23.19.122.235" # Windscribe Chicago Wrigley
-    ip = "185.253.99.155" # Windscribe Barcelona Batllo
+    # ip = "185.253.99.155" # Windscribe Barcelona Batllo
+    ip = "66.203.113.138" # Windscribe Santiago, Chile
     # ip = get_ip(request)
     print(f'*****************  IP ADDRESS FOR GEOLOCATE: {ip}')
+
     endpoint = f"https://ipgeolocation.abstractapi.com/v1/?api_key=631f880632664f8d9641d5dedeec4e13&ip_address={ip}"
-    # print(f'endpoint: {endpoint}')
-    # API_response = HTTP_Client.get(endpoint)
-    # responseJSON = API_response.json()
-    # status_code = API_response.status_code
+        # print(f'endpoint: {endpoint}')
+
+    API_response = HTTP_Client.get(endpoint)
+    responseJSON = API_response.json()
+    status_code = API_response.status_code
+
     # content = API_response.content
-    # lat = API_response.latitude
-    # lng = API_response.longitude
+    lat = responseJSON['latitude']
+    # user_coords.append(lat)
+    lng = responseJSON['longitude']
+    # user_coords.append(lng)
     # print(f'GEO STATUS: {status_code}')
     # print(f'GEO CONTENT: ')
     # print(f'GEO CONTENT: {responseJSON}')
     # pp.pprint(responseJSON)
 
-    # with open(f'geolocation_data.json', 'w') as f:
-    #     json.dump(responseJSON, f, indent=2)
-    #     print('file saved')
+    with open(f'geolocation_data.json', 'w') as f:
+        json.dump(responseJSON, f, indent=2)
+        print('file saved')    
 
-    return JsonResponse({'lat': -17.896, 'lng': 177.943}) # Fiji
+    corners = get_perimeter_corner_coords(user_coords)
+    print(corners)
+    return JsonResponse({'coords': user_coords})
+
 
 def send_the_homepage(request):
     print('home')
@@ -131,4 +143,6 @@ def xeno_canto_api(request):
     with open(f'bird_data_{common_name}.json', 'w') as f:
         json.dump(responseJSON, f, indent=2)
         print('file saved')
+
+    get_birds_within_radius(user_coords, responseJSON)        
     return JsonResponse({'species': species})

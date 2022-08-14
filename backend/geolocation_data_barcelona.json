@@ -1,0 +1,45 @@
+{
+  "ip_address": "185.253.99.155",
+  "city": "Barcelona",
+  "city_geoname_id": 3128760,
+  "region": "Catalonia",
+  "region_iso_code": "CT",
+  "region_geoname_id": 3336901,
+  "postal_code": "08014",
+  "country": "Spain",
+  "country_code": "ES",
+  "country_geoname_id": 2510769,
+  "country_is_eu": true,
+  "continent": "Europe",
+  "continent_code": "EU",
+  "continent_geoname_id": 6255148,
+  "longitude": 2.1701,
+  "latitude": 41.387,
+  "security": {
+    "is_vpn": false
+  },
+  "timezone": {
+    "name": "Europe/Madrid",
+    "abbreviation": "CEST",
+    "gmt_offset": 2,
+    "current_time": "02:19:52",
+    "is_dst": true
+  },
+  "flag": {
+    "emoji": "\ud83c\uddea\ud83c\uddf8",
+    "unicode": "U+1F1EA U+1F1F8",
+    "png": "https://static.abstractapi.com/country-flags/ES_flag.png",
+    "svg": "https://static.abstractapi.com/country-flags/ES_flag.svg"
+  },
+  "currency": {
+    "currency_name": "Euros",
+    "currency_code": "EUR"
+  },
+  "connection": {
+    "autonomous_system_number": 9009,
+    "autonomous_system_organization": "M247 Ltd",
+    "connection_type": "Cellular",
+    "isp_name": "M247 Ltd",
+    "organization_name": "M247 Ltd"
+  }
+}

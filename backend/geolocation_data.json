@@ -1,7 +1,45 @@
 {
-  "error": {
-    "message": "Free plan is limited to 1 request per second. Please wait or upgrade to remove this restriction.",
-    "code": "too_many_requests",
-    "details": null
+  "ip_address": "66.203.113.138",
+  "city": "Santiago",
+  "city_geoname_id": 3871336,
+  "region": "Santiago Metropolitan",
+  "region_iso_code": "RM",
+  "region_geoname_id": 3873544,
+  "postal_code": null,
+  "country": "Chile",
+  "country_code": "CL",
+  "country_geoname_id": 3895114,
+  "country_is_eu": false,
+  "continent": "South America",
+  "continent_code": "SA",
+  "continent_geoname_id": 6255150,
+  "longitude": -70.6653,
+  "latitude": -33.4513,
+  "security": {
+    "is_vpn": false
+  },
+  "timezone": {
+    "name": "America/Santiago",
+    "abbreviation": "-04",
+    "gmt_offset": -4,
+    "current_time": "19:55:46",
+    "is_dst": false
+  },
+  "flag": {
+    "emoji": "\ud83c\udde8\ud83c\uddf1",
+    "unicode": "U+1F1E8 U+1F1F1",
+    "png": "https://static.abstractapi.com/country-flags/CL_flag.png",
+    "svg": "https://static.abstractapi.com/country-flags/CL_flag.svg"
+  },
+  "currency": {
+    "currency_name": "Chilean Peso",
+    "currency_code": "CLP"
+  },
+  "connection": {
+    "autonomous_system_number": 396356,
+    "autonomous_system_organization": "MAXIHOST",
+    "connection_type": "Corporate",
+    "isp_name": "Maxihost LLC",
+    "organization_name": "Maxihost LLC"
   }
 }
