@@ -1,0 +1,183 @@
+{
+  "numRecordings": "5",
+  "numSpecies": "1",
+  "page": 1,
+  "numPages": 1,
+  "recordings": [
+    {
+      "id": "347102",
+      "gen": "Tockus",
+      "sp": "damarensis",
+      "ssp": "",
+      "en": "Damara Red-billed Hornbill",
+      "rec": "Peter Boesman",
+      "cnt": "Namibia",
+      "loc": "Omaruru area east",
+      "lat": "-21.380148",
+      "lng": "16.021164",
+      "alt": "",
+      "type": "song",
+      "url": "//xeno-canto.org/347102",
+      "file": "https://xeno-canto.org/347102/download",
+      "file-name": "XC347102-LS102514 Damara Hornbill song B.mp3",
+      "sono": {
+        "small": "//xeno-canto.org/sounds/uploaded/OOECIWCSWV/ffts/XC347102-small.png",
+        "med": "//xeno-canto.org/sounds/uploaded/OOECIWCSWV/ffts/XC347102-med.png",
+        "large": "//xeno-canto.org/sounds/uploaded/OOECIWCSWV/ffts/XC347102-large.png",
+        "full": "//xeno-canto.org/sounds/uploaded/OOECIWCSWV/ffts/XC347102-full.png"
+      },
+      "lic": "//creativecommons.org/licenses/by-nc-nd/4.0/",
+      "q": "B",
+      "length": "0:15",
+      "time": "11:00",
+      "date": "2016-11-11",
+      "uploaded": "2016-12-19",
+      "also": [
+        ""
+      ],
+      "rmk": "",
+      "bird-seen": "unknown",
+      "playback-used": "unknown"
+    },
+    {
+      "id": "347101",
+      "gen": "Tockus",
+      "sp": "damarensis",
+      "ssp": "",
+      "en": "Damara Red-billed Hornbill",
+      "rec": "Peter Boesman",
+      "cnt": "Namibia",
+      "loc": "Omaruru area west",
+      "lat": "-21.447504",
+      "lng": "15.887621",
+      "alt": "",
+      "type": "song",
+      "url": "//xeno-canto.org/347101",
+      "file": "https://xeno-canto.org/347101/download",
+      "file-name": "XC347101-LS102458 Damara Hornbill song B.mp3",
+      "sono": {
+        "small": "//xeno-canto.org/sounds/uploaded/OOECIWCSWV/ffts/XC347101-small.png",
+        "med": "//xeno-canto.org/sounds/uploaded/OOECIWCSWV/ffts/XC347101-med.png",
+        "large": "//xeno-canto.org/sounds/uploaded/OOECIWCSWV/ffts/XC347101-large.png",
+        "full": "//xeno-canto.org/sounds/uploaded/OOECIWCSWV/ffts/XC347101-full.png"
+      },
+      "lic": "//creativecommons.org/licenses/by-nc-nd/4.0/",
+      "q": "B",
+      "length": "0:28",
+      "time": "7:00",
+      "date": "2016-11-11",
+      "uploaded": "2016-12-19",
+      "also": [
+        ""
+      ],
+      "rmk": "",
+      "bird-seen": "unknown",
+      "playback-used": "unknown"
+    },
+    {
+      "id": "347100",
+      "gen": "Tockus",
+      "sp": "damarensis",
+      "ssp": "",
+      "en": "Damara Red-billed Hornbill",
+      "rec": "Peter Boesman",
+      "cnt": "Namibia",
+      "loc": "Omaruru area west",
+      "lat": "-21.447504",
+      "lng": "15.887621",
+      "alt": "",
+      "type": "song",
+      "url": "//xeno-canto.org/347100",
+      "file": "https://xeno-canto.org/347100/download",
+      "file-name": "XC347100-LS102483 Damara Hornbill Q song B Cape Turtle Dove song C.mp3",
+      "sono": {
+        "small": "//xeno-canto.org/sounds/uploaded/OOECIWCSWV/ffts/XC347100-small.png",
+        "med": "//xeno-canto.org/sounds/uploaded/OOECIWCSWV/ffts/XC347100-med.png",
+        "large": "//xeno-canto.org/sounds/uploaded/OOECIWCSWV/ffts/XC347100-large.png",
+        "full": "//xeno-canto.org/sounds/uploaded/OOECIWCSWV/ffts/XC347100-full.png"
+      },
+      "lic": "//creativecommons.org/licenses/by-nc-nd/4.0/",
+      "q": "B",
+      "length": "0:47",
+      "time": "8:00",
+      "date": "2016-11-11",
+      "uploaded": "2016-12-19",
+      "also": [
+        "Streptopelia capicola"
+      ],
+      "rmk": "ID certainty 90%.",
+      "bird-seen": "unknown",
+      "playback-used": "unknown"
+    },
+    {
+      "id": "347104",
+      "gen": "Tockus",
+      "sp": "damarensis",
+      "ssp": "",
+      "en": "Damara Red-billed Hornbill",
+      "rec": "Peter Boesman",
+      "cnt": "Namibia",
+      "loc": "Omaruru area west",
+      "lat": "-21.447504",
+      "lng": "15.887621",
+      "alt": "",
+      "type": "song",
+      "url": "//xeno-canto.org/347104",
+      "file": "https://xeno-canto.org/347104/download",
+      "file-name": "XC347104-LS102465 Damara Hornbill song single bird C.mp3",
+      "sono": {
+        "small": "//xeno-canto.org/sounds/uploaded/OOECIWCSWV/ffts/XC347104-small.png",
+        "med": "//xeno-canto.org/sounds/uploaded/OOECIWCSWV/ffts/XC347104-med.png",
+        "large": "//xeno-canto.org/sounds/uploaded/OOECIWCSWV/ffts/XC347104-large.png",
+        "full": "//xeno-canto.org/sounds/uploaded/OOECIWCSWV/ffts/XC347104-full.png"
+      },
+      "lic": "//creativecommons.org/licenses/by-nc-nd/4.0/",
+      "q": "C",
+      "length": "0:25",
+      "time": "7:30",
+      "date": "2016-11-11",
+      "uploaded": "2016-12-19",
+      "also": [
+        ""
+      ],
+      "rmk": "Song of a single bird.",
+      "bird-seen": "unknown",
+      "playback-used": "unknown"
+    },
+    {
+      "id": "347103",
+      "gen": "Tockus",
+      "sp": "damarensis",
+      "ssp": "",
+      "en": "Damara Red-billed Hornbill",
+      "rec": "Peter Boesman",
+      "cnt": "Namibia",
+      "loc": "Omaruru area west",
+      "lat": "-21.447504",
+      "lng": "15.887621",
+      "alt": "",
+      "type": "song",
+      "url": "//xeno-canto.org/347103",
+      "file": "https://xeno-canto.org/347103/download",
+      "file-name": "XC347103-LS102450 Damara Hornbill song C.mp3",
+      "sono": {
+        "small": "//xeno-canto.org/sounds/uploaded/OOECIWCSWV/ffts/XC347103-small.png",
+        "med": "//xeno-canto.org/sounds/uploaded/OOECIWCSWV/ffts/XC347103-med.png",
+        "large": "//xeno-canto.org/sounds/uploaded/OOECIWCSWV/ffts/XC347103-large.png",
+        "full": "//xeno-canto.org/sounds/uploaded/OOECIWCSWV/ffts/XC347103-full.png"
+      },
+      "lic": "//creativecommons.org/licenses/by-nc-nd/4.0/",
+      "q": "C",
+      "length": "0:31",
+      "time": "6:30",
+      "date": "2016-11-11",
+      "uploaded": "2016-12-19",
+      "also": [
+        ""
+      ],
+      "rmk": "",
+      "bird-seen": "unknown",
+      "playback-used": "unknown"
+    }
+  ]
+}

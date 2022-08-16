@@ -1,0 +1,78 @@
+{
+  "numRecordings": "2",
+  "numSpecies": "1",
+  "page": 1,
+  "numPages": 1,
+  "recordings": [
+    {
+      "id": "347039",
+      "gen": "Rhinopomastus",
+      "sp": "cyanomelas",
+      "ssp": "",
+      "en": "Common Scimitarbill",
+      "rec": "Peter Boesman",
+      "cnt": "Namibia",
+      "loc": "Omaruru area east",
+      "lat": "-21.380148",
+      "lng": "16.021164",
+      "alt": "",
+      "type": "song",
+      "url": "//xeno-canto.org/347039",
+      "file": "https://xeno-canto.org/347039/download",
+      "file-name": "XC347039-LS102506 Common Scimitarbill song B.mp3",
+      "sono": {
+        "small": "//xeno-canto.org/sounds/uploaded/OOECIWCSWV/ffts/XC347039-small.png",
+        "med": "//xeno-canto.org/sounds/uploaded/OOECIWCSWV/ffts/XC347039-med.png",
+        "large": "//xeno-canto.org/sounds/uploaded/OOECIWCSWV/ffts/XC347039-large.png",
+        "full": "//xeno-canto.org/sounds/uploaded/OOECIWCSWV/ffts/XC347039-full.png"
+      },
+      "lic": "//creativecommons.org/licenses/by-nc-nd/4.0/",
+      "q": "B",
+      "length": "1:01",
+      "time": "11:00",
+      "date": "2016-11-11",
+      "uploaded": "2016-12-19",
+      "also": [
+        ""
+      ],
+      "rmk": "",
+      "bird-seen": "unknown",
+      "playback-used": "unknown"
+    },
+    {
+      "id": "347040",
+      "gen": "Rhinopomastus",
+      "sp": "cyanomelas",
+      "ssp": "",
+      "en": "Common Scimitarbill",
+      "rec": "Peter Boesman",
+      "cnt": "Namibia",
+      "loc": "Hohenstein Lodge",
+      "lat": "-21.785584",
+      "lng": "15.511984",
+      "alt": "",
+      "type": "song",
+      "url": "//xeno-canto.org/347040",
+      "file": "https://xeno-canto.org/347040/download",
+      "file-name": "XC347040-LS102381 Common Scimitarbill song C.mp3",
+      "sono": {
+        "small": "//xeno-canto.org/sounds/uploaded/OOECIWCSWV/ffts/XC347040-small.png",
+        "med": "//xeno-canto.org/sounds/uploaded/OOECIWCSWV/ffts/XC347040-med.png",
+        "large": "//xeno-canto.org/sounds/uploaded/OOECIWCSWV/ffts/XC347040-large.png",
+        "full": "//xeno-canto.org/sounds/uploaded/OOECIWCSWV/ffts/XC347040-full.png"
+      },
+      "lic": "//creativecommons.org/licenses/by-nc-nd/4.0/",
+      "q": "C",
+      "length": "0:35",
+      "time": "17:30",
+      "date": "2016-11-09",
+      "uploaded": "2016-12-19",
+      "also": [
+        ""
+      ],
+      "rmk": "",
+      "bird-seen": "unknown",
+      "playback-used": "unknown"
+    }
+  ]
+}

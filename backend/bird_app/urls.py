@@ -7,6 +7,6 @@ urlpatterns = [
     path('login/', views.log_in),
     path('logout/', views.log_out),
     path('whoami/', views.who_am_i),
-    path('xeno-canto-api/', views.xeno_canto_api),
+    path('find_birds/<str:bird_name>', views.find_birds),
     path('geolocate/', views.geolocate),
 ]

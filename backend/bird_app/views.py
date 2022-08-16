@@ -8,7 +8,7 @@ from . models import User
 import requests as HTTP_Client
 import pprint
 import json
-from . xeno_canto_processing import get_perimeter_corner_coords
+from . xeno_canto_processing import get_bird_data
 
 pp = pprint.PrettyPrinter(indent=2, depth=4)
 
@@ -23,10 +23,7 @@ def get_ip(request):
         ip = ''
     return ip
 
-user_coords = [-90, 42]
-perimeter_corners_coords = {
-
-}
+user_coords = [39.240, -5.740]
 
 def geolocate(request):
     # ip = "208.185.59.34" # WeWork Chicago
@@ -57,8 +54,6 @@ def geolocate(request):
         json.dump(responseJSON, f, indent=2)
         print('file saved')    
 
-    corners = get_perimeter_corner_coords(user_coords)
-    print(corners)
     return JsonResponse({'coords': user_coords})
 
 
@@ -129,20 +124,28 @@ def who_am_i(request):
     else:
         return JsonResponse({'user':None})
 
-def xeno_canto_api(request):
-    print('received request for xeno-canto data')
+# def find_birds(request, bird_name):
+#     print(f"received request to get data on '{bird_name}' from xeno-canto")
+#     endpoint = f"https://www.xeno-canto.org/api/2/recordings?query={bird_name}"
+#     API_response = HTTP_Client.get(endpoint)
+#     responseJSON = API_response.json()
+#     # pp.pprint(responseJSON)
+#     # species = responseJSON['recordings'][0]['sp']
+#     # common_name = responseJSON['recordings'][0]['en']
+#     num_recordings = responseJSON['numRecordings']
+#     num_species = responseJSON['numSpecies']
+#     print(f"request returned {num_recordings} recordings of {num_species} different species")
 
-    endpoint = "https://www.xeno-canto.org/api/2/recordings?query=Violet Wood Hoopoe"
-    API_response = HTTP_Client.get(endpoint)
-    responseJSON = API_response.json()
-    # pp.pprint(responseJSON)
-    species = responseJSON['recordings'][0]['sp']
-    common_name = responseJSON['recordings'][0]['en']
+#     # save data for future use
+#     with open(f'bird_data_{bird_name}.json', 'w') as f:
+#         json.dump(responseJSON, f, indent=2)
+#         print('file saved')
 
-    # save data for future use
-    with open(f'bird_data_{common_name}.json', 'w') as f:
-        json.dump(responseJSON, f, indent=2)
-        print('file saved')
+#     filtered_data = filter_bird_data(responseJSON, user_coords)
+#     return JsonResponse(filtered_data)
 
-    get_birds_within_radius(user_coords, responseJSON)        
-    return JsonResponse({'species': species})
+def find_birds(request, bird_name):
+    print(f"received request to get data on '{bird_name}' from xeno-canto") 
+
+    filtered_data = get_bird_data(request, user_coords, bird_name)
+    return JsonResponse(filtered_data)

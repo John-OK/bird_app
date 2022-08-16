@@ -1,0 +1,78 @@
+{
+  "numRecordings": "2",
+  "numSpecies": "1",
+  "page": 1,
+  "numPages": 1,
+  "recordings": [
+    {
+      "id": "346731",
+      "gen": "Columba",
+      "sp": "guinea",
+      "ssp": "",
+      "en": "Speckled Pigeon",
+      "rec": "Peter Boesman",
+      "cnt": "Namibia",
+      "loc": "Hohenstein Lodge",
+      "lat": "-21.785584",
+      "lng": "15.511984",
+      "alt": "",
+      "type": "song",
+      "url": "//xeno-canto.org/346731",
+      "file": "https://xeno-canto.org/346731/download",
+      "file-name": "XC346731-LS102383 Speckled Pigeon song A.mp3",
+      "sono": {
+        "small": "//xeno-canto.org/sounds/uploaded/OOECIWCSWV/ffts/XC346731-small.png",
+        "med": "//xeno-canto.org/sounds/uploaded/OOECIWCSWV/ffts/XC346731-med.png",
+        "large": "//xeno-canto.org/sounds/uploaded/OOECIWCSWV/ffts/XC346731-large.png",
+        "full": "//xeno-canto.org/sounds/uploaded/OOECIWCSWV/ffts/XC346731-full.png"
+      },
+      "lic": "//creativecommons.org/licenses/by-nc-nd/4.0/",
+      "q": "A",
+      "length": "0:14",
+      "time": "18:00",
+      "date": "2016-11-09",
+      "uploaded": "2016-12-19",
+      "also": [
+        ""
+      ],
+      "rmk": "",
+      "bird-seen": "unknown",
+      "playback-used": "unknown"
+    },
+    {
+      "id": "346732",
+      "gen": "Columba",
+      "sp": "guinea",
+      "ssp": "",
+      "en": "Speckled Pigeon",
+      "rec": "Peter Boesman",
+      "cnt": "Namibia",
+      "loc": "Erongo Wilderness Lodge",
+      "lat": "-21.46138",
+      "lng": "15.874639",
+      "alt": "",
+      "type": "song",
+      "url": "//xeno-canto.org/346732",
+      "file": "https://xeno-canto.org/346732/download",
+      "file-name": "XC346732-LS102565 Speckled Pigeon song B.mp3",
+      "sono": {
+        "small": "//xeno-canto.org/sounds/uploaded/OOECIWCSWV/ffts/XC346732-small.png",
+        "med": "//xeno-canto.org/sounds/uploaded/OOECIWCSWV/ffts/XC346732-med.png",
+        "large": "//xeno-canto.org/sounds/uploaded/OOECIWCSWV/ffts/XC346732-large.png",
+        "full": "//xeno-canto.org/sounds/uploaded/OOECIWCSWV/ffts/XC346732-full.png"
+      },
+      "lic": "//creativecommons.org/licenses/by-nc-nd/4.0/",
+      "q": "B",
+      "length": "0:11",
+      "time": "8:00",
+      "date": "2016-11-12",
+      "uploaded": "2016-12-19",
+      "also": [
+        ""
+      ],
+      "rmk": "",
+      "bird-seen": "unknown",
+      "playback-used": "unknown"
+    }
+  ]
+}

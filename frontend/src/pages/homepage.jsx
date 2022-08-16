@@ -15,7 +15,7 @@ function HomePage(props) {
         axios.get('/geolocate/')
             .then((response) => {
                 const coords = response.coords
-                console.log(response)
+                console.log(`response from getUserLocation: ${coords}`)
                 setPosition(coords)
     })
         }

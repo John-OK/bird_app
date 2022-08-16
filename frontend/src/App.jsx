@@ -5,7 +5,6 @@ import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 import NavBarBC from './components/NavBarBC';
 import SignUpPage from './pages/signup';
 import LogInPage from './pages/login';
-import Search from './pages/search';
 import HomePage from './pages/homepage';
 
 function getCookie(name) {
@@ -38,16 +37,16 @@ function App() {
     // const user = response.data[0].fields
     console.log('user from whoami? ', user, response)
     setUser(user)
-  }  
+  }
 
   // useEffect(()=>{
   //   whoAmI()
   // }, [])
 
-  const handleSubmit = (event) => {
-    console.dir(`authentication submit: ${event.target[0].value}, ${event.target[1].value}`);
-    event.preventDefault;
-  }
+  // const handleSubmit = (event) => {
+  //   console.dir(`authentication submit: ${event.target[0].value}, ${event.target[1].value}`);
+  //   event.preventDefault;
+  // }
 
   return (
     <div className="App">
@@ -57,7 +56,6 @@ function App() {
           <Route path='/' element={<HomePage whoAmI={whoAmI} user={user} /> } />
           <Route path='/signup' element={<SignUpPage />} />
           <Route path='/login' element={<LogInPage /> } />
-          <Route path='/search' element={<Search /> } />
         </Routes>
       </Router>
     </div>
@@ -65,38 +63,3 @@ function App() {
 }
 
 export default App;
-
-
-
-
-
-
-
-
-
-
-  // const submitSignupForm = function(event){
-  //   //CHECK IF SUCCESS/FAIL AND RETURN PROPER BEHAVIOR
-  //   event.preventDefault()
-  //   axios.post('/signup', {email: event.target[0].value, password: event.target[1].value})
-  //     .then((response)=>{
-  //       console.log('signup response from server: ', response)
-  //   })
-  // }
-
-  // const submitLogin = function(event){
-  //   event.preventDefault()
-  //   axios.post('/login', {email: 'jeff@amazon.com', password:'dragons'}).then((response)=>{
-  //     console.log('login response from server: ', response)
-  //     window.location.reload()
-  //   })
-  // }
-  
-  // const submitLogout = function(event){
-  //   // this isn't actually necessary, since this isn't in a form. but if it WAS a form, we'd need to prevent default.
-  //   event.preventDefault()
-  //   axios.post('/logout').then((response)=>{
-  //     console.log('logout response from server: ', response)
-  //     whoAmI()
-  //   })
-  // }
