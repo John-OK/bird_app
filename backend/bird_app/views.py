@@ -29,7 +29,9 @@ def geolocate(request):
     # ip = "208.185.59.34" # WeWork Chicago
     # ip = "23.19.122.235" # Windscribe Chicago Wrigley
     # ip = "185.253.99.155" # Windscribe Barcelona Batllo
-    ip = "66.203.113.138" # Windscribe Santiago, Chile
+    # ip = "66.203.113.138" # Windscribe Santiago, Chile
+    # ip = "177.54.148.247" # Windscribe SP, Brasil (Pinacoteca)
+    ip = "177.67.80.59" # Windscribe SP, Brasil (Mercadao)
     # ip = get_ip(request)
     print(f'*****************  IP ADDRESS FOR GEOLOCATE: {ip}')
 
@@ -42,9 +44,9 @@ def geolocate(request):
 
     # content = API_response.content
     lat = responseJSON['latitude']
-    # user_coords.append(lat)
+    user_coords[0] = lat
     lng = responseJSON['longitude']
-    # user_coords.append(lng)
+    user_coords[1] = lng
     # print(f'GEO STATUS: {status_code}')
     # print(f'GEO CONTENT: ')
     # print(f'GEO CONTENT: {responseJSON}')

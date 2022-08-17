@@ -1,57 +1,78 @@
 import React, {Component, useEffect, useState, useRef} from "react";
 import { MapContainer, TileLayer, Popup, useMap, Marker, Circle } from 'react-leaflet'
 import L from 'leaflet'
-import origamiBird from '../assets/icons/origami_bird.png'
-import crane from '../assets/icons/icons8-crane-bird-100-filled.png'
+import userPin from '../assets/icons/icons8-pin-64.png'
+import crane from '../assets/icons/icons8-crane-bird-50.png'
+import binos from '../assets/icons/icons8-binoculars-80.png'
 import geoLocation from '../utils/geoLocation'
+import axios from "axios";
 
 
-const origamiBirdIcon = new L.icon({
-    iconUrl: origamiBird,
+const userIcon = new L.icon({
+    iconUrl: userPin,
     iconSize: [100, 100],
-    iconAnchor: [28,100],
-    popupAnchor: [0,0]
+    iconAnchor: [50,93],
+    popupAnchor: [0,-80]
 })
 
 const craneIcon = new L.icon({
     iconUrl: crane,
-    iconSize: [100, 100],
-    iconAnchor: [50,100],
-    popupAnchor: [0,0]
+    iconSize: [50, 50],
+    iconAnchor: [25,50],
+    popupAnchor: [6,-49]
+})
+
+const binosIcon = new L.icon({
+    iconUrl: binos,
+    iconSize: [50, 50],
+    iconAnchor: [25,25],
+    popupAnchor: [0,-12]
 })
 
 function BirdMap(props) {
-    const [center, setCenter] = useState({ lat: 39.240, lng: -5.740});
-    const ZOOM_LEVEL = 9;
-    const mapRef = useRef();
-
-    const defaultPosition = [39.240, -5.740];
+//     const [center, setCenter] = useState({ lat: 39.240, lng: -5.740});
+//     const ZOOM_LEVEL = 9;
+//     const mapRef = useRef();
+    const IMAGE_SEARCH_URL = "https://search.brave.com/images?q="
 
     const location = geoLocation();
 
-    const handleFlyTo = () => {
-        console.log('Fly To')
-        const { current = {} } = mapRef;
-        const { leafletElement: map } = current;
-        map.setView([0, 0])
+    const confirmBird = function(event) {
+        event.preventDefault();
+        const birdToConfirm = {}
+
+        props.birdData.forEach( (bird, idx) => {
+            if (bird.id === event.target.value) {
+                birdToConfirm.data=(bird)
+                console.log(birdToConfirm)
+            }
+        })
+        // axios.post('/confirm/', {birdData.})
     }
 
-    const showLocation = () => {
-        if( location.loaded && !location.error ) {
-            mapRef.current.leafletElement.flyTo(
-                [location.coords.lat, location.coords.lng],
-                zoom=9,
-                {animate: true})
-        }else{
-            alert(location.error.message)
-        }
-    }
+    // const handleFlyTo = () => {
+    //     console.log('Fly To')
+    //     const { current = {} } = mapRef;
+    //     const { leafletElement: map } = current;
+    //     map.setView([0, 0])
+    // }
+
+    // const showLocation = () => {
+    //     if( location.loaded && !location.error ) {
+    //         mapRef.current.leafletElement.flyTo(
+    //             [location.coords.lat, location.coords.lng],
+    //             zoom=9,
+    //             {animate: true})
+    //     }else{
+    //         alert(location.error.message)
+    //     }
+    // }
     
     return(
         <div>
             <MapContainer className='map'
-                center={defaultPosition}
-                // center={props.position},
+                // center={defaultPosition}
+                center={props.position}
                 zoom={9} // Zoom level 9 encompasses 100 km radius @ 890px height
                 //style in css
             >
@@ -63,27 +84,68 @@ function BirdMap(props) {
             {location.loaded && !location.error && (
                 <Marker
                     position={[location.coords.lat, location.coords.lng]}
-                    icon={craneIcon}
+                    icon={binosIcon}
                 >
+
+<Popup>
+                    <h6>
+                        Location from browser geolocation <br />
+                    </h6>
+                </Popup>
                 </Marker>
             )}
 
             <Marker
-                position={defaultPosition}
+                position={props.position}
                 // position={props.position}
-                icon={origamiBirdIcon}
+                icon={userIcon}
             >
+                <Popup>
+                    <h5>
+                        Your estimated location <br />
+                        (At tip of pin)
+                    </h5>
+                </Popup>
             </Marker>
 
-            <Circle center={defaultPosition} radius={100000} />
+            {props.birdData && props.birdData.map( (bird) => {
+                return(
+                    <Marker
+                        key={bird.id}
+                        position={[parseFloat(bird.lat), parseFloat(bird.lng)]}
+                        icon={craneIcon}
+                    >
+                        <Popup
+                            key={bird.id}
+                            position={[parseFloat(bird.lat), parseFloat(bird.lng)]}
+                        >
+                            <div>
+                                <h3>{bird.en}</h3>
+                                <h5>
+                                    (<i>{bird.gen} {bird.sp}</i>) <br />
+                                    <a href={bird.file} target="_blank">Bird call link</a> <br />
+                                    Call notes: {bird.type} <br />
+                                    Call quality (A to E): {bird.q} <br />
+                                    <a href={"https://search.brave.com/images?q=" + bird.en} target="_blank">Image search</a>
+                                </h5>
+                                <h3>
+                                    {props.user && 
+                                    <button onClick={confirmBird} value={bird.id} >Confirm this bird!</button>
+                                    }
+                                </h3>
+                                
+
+                            </div>
+                            
+                        </Popup>
+                    </Marker>)
+            })}
+
+            <Circle center={props.position} radius={100000} />
 
             </MapContainer>
 
-            <div>
-                <button onClick={handleFlyTo}>
-                    Fly to me
-                </button>
-            </div>
+
         </div>
     )
 }

@@ -1,6 +1,11 @@
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 
+// from NavBarBC
+import {Nav, Navbar, Offcanvas} from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.css'
+import { submitLogout } from '../utils/submitLogout.js';
+
 function LogInPage() {
     let navigate = useNavigate();
 
@@ -17,6 +22,32 @@ function LogInPage() {
 
     return (
         <div>
+            <div>
+                <Navbar bg="dark" variant="dark" sticky="top" expand="md" collapseOnSelect>
+                    <Navbar.Brand>
+                        Bird Confirm&trade;
+                    </Navbar.Brand>
+                    <Navbar.Toggle />
+
+                    <Navbar.Collapse>
+                        <div>
+                            <Nav>
+                                <Nav.Link href="/#/signup">
+                                Sign Up
+                                </Nav.Link>
+                                <Nav.Link href="/#/login" >
+                                Log In
+                                </Nav.Link>
+                                <Nav.Link onClick={submitLogout}>
+                                Log Out
+                                </Nav.Link>          
+                            </Nav>
+                        </div>
+                    </Navbar.Collapse>
+                </Navbar>
+            </div>
+
+
             <h2>Log In</h2>
             <form onSubmit={submitLogIn} >
             <label>

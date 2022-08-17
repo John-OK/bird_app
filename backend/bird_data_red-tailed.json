@@ -1,0 +1,45 @@
+{
+  "numRecordings": "1",
+  "numSpecies": "1",
+  "page": 1,
+  "numPages": 1,
+  "recordings": [
+    {
+      "id": "265359",
+      "gen": "Buteo",
+      "sp": "jamaicensis",
+      "ssp": "",
+      "en": "Red-tailed Hawk",
+      "rec": "Bates Estabrooks",
+      "cnt": "United States",
+      "loc": "Willow Slough-Beaver (near  Morocco), Newton County, Indiana",
+      "lat": "40.9857",
+      "lng": "-87.4867",
+      "alt": "200",
+      "type": "call, juvenile",
+      "url": "//xeno-canto.org/265359",
+      "file": "https://xeno-canto.org/265359/download",
+      "file-name": "XC265359-X-Willow Slough Unknown-Marsh 1- 2015-08-01 07-29-40.mp3",
+      "sono": {
+        "small": "//xeno-canto.org/sounds/uploaded/NRJIPZPNRN/ffts/XC265359-small.png",
+        "med": "//xeno-canto.org/sounds/uploaded/NRJIPZPNRN/ffts/XC265359-med.png",
+        "large": "//xeno-canto.org/sounds/uploaded/NRJIPZPNRN/ffts/XC265359-large.png",
+        "full": "//xeno-canto.org/sounds/uploaded/NRJIPZPNRN/ffts/XC265359-full.png"
+      },
+      "lic": "//creativecommons.org/licenses/by-nc-sa/4.0/",
+      "q": "B",
+      "length": "0:12",
+      "time": "07:30",
+      "date": "2015-08-01",
+      "uploaded": "2015-08-02",
+      "also": [
+        "Geothlypis trichas",
+        "Agelaius phoeniceus",
+        "Melanerpes erythrocephalus"
+      ],
+      "rmk": "Bird(s) heard close by in tall reeds at edge of marsh.",
+      "bird-seen": "no",
+      "playback-used": "no"
+    }
+  ]
+}

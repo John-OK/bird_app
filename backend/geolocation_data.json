@@ -1,45 +1,45 @@
 {
-  "ip_address": "66.203.113.138",
-  "city": "Santiago",
-  "city_geoname_id": 3871336,
-  "region": "Santiago Metropolitan",
-  "region_iso_code": "RM",
-  "region_geoname_id": 3873544,
+  "ip_address": "177.67.80.59",
+  "city": "S\u00e3o Paulo",
+  "city_geoname_id": 3448439,
+  "region": "Sao Paulo",
+  "region_iso_code": "SP",
+  "region_geoname_id": 3448433,
   "postal_code": null,
-  "country": "Chile",
-  "country_code": "CL",
-  "country_geoname_id": 3895114,
+  "country": "Brazil",
+  "country_code": "BR",
+  "country_geoname_id": 3469034,
   "country_is_eu": false,
   "continent": "South America",
   "continent_code": "SA",
   "continent_geoname_id": 6255150,
-  "longitude": -70.6653,
-  "latitude": -33.4513,
+  "longitude": -46.6359,
+  "latitude": -23.5335,
   "security": {
-    "is_vpn": false
+    "is_vpn": true
   },
   "timezone": {
-    "name": "America/Santiago",
-    "abbreviation": "-04",
-    "gmt_offset": -4,
-    "current_time": "15:32:14",
+    "name": "America/Sao_Paulo",
+    "abbreviation": "-03",
+    "gmt_offset": -3,
+    "current_time": "00:28:16",
     "is_dst": false
   },
   "flag": {
-    "emoji": "\ud83c\udde8\ud83c\uddf1",
-    "unicode": "U+1F1E8 U+1F1F1",
-    "png": "https://static.abstractapi.com/country-flags/CL_flag.png",
-    "svg": "https://static.abstractapi.com/country-flags/CL_flag.svg"
+    "emoji": "\ud83c\udde7\ud83c\uddf7",
+    "unicode": "U+1F1E7 U+1F1F7",
+    "png": "https://static.abstractapi.com/country-flags/BR_flag.png",
+    "svg": "https://static.abstractapi.com/country-flags/BR_flag.svg"
   },
   "currency": {
-    "currency_name": "Chilean Peso",
-    "currency_code": "CLP"
+    "currency_name": "Brazil",
+    "currency_code": "BRL"
   },
   "connection": {
-    "autonomous_system_number": 396356,
-    "autonomous_system_organization": "MAXIHOST",
+    "autonomous_system_number": 53013,
+    "autonomous_system_organization": "W I X NET DO BRASIL LTDA - ME",
     "connection_type": "Corporate",
-    "isp_name": "Maxihost LLC",
-    "organization_name": "Maxihost LLC"
+    "isp_name": "W I X NET DO BRASIL LTDA - ME",
+    "organization_name": "Qnax Ltda"
   }
 }

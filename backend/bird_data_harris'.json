@@ -1,0 +1,43 @@
+{
+  "numRecordings": "1",
+  "numSpecies": "1",
+  "page": 1,
+  "numPages": 1,
+  "recordings": [
+    {
+      "id": "171053",
+      "gen": "Parabuteo",
+      "sp": "unicinctus",
+      "ssp": "",
+      "en": "Harris's Hawk",
+      "rec": "Bruno Lima",
+      "cnt": "Brazil",
+      "loc": "Santos-SP",
+      "lat": "-23.9823",
+      "lng": "-46.3112",
+      "alt": "0",
+      "type": "song",
+      "url": "//xeno-canto.org/171053",
+      "file": "https://xeno-canto.org/171053/download",
+      "file-name": "XC171053-Parabuteo_unicinctus_Santos_SP.mp3",
+      "sono": {
+        "small": "//xeno-canto.org/sounds/uploaded/DVJCMXOTVL/ffts/XC171053-small.png",
+        "med": "//xeno-canto.org/sounds/uploaded/DVJCMXOTVL/ffts/XC171053-med.png",
+        "large": "//xeno-canto.org/sounds/uploaded/DVJCMXOTVL/ffts/XC171053-large.png",
+        "full": "//xeno-canto.org/sounds/uploaded/DVJCMXOTVL/ffts/XC171053-full.png"
+      },
+      "lic": "//creativecommons.org/licenses/by-nc-sa/3.0/",
+      "q": "B",
+      "length": "0:05",
+      "time": "10:30",
+      "date": "2014-01-07",
+      "uploaded": "2014-03-25",
+      "also": [
+        ""
+      ],
+      "rmk": "",
+      "bird-seen": "yes",
+      "playback-used": "no"
+    }
+  ]
+}

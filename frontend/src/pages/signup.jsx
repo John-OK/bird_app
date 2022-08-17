@@ -1,6 +1,11 @@
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 
+// from NavBarBC
+import {Nav, Navbar, Offcanvas} from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.css'
+import { submitLogout } from '../utils/submitLogout.js';
+
 function SignUpPage() {
     let navigate = useNavigate();
 
@@ -10,8 +15,12 @@ function SignUpPage() {
         event.preventDefault()        
 
         axios.post('/signup/', {email: event.target[0].value, password: event.target[1].value})
-        .then((response)=>{
+        .then((response)=> {
+          try{
             console.log('signup response from server: ', response)
+          }
+          catch{error}
+            
         })
         //WOULD LIKE TO HAVE NEW USER AUTO LOGGED IN AFTER SIGN UP, THEN REDIRECT TO ""../search"
         // axios.post('/login', {email: event.target[0].value, password: event.target[1].value})
@@ -25,6 +34,25 @@ function SignUpPage() {
 
     return (
         <div>
+            <div>
+              <Navbar bg="dark" variant="dark" sticky="top" expand="md" collapseOnSelect>
+                <Navbar.Brand>
+                  Bird Confirm&trade;
+                </Navbar.Brand>
+                <Navbar.Toggle />
+                <Navbar.Collapse>
+
+                <div>
+                  <Nav>
+                    <Nav.Link href="/#/login" >
+                      Log In
+                    </Nav.Link>        
+                  </Nav>
+                </div>
+                </Navbar.Collapse>
+              </Navbar>
+            </div>
+
             <h2>Sign Up</h2>
             <form onSubmit={submitSignupForm} >
             <label>

@@ -39,21 +39,12 @@ function App() {
     setUser(user)
   }
 
-  // useEffect(()=>{
-  //   whoAmI()
-  // }, [])
-
-  // const handleSubmit = (event) => {
-  //   console.dir(`authentication submit: ${event.target[0].value}, ${event.target[1].value}`);
-  //   event.preventDefault;
-  // }
-
   return (
     <div className="App">
-      <NavBarBC />
+      {/* <NavBarBC whoAmI={whoAmI} user={user} /> */}
       <Router>
         <Routes>
-          <Route path='/' element={<HomePage whoAmI={whoAmI} user={user} /> } />
+          <Route path='/' element={<NavBarBC whoAmI={whoAmI} user={user} /> } />
           <Route path='/signup' element={<SignUpPage />} />
           <Route path='/login' element={<LogInPage /> } />
         </Routes>

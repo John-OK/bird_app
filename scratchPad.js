@@ -1,12 +1,9 @@
-let pos = null;
-console.log(pos)
+let birdData = {}
 
-function  test(){
-    const lat = 5;
-    const long = 10;
-    return [lat, long]
+function test() {
+    data = [{abc: 123, def: 456}, {fd:34, we:33}]
+    birdData.data=(data[0])
+    console.log(birdData)
 }
-
-pos = test();
-console.log(pos)
-
+test()
+console.log(birdData)

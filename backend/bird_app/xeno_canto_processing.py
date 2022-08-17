@@ -46,7 +46,7 @@ def calc_coord_limits(lat, long, kms_per_deg_long, radius):
     if w_long < -180:
         w_long = meridian_correction(w_long)
 
-    # for future use to draw radius on map
+    # used to draw square on map (only need two opposite corners for leaflet)
     corner_coords = {
         'nw_corner': [n_lat, w_long],
         'ne_corner': [n_lat, e_long],
@@ -108,7 +108,7 @@ def get_radius_limits(coords, radius=100):
 #     return birds_in_radius
 
 
-# Filter birds
+# Filter birds: keep for further filtering in future
 def filter_bird_data(data, user_coords):
     records = data['recordings']
 
