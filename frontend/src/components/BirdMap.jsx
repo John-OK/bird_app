@@ -47,7 +47,11 @@ function BirdMap(props) {
                 console.log(birdToConfirm)
             }
         })
-        // axios.post('/confirm/', {birdData.})
+        axios.post('/confirm_bird/', {birdToConfirm})
+            .then( (response) => {
+                console.log('bird_confirm response from server: ', response)
+            
+            })
     }
 
     // const handleFlyTo = () => {

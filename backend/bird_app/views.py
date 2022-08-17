@@ -9,6 +9,7 @@ import requests as HTTP_Client
 import pprint
 import json
 from . xeno_canto_processing import get_bird_data
+import datetime
 
 pp = pprint.PrettyPrinter(indent=2, depth=4)
 
@@ -151,3 +152,18 @@ def find_birds(request, bird_name):
 
     filtered_data = get_bird_data(request, user_coords, bird_name)
     return JsonResponse(filtered_data)
+
+@api_view(['POST'])
+def confirm_bird(request):
+    print('saving bird... beepboobeep')
+    body = json.loads(request.body)
+    print(f"request.body: {request.body}")
+    new_bird = Bird(date = datetime.datetime.now(), data = body['data'])
+    try:
+        new_bird.full_clean()
+    except:
+        return JsonResponse({'message': 'Problems saving data.'})
+    else:
+        new_bird.save()
+    return JsonResponse({})
+    return JsonResponse(response)

@@ -69,7 +69,7 @@ function NavBarBC(props) {
             <div>
               <form onSubmit={checkBird} autoComplete="on" >
               <label>
-                  <input id='name' type="text" placeholder="Name or blank for all birds" />
+                  <input id='name' type="text" placeholder="Name (blank for all birds)" />
               </label>
               <button type="submit">Check</button>
               </form>
