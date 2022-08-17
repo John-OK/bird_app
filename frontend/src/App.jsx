@@ -6,6 +6,7 @@ import NavBarBC from './components/NavBarBC';
 import SignUpPage from './pages/signup';
 import LogInPage from './pages/login';
 import HomePage from './pages/homepage';
+import MyBirdsPage from './pages/mybirds';
 
 function getCookie(name) {
   // Get value of cookie passed as argument
@@ -47,6 +48,7 @@ function App() {
           <Route path='/' element={<NavBarBC whoAmI={whoAmI} user={user} /> } />
           <Route path='/signup' element={<SignUpPage />} />
           <Route path='/login' element={<LogInPage /> } />
+          <Route path='/myBirds' element={<MyBirdsPage/>} />
         </Routes>
       </Router>
     </div>

@@ -41,13 +41,19 @@ function BirdMap(props) {
         event.preventDefault();
         const birdToConfirm = {}
 
-        props.birdData.forEach( (bird, idx) => {
+        props.birdData.forEach( (bird) => {
             if (bird.id === event.target.value) {
-                birdToConfirm.data=(bird)
+                birdToConfirm.bird_name = bird.en
+                birdToConfirm.user_lat = props.position[0]
+                birdToConfirm.user_lng = props.position[1]
+                birdToConfirm.data = JSON.stringify(bird)
+                // JSON.parse(object to parse) to unstringify
+
+                console.log('sending the below data to server:')
                 console.log(birdToConfirm)
             }
         })
-        axios.post('/confirm_bird/', {birdToConfirm})
+        axios.post('/confirm_bird/', birdToConfirm)
             .then( (response) => {
                 console.log('bird_confirm response from server: ', response)
             
@@ -127,6 +133,7 @@ function BirdMap(props) {
                                 <h3>{bird.en}</h3>
                                 <h5>
                                     (<i>{bird.gen} {bird.sp}</i>) <br />
+                                    Date recorded: {bird.date} <br />
                                     <a href={bird.file} target="_blank">Bird call link</a> <br />
                                     Call notes: {bird.type} <br />
                                     Call quality (A to E): {bird.q} <br />
@@ -134,7 +141,7 @@ function BirdMap(props) {
                                 </h5>
                                 <h3>
                                     {props.user && 
-                                    <button onClick={confirmBird} value={bird.id} >Confirm this bird!</button>
+                                    <button onClick={confirmBird} value={bird.id} >Confirm that bird!</button>
                                     }
                                 </h3>
                                 

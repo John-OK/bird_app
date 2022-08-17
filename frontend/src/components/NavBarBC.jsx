@@ -34,17 +34,16 @@ function NavBarBC(props) {
     let birdName = document.getElementById('name').value
     // Handle no user input for birdName. Will get all birds in radius around user
     if (birdName === "") {
-      birdName = "NONE"
+      birdName = "ALL"
     }
     console.log("Caw!!! Caw!!!")
     console.log(`request to check: ${birdName}`)
     axios.get(`/find_birds/${birdName}`)
         .then(response => {
+          console.log(`response for ${birdName} (on next line):`)
           console.log(response)
           const nearbyBirds = response.data.filtered_data.filtered_birds
           setBirdData(nearbyBirds)
-          console.log(`coords of first bird: ${parseFloat(nearbyBirds[0].lat)}, ${parseFloat(nearbyBirds[0].lng)}`)
-          // let markerFormatting = birdData.map( (bird) )
         })
 }
   
@@ -61,8 +60,8 @@ function NavBarBC(props) {
     <div>
       <div>
         <Navbar bg="dark" variant="dark" sticky="top" expand="md" collapseOnSelect>
-          <Navbar.Brand>
-            Bird Confirm&trade;
+          <Navbar.Brand >
+            <a href="/">Bird Confirm&trade;</a>
           </Navbar.Brand>
           <Navbar.Toggle />
           <Navbar.Collapse>
@@ -77,6 +76,9 @@ function NavBarBC(props) {
 
             <div>
               <Nav>
+              <Nav.Link href="/#/myBirds">
+                  MyBirds
+                </Nav.Link>
                 <Nav.Link href="/#/signup">
                   Sign Up
                 </Nav.Link>

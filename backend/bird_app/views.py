@@ -4,12 +4,11 @@ from django.contrib.auth import authenticate, login, logout
 from django.core import serializers
 from rest_framework.decorators import api_view
 from django.views.decorators.csrf import csrf_exempt
-from . models import User
+from . models import User, Bird
 import requests as HTTP_Client
 import pprint
 import json
 from . xeno_canto_processing import get_bird_data
-import datetime
 
 pp = pprint.PrettyPrinter(indent=2, depth=4)
 
@@ -155,15 +154,38 @@ def find_birds(request, bird_name):
 
 @api_view(['POST'])
 def confirm_bird(request):
-    print('saving bird... beepboobeep')
-    body = json.loads(request.body)
-    print(f"request.body: {request.body}")
-    new_bird = Bird(date = datetime.datetime.now(), data = body['data'])
+    print('saving bird... beepboopbeep')
     try:
-        new_bird.full_clean()
+        new_bird = Bird(
+            user = request.user,
+            bird_name = request.data['bird_name'],
+            user_lat = request.data['user_lat'],
+            user_lng = request.data['user_lng'],
+            # data = request.data['data']
+        )
+        print('line 163')
+        new_bird.save()
     except:
         return JsonResponse({'message': 'Problems saving data.'})
-    else:
-        new_bird.save()
-    return JsonResponse({})
-    return JsonResponse(response)
+    #     # return JsonResponse(response)
+    return JsonResponse({'message': 'All good.'})
+
+@api_view(['GET'])
+def get_users_birds(request):
+    print("retrieving user's birds...")
+    try:
+        bird_name = Bird.objects.filter(user=request.user)
+        print(bird_name)
+    except:
+        return JsonResponse(({'message': 'FAILED'}))
+    return JsonResponse({bird_name})
+
+def delete_birds(request):
+    print("deleting user's birds...")
+    try:
+        birds = Bird.objects.filter(user=request.user)
+        birds.delete()
+    except:
+        return JsonResponse({'message': 'FAILED'})
+    return JsonResponse({'message': 'BIRDS DELETED'})
+

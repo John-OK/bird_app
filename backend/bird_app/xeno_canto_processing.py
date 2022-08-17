@@ -132,7 +132,7 @@ def get_bird_data(request, user_coords, bird_name):
     print(f"box string: {box_around_user}")
 
     # Build up endpoint
-    if bird_name == "NONE":
+    if bird_name == "ALL":
         bird_name = ""
     endpoint = f"{BASE_ENDPOINT_XC}{bird_name}"
     print(f"endpoint1: {endpoint}")
