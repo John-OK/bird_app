@@ -1,3 +1,4 @@
+![Bird Confirm Banner](https://github.com/John-OK/bird_app/blob/master/European%20Sparrowhawk.jpg)
 # Overview
 
 Both experienced birders and non-birders come across birds that they think they have identified but would like to confirm. **Bird Confirm** can help! Users simply enter the bird's common or scientific name and **Bird Confirm** will show them a map with all the places that bird has been seen within 100 km of their location. It will also offer to play the bird's song/call (if available) for further confirmation. Links to images of that bird will also be provided to aid in confirmation. If a user has no idea of the bird's name, they can simply hit 'search' without entering a name and Bird Confirm will show all the birds that have been seen within 100 km of their location that they can click through.
