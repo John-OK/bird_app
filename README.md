@@ -1,18 +1,46 @@
 ![Bird Confirm Banner](https://github.com/John-OK/bird_app/blob/master/European%20Sparrowhawk.jpg)
+- - -
+A webapp to help confirm bird identification (mobile app coming!)
 ![GitHub last commit](https://img.shields.io/github/last-commit/John-OK/bird_app?style=plastic)
+
 # Overview
 
-Both experienced birders and non-birders come across birds that they think they have identified but would like to confirm. **Bird Confirm** can help! Users simply enter the bird's common or scientific name and **Bird Confirm** will show them a map with all the places that bird has been seen within 100 km of their location. It will also offer to play the bird's song/call (if available) for further confirmation. Links to images of that bird will also be provided to aid in confirmation. If a user has no idea of the bird's name, they can simply hit 'search' without entering a name and Bird Confirm will show all the birds that have been seen within 100 km of their location that they can click through.
+Bird Confirm was designed to help novice and experienced birders confirm the identification of birds they see in the field. It displays a map of the user's location and shows whether the bird they think they have identified (and entered in the search field) has been seen within 100 km of them by plotting all sightings of that bird on the map. Further confirmation is provided by the ability to play the bird's call/song and offering links to images of the bird.
 
-## Current and future APIs
+# Usage
 
-Any or multiple IP geolocation APIs:
-* Abstract: https://www.abstractapi.com/api/ip-geolocation-api
-* GoogleMaps: https://maps.googleapis.com/maps/api/geocode (for future implementaion)
-* BigDataCloud: https://www.bigdatacloud.com/docs/ip-geolocation (for future implementaion)
+## Simple confirmation that the bird occurs in the area
+Enter a bird's common or scientific name. If that bird has been seen within 100 km of your location, then you will see all the locations that bird has been seen plotted on the map with an icon of a crane, and can be sure that the bird occurs near you.
 
-Bird info APIs:
-* Xeno-Canto (vocalizations and location) https://www.xeno-canto.org/api/2/recordings?query=cnt:brazil
-* eBird (for future implementaion):
-    * Species list for a region: https://api.ebird.org/v2/product/spplist/{{regionCode}}
-    * Taxonomy codes: https://api.ebird.org/v2/ref/taxonomy/ebird
+## Further confirmation with bird call or song, and images
+Click on one of the icons to display a popup with links to play the bird call or song and to take you to a search page showing you images of the bird species
+
+## Show all species seen within 100 km of your location
+Simply leave the search field blank and click "Search" to show all species seen within 100 km of your location. Click on each icon to see the name of the species and links to calls/songs and images.
+
+# About this project
+Bird Confirm started as a personal project for a 15-week full-stack coding intensive at [Code Platoon](https://www.codeplatoon.org/), an organization that serves veterans and military spouses by providing technical training and career placement.
+
+I continue to develop it and will add more features, deploy it, and create Android and iOS versions.
+
+## Bird Confirm uses the following technologies:
+- Front end:
+   - JavaScript
+   - React
+
+- Back end:
+   - Python
+   - Django
+   - PostgreSQL
+
+- APIs:
+   - [Abstract (IP geoloactaion):](https://www.abstractapi.com/api/ip-geolocation-api)
+   - [Xeno-Canto (vocalizations and locations of birds)](https://www.xeno-canto.org/api/2/recordings?query=cnt:brazil)
+
+# Installation
+1. Install Python 3
+2. Install JavaScript
+3. Install Django
+4. Install React
+5. Install PostgreSQL
+6. Clone project
