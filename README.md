@@ -37,6 +37,8 @@ I continue to develop it and will add more features, deploy it, and create Andro
 - APIs:
    - [Abstract (IP geoloactaion):](https://www.abstractapi.com/api/ip-geolocation-api)
    - [Xeno-Canto (vocalizations and locations of birds)](https://www.xeno-canto.org/api/2/recordings?query=cnt:brazil)
+   - [Leaflet (interactive map functionality](https://leafletjs.com/)
+   - [Thunder Forest (maps)](https://www.thunderforest.com/)
 
 # Installation
 Make sure you have Python 3.10.6+, Django, PostgreSQL, JavaScript, React and Vite installed, then do the following:
