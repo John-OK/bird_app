@@ -17,7 +17,7 @@ Enter a bird's common or scientific name. If that bird has been seen within 100 
 Click on one of the icons to display a popup with links to play the bird call or song and to take you to a search page showing you images of the bird species
 
 ## Show all species seen within 100 km of your location
-Simply leave the search field blank and click "Search" to show all species seen within 100 km of your location. Click on each icon to see the name of the species and links to calls/songs and images.
+Simply leave the search field blank and click "Check" to show all species seen within 100 km of your location. Click on each icon to see the name of the species and links to calls/songs and images.
 
 # About this project
 Bird Confirm started as a personal project for a 15-week full-stack coding intensive at [Code Platoon](https://www.codeplatoon.org/), an organization that serves veterans and military spouses by providing technical training and career placement.
