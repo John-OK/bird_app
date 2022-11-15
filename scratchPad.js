@@ -1,9 +1,7 @@
-let birdData = {}
-
-function test() {
-    data = [{abc: 123, def: 456}, {fd:34, we:33}]
-    birdData.data=(data[0])
-    console.log(birdData)
+let test = {lat: undefined}
+console.log(test.lat)
+if(test.lat === "undefined") {
+    console.log(`undefined with quotes`)
+} else if(test.lat === undefined) {
+    console.log(`undefined no quotes`)
 }
-test()
-console.log(birdData)

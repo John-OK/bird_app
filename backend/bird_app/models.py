@@ -22,4 +22,4 @@ class Bird(models.Model):
     date_confirmed = models.DateField(auto_now_add=True)
     user_lat = models.DecimalField(max_digits=23, decimal_places=20, default=0.00)
     user_lng = models.DecimalField(max_digits=23, decimal_places=20, default=0.00)
-    # data = models.JSONField(default={"data": "empty"})
+    data = models.JSONField(default={"data": "empty"})

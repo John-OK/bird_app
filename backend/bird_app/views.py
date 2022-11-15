@@ -27,11 +27,13 @@ user_coords = [39.240, -5.740]
 
 def geolocate(request):
     # ip = "208.185.59.34" # WeWork Chicago
+    ip = "104.223.92.190" # Windscribe Atlanta Mountain
+    # ip = "206.217.143.141" # Windscribe Atlanta Piedmont
     # ip = "23.19.122.235" # Windscribe Chicago Wrigley
     # ip = "185.253.99.155" # Windscribe Barcelona Batllo
     # ip = "66.203.113.138" # Windscribe Santiago, Chile
     # ip = "177.54.148.247" # Windscribe SP, Brasil (Pinacoteca)
-    ip = "177.67.80.59" # Windscribe SP, Brasil (Mercadao)
+    # ip = "177.67.80.59" # Windscribe SP, Brasil (Mercadao)
     # ip = get_ip(request)
     print(f'*****************  IP ADDRESS FOR GEOLOCATE: {ip}')
 
@@ -161,9 +163,8 @@ def confirm_bird(request):
             bird_name = request.data['bird_name'],
             user_lat = request.data['user_lat'],
             user_lng = request.data['user_lng'],
-            # data = request.data['data']
+            data = request.data['data']
         )
-        print('line 163')
         new_bird.save()
     except:
         return JsonResponse({'message': 'Problems saving data.'})
@@ -174,11 +175,22 @@ def confirm_bird(request):
 def get_users_birds(request):
     print("retrieving user's birds...")
     try:
-        bird_name = Bird.objects.filter(user=request.user)
-        print(bird_name)
+        # birds = Bird.objects.filter(user=request.user)
+        birds = Bird.objects.all()
+        bird_list = []
+        bird = {}
+        for i in range(0, len(birds)):
+            user_coords = []
+            bird['bird_name'] = birds[i].bird_name
+            bird['date_confirmed'] = birds[i].date_confirmed
+            user_coords.append(birds[i].user_lat)
+            user_coords.append(birds[i].user_lng)
+            bird['user_coords'] = user_coords
+            birds_list.append(bird)
+        response = {'birds': bird_list}
     except:
         return JsonResponse(({'message': 'FAILED'}))
-    return JsonResponse({bird_name})
+    return JsonResponse(response)
 
 def delete_birds(request):
     print("deleting user's birds...")

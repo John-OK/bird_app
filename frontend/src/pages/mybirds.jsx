@@ -13,15 +13,15 @@ function MyBirdsPage(props) {
         axios.get(`/get_users_birds/`)
         .then( (response) => {
             try{
-                console.log('response from getting user birds', response)
+                console.log('response from getting user birds ', response)
             }
             catch{}
         })
     }
 
-    // useEffect( ()=> {
-    //     getBirds();
-    // }, [])
+    useEffect( ()=> {
+        getBirds();
+    }, [])
 
     const deleteBirds = () => {
         axios.delete('/delete_birds/')

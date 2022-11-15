@@ -78,7 +78,7 @@ WSGI_APPLICATION = 'bird_proj.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'assessment_five',
+        'NAME': 'bird_confirm',
     }
 }
 

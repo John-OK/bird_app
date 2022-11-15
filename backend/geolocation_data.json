@@ -1,45 +1,45 @@
 {
-  "ip_address": "177.67.80.59",
-  "city": "S\u00e3o Paulo",
-  "city_geoname_id": 3448439,
-  "region": "Sao Paulo",
-  "region_iso_code": "SP",
-  "region_geoname_id": 3448433,
-  "postal_code": null,
-  "country": "Brazil",
-  "country_code": "BR",
-  "country_geoname_id": 3469034,
+  "ip_address": "208.185.59.34",
+  "city": "Chicago",
+  "city_geoname_id": 4887398,
+  "region": "Illinois",
+  "region_iso_code": "IL",
+  "region_geoname_id": 4896861,
+  "postal_code": "60641",
+  "country": "United States",
+  "country_code": "US",
+  "country_geoname_id": 6252001,
   "country_is_eu": false,
-  "continent": "South America",
-  "continent_code": "SA",
-  "continent_geoname_id": 6255150,
-  "longitude": -46.6359,
-  "latitude": -23.5335,
+  "continent": "North America",
+  "continent_code": "NA",
+  "continent_geoname_id": 6255149,
+  "longitude": -87.7393,
+  "latitude": 41.9457,
   "security": {
-    "is_vpn": true
+    "is_vpn": false
   },
   "timezone": {
-    "name": "America/Sao_Paulo",
-    "abbreviation": "-03",
-    "gmt_offset": -3,
-    "current_time": "16:33:43",
+    "name": "America/Chicago",
+    "abbreviation": "CST",
+    "gmt_offset": -6,
+    "current_time": "10:19:57",
     "is_dst": false
   },
   "flag": {
-    "emoji": "\ud83c\udde7\ud83c\uddf7",
-    "unicode": "U+1F1E7 U+1F1F7",
-    "png": "https://static.abstractapi.com/country-flags/BR_flag.png",
-    "svg": "https://static.abstractapi.com/country-flags/BR_flag.svg"
+    "emoji": "\ud83c\uddfa\ud83c\uddf8",
+    "unicode": "U+1F1FA U+1F1F8",
+    "png": "https://static.abstractapi.com/country-flags/US_flag.png",
+    "svg": "https://static.abstractapi.com/country-flags/US_flag.svg"
   },
   "currency": {
-    "currency_name": "Brazil",
-    "currency_code": "BRL"
+    "currency_name": "USD",
+    "currency_code": "USD"
   },
   "connection": {
-    "autonomous_system_number": 53013,
-    "autonomous_system_organization": "W I X NET DO BRASIL LTDA - ME",
+    "autonomous_system_number": 6461,
+    "autonomous_system_organization": "ZAYO-6461",
     "connection_type": "Corporate",
-    "isp_name": "W I X NET DO BRASIL LTDA - ME",
-    "organization_name": "Qnax Ltda"
+    "isp_name": "Zayo Bandwidth",
+    "organization_name": "Zayo Bandwidth"
   }
 }
