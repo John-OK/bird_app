@@ -1,4 +1,4 @@
-# Examples of some use cases of Bird Confrim
+# Examples of some use cases of Bird Confirm
 
 ## You think you know the bird you see and want to confirm:
 You think you see a Cooper's Hawk, so you enter that in the search field and click "Check".
