@@ -1,6 +1,7 @@
 ![Bird Confirm Banner](https://github.com/John-OK/bird_app/blob/master/European%20Sparrowhawk.jpg)
 - - -
 A webapp to help confirm bird identification (mobile app coming!)
+
 ![GitHub last commit](https://img.shields.io/github/last-commit/John-OK/bird_app?style=plastic)
 
 # Overview
