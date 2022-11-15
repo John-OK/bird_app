@@ -2,7 +2,7 @@
 - - -
 A webapp to help confirm bird identification (mobile app coming!)
 
-![GitHub last commit](https://img.shields.io/github/last-commit/John-OK/bird_app?style=plastic)! [GitHub language count](https://img.shields.io/github/languages/count/John-OK/bird_app)
+![GitHub last commit](https://img.shields.io/github/last-commit/John-OK/bird_app?style=plastic) ![GitHub language count](https://img.shields.io/github/languages/count/John-OK/bird_app)
 
 # Overview
 
