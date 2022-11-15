@@ -19,6 +19,8 @@ Click on one of the icons to display a popup with links to play the bird call or
 ## Show all species seen within 100 km of your location
 Simply leave the search field blank and click "Check" to show all species seen within 100 km of your location. Click on each icon to see the name of the species and links to calls/songs and images.
 
+[See demonstrations of three use cases of bird confirm](https://github.com/John-OK/bird_app/blob/master/DEMO.md)
+
 # About this project
 Bird Confirm started as a personal project for a 15-week full-stack coding intensive at [Code Platoon](https://www.codeplatoon.org/), an organization that serves veterans and military spouses by providing technical training and career placement.
 
