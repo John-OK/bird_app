@@ -1,4 +1,4 @@
-![Bird Confirm Banner](https://github.com/John-OK/bird_app/blob/master/European%20Sparrowhawk.jpg)
+![Bird Confirm Banner](https://github.com/John-OK/bird_app/blob/master/github_assets/Eurasian_Sparrowhawk.jpg)
 - - -
 A webapp to help confirm bird identification (mobile app coming!)
 
