@@ -12,6 +12,11 @@ from . xeno_canto_processing import get_bird_data
 
 pp = pprint.PrettyPrinter(indent=2, depth=4)
 
+# Get ip address of user.
+# NOTE: Before deployment, IP will be local server and not useable
+# for mapping purposes. Therefore, a fake ip must be hard coded in 
+# gelocate() prior to deployment.
+# LEARN: Need to understand what is happening here better
 def get_ip(request):
     try:
         x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
@@ -23,40 +28,45 @@ def get_ip(request):
         ip = ''
     return ip
 
+# default user_coords
 user_coords = [39.240, -5.740]
 
 def geolocate(request):
-    # ip = "208.185.59.34" # WeWork Chicago
-    ip = "104.223.92.190" # Windscribe Atlanta Mountain
+    # ip = get_ip(request) # ONLY USED AFTER DEPLOYMENT
+
+    # ip addresses for testing:
+    ip = "208.185.59.34" # WeWork Chicago
+    # ip = "104.223.92.190" # Windscribe Atlanta Mountain
     # ip = "206.217.143.141" # Windscribe Atlanta Piedmont
     # ip = "23.19.122.235" # Windscribe Chicago Wrigley
     # ip = "185.253.99.155" # Windscribe Barcelona Batllo
     # ip = "66.203.113.138" # Windscribe Santiago, Chile
     # ip = "177.54.148.247" # Windscribe SP, Brasil (Pinacoteca)
     # ip = "177.67.80.59" # Windscribe SP, Brasil (Mercadao)
-    # ip = get_ip(request)
+
     print(f'*****************  IP ADDRESS FOR GEOLOCATE: {ip}')
 
+    # TODO: OBSFUCATE
     endpoint = f"https://ipgeolocation.abstractapi.com/v1/?api_key=631f880632664f8d9641d5dedeec4e13&ip_address={ip}"
         # print(f'endpoint: {endpoint}')
 
+    # API call to Abstract to get coordinates of user's IP
     API_response = HTTP_Client.get(endpoint)
-    responseJSON = API_response.json()
-    status_code = API_response.status_code
+    responseJSON = API_response.json() # gets the JSON portion of the response
+    # status_code = API_response.status_code # use to check status code and behave appropriately (i.e., respond to errors) TODO: implement this
+    # content = API_response.content # same as .json() but returns it as a "bytes object" LEARN: what are "bytes objects"
 
-    # content = API_response.content
+    # pp.pprint(responseJSON) # print response in easy to read format
+    # save geolocation data to file for easy reading (alternative to pprint)
+    # with open(f'geolocation_data.json', 'w') as f:
+    #     json.dump(responseJSON, f, indent=2)
+    #     print('file saved')
+
+    # update user_coords with lat/lng obtained from user's IP
     lat = responseJSON['latitude']
     user_coords[0] = lat
     lng = responseJSON['longitude']
     user_coords[1] = lng
-    # print(f'GEO STATUS: {status_code}')
-    # print(f'GEO CONTENT: ')
-    # print(f'GEO CONTENT: {responseJSON}')
-    # pp.pprint(responseJSON)
-
-    with open(f'geolocation_data.json', 'w') as f:
-        json.dump(responseJSON, f, indent=2)
-        print('file saved')    
 
     return JsonResponse({'coords': user_coords})
 
@@ -81,6 +91,7 @@ def sign_up(request):
         return HttpResponse(e)
     return HttpResponse('hi')
 
+# Use POST for logins because GET will show username and password in URL
 @api_view(['POST'])
 def log_in(request):
     # print(request.data)
@@ -88,7 +99,6 @@ def log_in(request):
     # DRF assumes that the body is JSON, and automatically parses it into a dictionary when accessing request.data
     email = request.data['email']
     password = request.data['password']
-    # user = authenticate(username=email, password=password, email=email)
     user = authenticate(username=email, password=password)
     # print('user?')
     # print(user.is_active)
@@ -116,6 +126,7 @@ def log_in(request):
 def log_out(request):
     logout(request)
     return JsonResponse({'success':True})
+    # Redirect to a "logged out" page, or homepage with a "logged out" popup
 
 @api_view(['GET'])
 def who_am_i(request):
@@ -151,6 +162,7 @@ def who_am_i(request):
 def find_birds(request, bird_name):
     print(f"received request to get data on '{bird_name}' from xeno-canto") 
 
+    # call to get_bird_data in xeno_canto_processing module
     filtered_data = get_bird_data(request, user_coords, bird_name)
     return JsonResponse(filtered_data)
 

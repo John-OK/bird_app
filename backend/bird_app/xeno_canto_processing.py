@@ -150,9 +150,9 @@ def get_bird_data(request, user_coords, bird_name):
     print(f"request returned {num_recordings} recordings of {num_species} different species")
 
     # save data for future use
-    with open(f'bird_data_{bird_name}.json', 'w') as f:
-        json.dump(responseJSON, f, indent=2)
-        print('file saved')
+    # with open(f'bird_data_{bird_name}.json', 'w') as f:
+    #     json.dump(responseJSON, f, indent=2)
+    #     print('file saved')
 
     filtered_data = filter_bird_data(responseJSON, user_coords)
     return {'filtered_data': filtered_data}
