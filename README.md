@@ -44,7 +44,7 @@ I continue to develop it and will add more features, deploy it, and create Andro
    - [Thunder Forest (maps)](https://www.thunderforest.com/)
 
 # Installation
-Make sure you have Python 3.10.6+, PostgreSQL, npm, Node.js, React and Vite installed, then do the following:
+Make sure you have Python 3.10.6+, Python's 'venv' module, PostgreSQL, npm, Node.js, React and Vite installed, then do the following:
 1. Create a directory to contain entire project; CD to the directory
 2. Clone the repository
 ```
@@ -54,7 +54,8 @@ git clone https://github.com/John-OK/bird_app.git
 ```
 python -m venv .venv
 ```
-4. Source the virtual environemt
+NOTE: If this command throws an error, follow the instructions provided in the error to install 'venv' (but prepend the line with 'sudo')<br><br>
+4. Source the virtual environment
 ```
 source .venv/bin/activate
 ```
