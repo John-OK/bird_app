@@ -44,7 +44,7 @@ I continue to develop it and will add more features, deploy it, and create Andro
    - [Thunder Forest (maps)](https://www.thunderforest.com/)
 
 # Installation
-Make sure you have Python 3.10.6+, Django, PostgreSQL, psycopg2, npm, Node.js, React and Vite installed, then do the following:
+Make sure you have Python 3.10.6+, PostgreSQL, npm, Node.js, React and Vite installed, then do the following:
 1. Create a directory to contain entire project; CD to the directory
 2. Clone the repository
 ```
