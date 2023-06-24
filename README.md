@@ -67,7 +67,12 @@ pip install -r requirements.txt
 ```
 createdb bird_confirm
 ```
-7. CD to "backend" directory and start server with the following:
+7. CD to "backend" directory, makemigrations and migrate:
+```
+python manage.py makemigrations
+python manage.py migrate
+```
+8. Start server with the following:
 ```
 python manage.py runserver
 ```
