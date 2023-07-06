@@ -79,6 +79,19 @@ python manage.py runserver
 8. Check the response in the terminal to find the address of the server (usually 127.0.0.1:8000)
 9. Open a web browser and naviage to 127.0.0.1:8000 (or whatever address and port was given in the previous step)
 10. Currently, the user's location is hard coded because the API used to geolocate works off of IP addresses, and you're running from your local machine, but you can enter your own IP address in the backend's "view.py" file around line 30, or comment out the current one and uncomment one of the ones available.
+11. CD to frontend:
+```
+cd ../frontend
+```
+12. Install node modules:
+```
+npm install
+```
+13. Build application:
+```
+npm run build
+```
+14. 
 
 # Future Features
 - Web App
