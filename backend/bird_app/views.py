@@ -35,7 +35,8 @@ def geolocate(request):
     # ip = get_ip(request) # ONLY USED AFTER DEPLOYMENT
 
     # ip addresses for testing:
-    ip = "208.185.59.34" # WeWork Chicago
+    ip = "92.119.141.215"
+    # ip = "208.185.59.34" # WeWork Chicago
     # ip = "104.223.92.190" # Windscribe Atlanta Mountain
     # ip = "206.217.143.141" # Windscribe Atlanta Piedmont
     # ip = "23.19.122.235" # Windscribe Chicago Wrigley
@@ -44,7 +45,7 @@ def geolocate(request):
     # ip = "177.54.148.247" # Windscribe SP, Brasil (Pinacoteca)
     # ip = "177.67.80.59" # Windscribe SP, Brasil (Mercadao)
 
-    print(f'*****************  IP ADDRESS FOR GEOLOCATE: {ip}')
+    print(f'***** IP ADDRESS FOR GEOLOCATE: {ip} *****')
 
     # TODO: OBSFUCATE
     endpoint = f"https://ipgeolocation.abstractapi.com/v1/?api_key=631f880632664f8d9641d5dedeec4e13&ip_address={ip}"
@@ -168,7 +169,7 @@ def find_birds(request, bird_name):
 
 @api_view(['POST'])
 def confirm_bird(request):
-    print('saving bird... beepboopbeep')
+    print('saving bird to database')
     try:
         new_bird = Bird(
             user = request.user,

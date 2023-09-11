@@ -17,7 +17,10 @@ function NavBarBC(props) {
   }, [])
 
   function getUserLocation() {
-    // Add try/catch with geoLocation() for more accurate user location
+    // This is a placeholder for the geolocation API. Will implement with try/catch later.
+    navigator.geolocation.getCurrentPosition(position => { 
+      console.log(position.coords);
+    })
       axios.get('/geolocate/')
           .then((response) => {
             try{
