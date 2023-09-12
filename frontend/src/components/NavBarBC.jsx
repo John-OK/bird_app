@@ -16,21 +16,37 @@ function NavBarBC(props) {
       getUserLocation();
   }, [])
 
+  function geolocationSuccess(position) {
+    const coords = [position.coords.latitude, position.coords.longitude]
+    console.log("User location is (lat, long): " + coords)
+    setPosition(coords)
+  }
+
+  function geolocationError(error) {
+    if (error.code === 1) {
+      alert("Allow geolocation access for better results. Please check location permissions.");
+      alert("Falling back to coarse location method")
+      getUserLocationFallback();
+    } else {
+      alert("Cannot get your current position.")
+    }
+  }
+
   function getUserLocation() {
-    // This is a placeholder for the geolocation API. Will implement with try/catch later.
-    navigator.geolocation.getCurrentPosition(position => { 
-      console.log(position.coords);
-    })
-      axios.get('/geolocate/')
-          .then((response) => {
-            try{
-              const coords = response.data.coords
-              setPosition(coords)
-              console.log(response)
-            }
-            catch{setPosition([39.240, -5.740])}
-  })
-      }
+    navigator.geolocation.getCurrentPosition(geolocationSuccess, geolocationError);
+  }
+
+  function getUserLocationFallback() {
+    axios.get('/geolocate/')
+        .then((response) => {
+          try{
+            const coords = response.data.coords
+            setPosition(coords)
+            console.log(response)
+          }
+          catch{setPosition([39.240, -5.740])}
+        })
+  }
 
   const checkBird = (event) => {
     event.preventDefault();
