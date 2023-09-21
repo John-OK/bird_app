@@ -9,6 +9,10 @@ import requests as HTTP_Client
 import pprint
 import json
 from . xeno_canto_processing import get_bird_data
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 pp = pprint.PrettyPrinter(indent=2, depth=4)
 
@@ -35,7 +39,7 @@ def geolocate(request):
     # ip = get_ip(request) # ONLY USED AFTER DEPLOYMENT
 
     # ip addresses for testing:
-    ip = "92.119.141.215"
+    ip = "92.119.141.215" # TM Granada
     # ip = "208.185.59.34" # WeWork Chicago
     # ip = "104.223.92.190" # Windscribe Atlanta Mountain
     # ip = "206.217.143.141" # Windscribe Atlanta Piedmont
@@ -47,9 +51,7 @@ def geolocate(request):
 
     print(f'***** IP ADDRESS FOR GEOLOCATE: {ip} *****')
 
-    # TODO: OBSFUCATE
-    endpoint = f"https://ipgeolocation.abstractapi.com/v1/?api_key=631f880632664f8d9641d5dedeec4e13&ip_address={ip}"
-        # print(f'endpoint: {endpoint}')
+    endpoint = f"https://ipgeolocation.abstractapi.com/v1/?api_key={os.environ['abstract_api_key']}&ip_address={ip}"
 
     # API call to Abstract to get coordinates of user's IP
     API_response = HTTP_Client.get(endpoint)
