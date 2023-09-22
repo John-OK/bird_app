@@ -35,14 +35,12 @@ function App() {
   const whoAmI = async () => {
     const response = await axios.get('/whoami')
     const user = response.data && response.data[0] && response.data[0].fields
-    // const user = response.data[0].fields
     console.log('user from whoami? ', user, response)
     setUser(user)
   }
 
   return (
     <div className="App">
-      {/* <NavBarBC whoAmI={whoAmI} user={user} /> */}
       <Router>
         <Routes>
           <Route path='/' element={<NavBarBC whoAmI={whoAmI} user={user} /> } />

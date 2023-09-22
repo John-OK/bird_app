@@ -55,11 +55,10 @@ function NavBarBC(props) {
     if (birdName === "") {
       birdName = "ALL"
     }
-    console.log("Caw!!! Caw!!!")
     console.log(`request to check: ${birdName}`)
     axios.get(`/find_birds/${birdName}`)
         .then(response => {
-          console.log(`response for ${birdName} (on next line):`)
+          console.log(`response for ${birdName} follows:`)
           console.log(response)
           const nearbyBirds = response.data.filtered_data.filtered_birds
           setBirdData(nearbyBirds)
