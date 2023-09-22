@@ -77,6 +77,19 @@ function BirdMap(props) {
     //         alert(location.error.message)
     //     }
     // }
+
+    const url = 
+                "https://{s}.tile.thunderforest.com/cycle/{z}/{x}/{y}.png?apikey=e484871bf5b44b5ba81a0bfe4e5508ed"
+                // "https://{s}.tile.thunderforest.com/transport/{z}/{x}/{y}.png?apikey=e484871bf5b44b5ba81a0bfe4e5508ed"
+                // "https://{s}.tile.thunderforest.com/landscape/{z}/{x}/{y}.png?apikey=e484871bf5b44b5ba81a0bfe4e5508ed"
+                // "https://{s}.tile.thunderforest.com/outdoors/{z}/{x}/{y}.png?apikey=e484871bf5b44b5ba81a0bfe4e5508ed"
+                // "https://{s}.tile.thunderforest.com/transport-dark/{z}/{x}/{y}.png?apikey=e484871bf5b44b5ba81a0bfe4e5508ed"
+                // "https://{s}.tile.thunderforest.com/spinal-map/{z}/{x}/{y}.png?apikey=e484871bf5b44b5ba81a0bfe4e5508ed"
+                // "https://{s}.tile.thunderforest.com/pioneer/{z}/{x}/{y}.png?apikey=e484871bf5b44b5ba81a0bfe4e5508ed"
+                // "https://{s}.tile.thunderforest.com/mobile-atlas/{z}/{x}/{y}.png?apikey=e484871bf5b44b5ba81a0bfe4e5508ed"
+                // "https://{s}.tile.thunderforest.com/neighbourhood/{z}/{x}/{y}.png?apikey=e484871bf5b44b5ba81a0bfe4e5508ed"
+                // "https://{s}.tile.thunderforest.com/atlas/{z}/{x}/{y}.png?apikey=e484871bf5b44b5ba81a0bfe4e5508ed"
+                // "https://basemap.nationalmap.gov/arcgis/rest/services/USGSTopo/MapServer/tile/{z}/{y}/{x}"
     
     return(
         <div>
@@ -88,17 +101,7 @@ function BirdMap(props) {
             >
             <TileLayer
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                url="https://{s}.tile.thunderforest.com/cycle/{z}/{x}/{y}.png?apikey=e484871bf5b44b5ba81a0bfe4e5508ed"
-                // url="https://{s}.tile.thunderforest.com/transport/{z}/{x}/{y}.png?apikey=e484871bf5b44b5ba81a0bfe4e5508ed"
-                // url="https://{s}.tile.thunderforest.com/landscape/{z}/{x}/{y}.png?apikey=e484871bf5b44b5ba81a0bfe4e5508ed"
-                // url="https://{s}.tile.thunderforest.com/outdoors/{z}/{x}/{y}.png?apikey=e484871bf5b44b5ba81a0bfe4e5508ed"
-                // url="https://{s}.tile.thunderforest.com/transport-dark/{z}/{x}/{y}.png?apikey=e484871bf5b44b5ba81a0bfe4e5508ed"
-                // url="https://{s}.tile.thunderforest.com/spinal-map/{z}/{x}/{y}.png?apikey=e484871bf5b44b5ba81a0bfe4e5508ed"
-                // url="https://{s}.tile.thunderforest.com/pioneer/{z}/{x}/{y}.png?apikey=e484871bf5b44b5ba81a0bfe4e5508ed"
-                // url="https://{s}.tile.thunderforest.com/mobile-atlas/{z}/{x}/{y}.png?apikey=e484871bf5b44b5ba81a0bfe4e5508ed"
-                // url="https://{s}.tile.thunderforest.com/neighbourhood/{z}/{x}/{y}.png?apikey=e484871bf5b44b5ba81a0bfe4e5508ed"
-                // url="https://{s}.tile.thunderforest.com/atlas/{z}/{x}/{y}.png?apikey=e484871bf5b44b5ba81a0bfe4e5508ed"
-                // url="https://basemap.nationalmap.gov/arcgis/rest/services/USGSTopo/MapServer/tile/{z}/{y}/{x}"
+                url={url}
             />
         
 
