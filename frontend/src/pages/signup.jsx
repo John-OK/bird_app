@@ -55,12 +55,14 @@ function SignUpPage() {
 
             <h2>Sign Up</h2>
             <form onSubmit={submitSignupForm} >
-            <label>
-                <input type="email" name="email" placeholder="Email address" />
-            </label>
-            <label>
-                <input type="password" name="password" placeholder="Password" />
-            </label>
+            <label> Username:
+                <br/>
+                <input type="email" name="email" placeholder="Email address" autocomplete="username" required />
+            </label> <br/> <br/>
+            <label> Password:
+                <br/>
+                <input type="password" name="current-password" placeholder="Password" autocomplete="current-password" required />
+            </label> <br/> <br/>
             <input type="submit" value="Submit" />
             </form>
         </div>
