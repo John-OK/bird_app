@@ -5,7 +5,7 @@ import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 import NavBarBC from './components/NavBarBC';
 import SignUpPage from './pages/signup';
 import LogInPage from './pages/login';
-import HomePage from './pages/homepage';
+// import HomePage from './pages/homepage';
 import MyBirdsPage from './pages/mybirds';
 
 function getCookie(name) {

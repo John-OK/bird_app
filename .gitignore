@@ -1,6 +1,8 @@
 __pycache__
 .venv/
 .env
-scratchPad.js
-.vscode
-/backend/static/assets
+scratch*.*
+.vscode/
+/backend/static/assets/
+*_unused.*
+backend/scratchpad.py
