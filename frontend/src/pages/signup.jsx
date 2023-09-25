@@ -37,7 +37,7 @@ function SignUpPage() {
             <div>
               <Navbar bg="dark" variant="dark" sticky="top" expand="md" collapseOnSelect>
                 <Navbar.Brand>
-                  Bird Confirm&trade;
+                  <a href="/">Bird Confirm&trade;</a>
                 </Navbar.Brand>
                 <Navbar.Toggle />
                 <Navbar.Collapse>
@@ -46,7 +46,10 @@ function SignUpPage() {
                   <Nav>
                     <Nav.Link href="/#/login" >
                       Log In
-                    </Nav.Link>        
+                    </Nav.Link>
+                      <Nav.Link onClick={submitLogout}>
+                        Log Out
+                      </Nav.Link>
                   </Nav>
                 </div>
                 </Navbar.Collapse>

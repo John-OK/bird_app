@@ -25,7 +25,7 @@ function LogInPage() {
             <div>
                 <Navbar bg="dark" variant="dark" sticky="top" expand="md" collapseOnSelect>
                     <Navbar.Brand>
-                        Bird Confirm&trade;
+                        <a href="/">Bird Confirm&trade;</a>
                     </Navbar.Brand>
                     <Navbar.Toggle />
 
@@ -34,9 +34,6 @@ function LogInPage() {
                             <Nav>
                                 <Nav.Link href="/#/signup">
                                 Sign Up
-                                </Nav.Link>
-                                <Nav.Link href="/#/login" >
-                                Log In
                                 </Nav.Link>
                                 <Nav.Link onClick={submitLogout}>
                                 Log Out
