@@ -34,6 +34,8 @@ const geoLocation = () => {
         navigator.geolocation.getCurrentPosition(onSuccess, onError);
     }, [])
 
+    console.log(`location from geoLocation util: ${location}`)
+    console.log(location)
     return location;
 }
 

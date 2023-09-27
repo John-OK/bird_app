@@ -3,9 +3,11 @@ __pycache__
 .env
 scratch*.*
 .vscode/
-/backend/static/assets/
+backend/static/assets/
+backend/static/index.html
 *_unused.*
 backend/scratchpad.py
+.gitignore_*
 
 # Logs
 logs

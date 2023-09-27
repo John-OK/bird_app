@@ -12,4 +12,5 @@ urlpatterns = [
     path('confirm_bird/', views.confirm_bird),
     path('get_users_birds/', views.get_users_birds),
     path('delete_birds/', views.delete_birds),
+    path('update_user_coords/', views.update_user_coords),
 ]

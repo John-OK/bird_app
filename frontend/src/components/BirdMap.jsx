@@ -111,7 +111,7 @@ function BirdMap(props) {
                     icon={binosIcon}
                 >
 
-<Popup>
+                <Popup>
                     <h6>
                         Location from browser geolocation <br />
                     </h6>

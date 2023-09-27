@@ -19,7 +19,12 @@ function NavBarBC(props) {
   function geolocationSuccess(position) {
     const coords = [position.coords.latitude, position.coords.longitude]
     console.log("User location is (lat, long): " + coords)
+    const user_coords = {coords: coords}
     setPosition(coords)
+    axios.post('/update_user_coords/', user_coords)
+      .then( (response) => {
+        console.log(`update_user_coords response from server: ${response.data}`)
+      })
   }
 
   function geolocationError(error) {

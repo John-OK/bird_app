@@ -33,7 +33,13 @@ def get_ip(request):
     return ip
 
 # default user_coords
-user_coords = [39.240, -5.740]
+user_coords = [37.16, -4.15]
+
+@api_view(['POST'])
+def update_user_coords(request):
+    user_coords = request.data['coords']
+
+    return HttpResponse('user coordinates updated in server')
 
 def geolocate(request):
     # ip = get_ip(request) # ONLY USED AFTER DEPLOYMENT
