@@ -37,7 +37,8 @@ user_coords = [37.16, -4.15]
 
 @api_view(['POST'])
 def update_user_coords(request):
-    user_coords = request.data['coords']
+    user_coords[0] =request.data['coords'][0]
+    user_coords[1] = request.data['coords'][1]
 
     return HttpResponse('user coordinates updated in server')
 
@@ -169,7 +170,8 @@ def who_am_i(request):
 #     return JsonResponse(filtered_data)
 
 def find_birds(request, bird_name):
-    print(f"received request to get data on '{bird_name}' from xeno-canto") 
+    print(f"received request to get data on '{bird_name}' from xeno-canto.")
+    print(f"user_coords: {user_coords}")
 
     # call to get_bird_data in xeno_canto_processing module
     filtered_data = get_bird_data(request, user_coords, bird_name)
