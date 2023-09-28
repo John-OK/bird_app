@@ -46,12 +46,12 @@ def geolocate(request):
     # ip = get_ip(request) # ONLY USED AFTER DEPLOYMENT
 
     # ip addresses for testing:
-    ip = "92.119.141.215" # TM Granada
+    # ip = "92.119.141.215" # TM Granada
     # ip = "208.185.59.34" # WeWork Chicago
     # ip = "104.223.92.190" # Windscribe Atlanta Mountain
     # ip = "206.217.143.141" # Windscribe Atlanta Piedmont
     # ip = "23.19.122.235" # Windscribe Chicago Wrigley
-    # ip = "185.253.99.155" # Windscribe Barcelona Batllo
+    ip = "185.253.99.155" # Windscribe Barcelona Batllo
     # ip = "66.203.113.138" # Windscribe Santiago, Chile
     # ip = "177.54.148.247" # Windscribe SP, Brasil (Pinacoteca)
     # ip = "177.67.80.59" # Windscribe SP, Brasil (Mercadao)

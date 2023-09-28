@@ -78,6 +78,9 @@ function BirdMap(props) {
     //     }
     // }
 
+    const buildUrl = () => {
+        
+    }
     const url = 
                 "https://{s}.tile.thunderforest.com/cycle/{z}/{x}/{y}.png?apikey=e484871bf5b44b5ba81a0bfe4e5508ed"
                 // "https://{s}.tile.thunderforest.com/transport/{z}/{x}/{y}.png?apikey=e484871bf5b44b5ba81a0bfe4e5508ed"
@@ -105,7 +108,7 @@ function BirdMap(props) {
             />
         
 
-            {location.loaded && !location.error && (
+            {(location.loaded && !location.error) ? (
                 <Marker
                     position={[location.coords.lat, location.coords.lng]}
                     icon={binosIcon}
@@ -117,9 +120,8 @@ function BirdMap(props) {
                     </h6>
                 </Popup>
                 </Marker>
-            )}
-
-            <Marker
+            ) : (
+                <Marker
                 position={props.position}
                 // position={props.position}
                 icon={userIcon}
@@ -130,7 +132,10 @@ function BirdMap(props) {
                         (At tip of pin)
                     </h5>
                 </Popup>
-            </Marker>
+                </Marker>
+            )}
+
+            
 
             {props.birdData && props.birdData.map( (bird) => {
                 return(
