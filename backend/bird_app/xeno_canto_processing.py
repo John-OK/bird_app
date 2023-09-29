@@ -109,7 +109,7 @@ def get_radius_limits(coords, radius=100):
 
 
 # Filter birds: keep for further filtering in future
-def filter_bird_data(data, user_coords):
+def filter_bird_data(data):
     records = data['recordings']
 
     ## Unnecessary if using API's box filtering
@@ -130,6 +130,8 @@ def get_bird_data(request, user_coords, bird_name):
     max_long = radius_limits['max_long']
     box_around_user = f"box:{min_lat},{min_long},{max_lat},{max_long}"
     print(f"box string: {box_around_user}")
+
+    box_limits = [ [min_lat, min_long], [max_lat, max_long] ]
 
     # Build up endpoint
     if bird_name == "ALL":
@@ -154,5 +156,5 @@ def get_bird_data(request, user_coords, bird_name):
     #     json.dump(responseJSON, f, indent=2)
     #     print('file saved')
 
-    filtered_data = filter_bird_data(responseJSON, user_coords)
-    return {'filtered_data': filtered_data}
+    filtered_data = filter_bird_data(responseJSON)
+    return {'filtered_data': filtered_data, 'box_limits': box_limits}

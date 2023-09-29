@@ -1,5 +1,5 @@
 import React, {Component, useEffect, useState, useRef} from "react";
-import { MapContainer, TileLayer, Popup, useMap, Marker, Circle } from 'react-leaflet'
+import { MapContainer, TileLayer, Popup, useMap, Marker, Circle, Rectangle } from 'react-leaflet'
 import L from 'leaflet'
 import userPin from '../assets/icons/icons8-pin-64.png'
 import crane from '../assets/icons/icons8-crane-bird-50.png'
@@ -97,7 +97,6 @@ function BirdMap(props) {
     return(
         <div>
             <MapContainer className='map'
-                // center={defaultPosition}
                 center={props.position}
                 zoom={9} // Zoom level 9 encompasses 100 km radius @ 890px height
                 //style in css
@@ -116,14 +115,13 @@ function BirdMap(props) {
 
                 <Popup>
                     <h6>
-                        Location from browser geolocation <br />
+                        Your location <br />
                     </h6>
                 </Popup>
                 </Marker>
             ) : (
                 <Marker
                 position={props.position}
-                // position={props.position}
                 icon={userIcon}
             >
                 <Popup>
@@ -168,10 +166,15 @@ function BirdMap(props) {
                             </div>
                             
                         </Popup>
+                        <Rectangle 
+                            bounds={props.boxLimits}
+                            pathOptions={{fillColor:'blue', fillOpacity:0.025}}
+                            weight={0.3} />
+                        {/* <Circle center={props.position} radius={100000} /> */}
                     </Marker>)
             })}
 
-            <Circle center={props.position} radius={100000} />
+            
 
             </MapContainer>
 

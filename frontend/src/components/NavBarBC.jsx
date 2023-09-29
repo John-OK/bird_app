@@ -9,6 +9,7 @@ function NavBarBC(props) {
 
   const [position, setPosition] = useState(null)
   const [birdData, setBirdData] = useState(null)
+  const [boxLimits, setBoxLimits] = useState(null)
 
   useEffect( ()=> {
       props.whoAmI()
@@ -67,6 +68,7 @@ function NavBarBC(props) {
           console.log(response)
           const nearbyBirds = response.data.filtered_data.filtered_birds
           setBirdData(nearbyBirds)
+          setBoxLimits(response.data.box_limits)
         })
 }
   
@@ -117,7 +119,8 @@ function NavBarBC(props) {
         </Navbar>
       </div>
       <div>
-        {position && <BirdMap  position={position} birdData={birdData} user={props.user} />}
+        {position && 
+        <BirdMap  position={position} birdData={birdData} boxLimits={boxLimits} user={props.user} />}
         
       </div>
     </div>
