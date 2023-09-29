@@ -78,21 +78,19 @@ function BirdMap(props) {
     //     }
     // }
 
-    const buildUrl = () => {
-        
-    }
     const url = 
-                "https://{s}.tile.thunderforest.com/cycle/{z}/{x}/{y}.png?apikey=e484871bf5b44b5ba81a0bfe4e5508ed"
-                // "https://{s}.tile.thunderforest.com/transport/{z}/{x}/{y}.png?apikey=e484871bf5b44b5ba81a0bfe4e5508ed"
-                // "https://{s}.tile.thunderforest.com/landscape/{z}/{x}/{y}.png?apikey=e484871bf5b44b5ba81a0bfe4e5508ed"
-                // "https://{s}.tile.thunderforest.com/outdoors/{z}/{x}/{y}.png?apikey=e484871bf5b44b5ba81a0bfe4e5508ed"
-                // "https://{s}.tile.thunderforest.com/transport-dark/{z}/{x}/{y}.png?apikey=e484871bf5b44b5ba81a0bfe4e5508ed"
-                // "https://{s}.tile.thunderforest.com/spinal-map/{z}/{x}/{y}.png?apikey=e484871bf5b44b5ba81a0bfe4e5508ed"
-                // "https://{s}.tile.thunderforest.com/pioneer/{z}/{x}/{y}.png?apikey=e484871bf5b44b5ba81a0bfe4e5508ed"
-                // "https://{s}.tile.thunderforest.com/mobile-atlas/{z}/{x}/{y}.png?apikey=e484871bf5b44b5ba81a0bfe4e5508ed"
-                // "https://{s}.tile.thunderforest.com/neighbourhood/{z}/{x}/{y}.png?apikey=e484871bf5b44b5ba81a0bfe4e5508ed"
-                // "https://{s}.tile.thunderforest.com/atlas/{z}/{x}/{y}.png?apikey=e484871bf5b44b5ba81a0bfe4e5508ed"
-                // "https://basemap.nationalmap.gov/arcgis/rest/services/USGSTopo/MapServer/tile/{z}/{y}/{x}"
+        "https://tile.openstreetmap.org/{z}/{x}/{y}.png"
+        // "https://{s}.tile.thunderforest.com/cycle/{z}/{x}/{y}.png?apikey=e484871bf5b44b5ba81a0bfe4e5508ed"
+        // "https://{s}.tile.thunderforest.com/transport/{z}/{x}/{y}.png?apikey=e484871bf5b44b5ba81a0bfe4e5508ed"
+        // "https://{s}.tile.thunderforest.com/landscape/{z}/{x}/{y}.png?apikey=e484871bf5b44b5ba81a0bfe4e5508ed"
+        // "https://{s}.tile.thunderforest.com/outdoors/{z}/{x}/{y}.png?apikey=e484871bf5b44b5ba81a0bfe4e5508ed"
+        // "https://{s}.tile.thunderforest.com/transport-dark/{z}/{x}/{y}.png?apikey=e484871bf5b44b5ba81a0bfe4e5508ed"
+        // "https://{s}.tile.thunderforest.com/spinal-map/{z}/{x}/{y}.png?apikey=e484871bf5b44b5ba81a0bfe4e5508ed"
+        // "https://{s}.tile.thunderforest.com/pioneer/{z}/{x}/{y}.png?apikey=e484871bf5b44b5ba81a0bfe4e5508ed"
+        // "https://{s}.tile.thunderforest.com/mobile-atlas/{z}/{x}/{y}.png?apikey=e484871bf5b44b5ba81a0bfe4e5508ed"
+        // "https://{s}.tile.thunderforest.com/neighbourhood/{z}/{x}/{y}.png?apikey=e484871bf5b44b5ba81a0bfe4e5508ed"
+        // "https://{s}.tile.thunderforest.com/atlas/{z}/{x}/{y}.png?apikey=e484871bf5b44b5ba81a0bfe4e5508ed"
+        // "https://basemap.nationalmap.gov/arcgis/rest/services/USGSTopo/MapServer/tile/{z}/{y}/{x}"
     
     return(
         <div>
@@ -110,7 +108,7 @@ function BirdMap(props) {
             {(location.loaded && !location.error) ? (
                 <Marker
                     position={[location.coords.lat, location.coords.lng]}
-                    icon={binosIcon}
+                    icon={userIcon}
                 >
 
                 <Popup>
@@ -122,12 +120,11 @@ function BirdMap(props) {
             ) : (
                 <Marker
                 position={props.position}
-                icon={userIcon}
+                icon={binosIcon}
             >
                 <Popup>
                     <h5>
-                        Your estimated location <br />
-                        (At tip of pin)
+                        Your estimated location
                     </h5>
                 </Popup>
                 </Marker>
