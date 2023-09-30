@@ -130,7 +130,13 @@ function BirdMap(props) {
                 </Marker>
             )}
 
-            
+            {props.birdData && 
+                <Rectangle 
+                bounds={props.boxLimits}
+                pathOptions={{fillColor:'blue', fillOpacity:0.125}}
+                weight={0.3} />
+                // {/* <Circle center={props.position} radius={100000} /> */}
+            }
 
             {props.birdData && props.birdData.map( (bird) => {
                 return(
@@ -157,25 +163,13 @@ function BirdMap(props) {
                                     {props.user && 
                                     <button onClick={confirmBird} value={bird.id} >Confirm that bird!</button>
                                     }
-                                </h3>
-                                
-
+                                </h3>     
                             </div>
-                            
                         </Popup>
-                        <Rectangle 
-                            bounds={props.boxLimits}
-                            pathOptions={{fillColor:'blue', fillOpacity:0.025}}
-                            weight={0.3} />
-                        {/* <Circle center={props.position} radius={100000} /> */}
                     </Marker>)
             })}
 
-            
-
             </MapContainer>
-
-
         </div>
     )
 }
