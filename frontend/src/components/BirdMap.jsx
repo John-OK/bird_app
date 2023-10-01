@@ -79,7 +79,7 @@ function BirdMap(props) {
     // }
 
     const url = 
-        "https://tile.openstreetmap.org/{z}/{x}/{y}.png"
+        `https://tile.openstreetmap.org/{z}/{x}/{y}.png`
         // `https://{s}.tile.thunderforest.com/cycle/{z}/{x}/{y}.png?apikey=${import.meta.env.VITE_THUNDER_FOREST_API_KEY}`
         // `https://{s}.tile.thunderforest.com/transport/{z}/{x}/{y}.png?apikey=${import.meta.env.VITE_THUNDER_FOREST_API_KEY}`
         // `https://{s}.tile.thunderforest.com/landscape/{z}/{x}/{y}.png?apikey=${import.meta.env.VITE_THUNDER_FOREST_API_KEY}`
@@ -90,7 +90,7 @@ function BirdMap(props) {
         // `https://{s}.tile.thunderforest.com/mobile-atlas/{z}/{x}/{y}.png?apikey=${import.meta.env.VITE_THUNDER_FOREST_API_KEY}`
         // `https://{s}.tile.thunderforest.com/neighbourhood/{z}/{x}/{y}.png?apikey=${import.meta.env.VITE_THUNDER_FOREST_API_KEY}`
         // `https://{s}.tile.thunderforest.com/atlas/{z}/{x}/{y}.png?apikey=${import.meta.env.VITE_THUNDER_FOREST_API_KEY}`
-        // "https://basemap.nationalmap.gov/arcgis/rest/services/USGSTopo/MapServer/tile/{z}/{y}/{x}"
+        // `https://basemap.nationalmap.gov/arcgis/rest/services/USGSTopo/MapServer/tile/{z}/{y}/{x}`
     
     return(
         <div>

@@ -50,7 +50,7 @@ function NavBarBC(props) {
             setPosition(coords)
             console.log(response)
           }
-          catch{setPosition([39.240, -5.740])}
+          catch{setPosition([37.746, -119.590])} // Yosemite Village
         })
   }
 
