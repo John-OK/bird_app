@@ -58,7 +58,7 @@ def geolocate(request):
 
     print(f'***** IP ADDRESS FOR GEOLOCATE: {ip} *****')
 
-    endpoint = f"https://ipgeolocation.abstractapi.com/v1/?api_key={os.environ['abstract_api_key']}&ip_address={ip}"
+    endpoint = f"https://ipgeolocation.abstractapi.com/v1/?api_key={os.environ['ABSTRACT_API_KEY']}&ip_address={ip}"
 
     # API call to Abstract to get coordinates of user's IP
     API_response = HTTP_Client.get(endpoint)
