@@ -35,9 +35,9 @@ function App() {
 
   const whoAmI = async () => {
     const response = await axios.get('/whoami')
-    const user = response.data && response.data[0] && response.data[0].fields
-    console.log('user from whoami? ', user)
-    console.log('response from whoami? ', response)
+    const user = response.data && response.data[0] && response.data[0].fields.username
+    const user_email = response.data && response.data[0] && response.data[0].fields.email
+    console.log(`whoAmI? username: ${user}; email: ${user_email}  `)
     setUser(user)
   }
 

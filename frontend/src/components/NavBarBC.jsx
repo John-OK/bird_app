@@ -13,7 +13,6 @@ function NavBarBC(props) {
 
   useEffect( ()=> {
       props.whoAmI()
-      console.log('HomePage: whoAmI');
       getUserLocation();
   }, [])
 
@@ -87,6 +86,7 @@ function NavBarBC(props) {
         <Navbar bg="dark" variant="dark" sticky="top" expand="md" collapseOnSelect>
           <Navbar.Brand >
             <a href="/">Bird Confirm&trade;</a>
+            <span> Welcome, {props.user ? props.user : "friend"}!</span>
           </Navbar.Brand>
           <Navbar.Toggle />
           <Navbar.Collapse>
