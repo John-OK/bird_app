@@ -203,8 +203,10 @@ def get_users_birds(request):
         # birds = Bird.objects.filter(user=request.user)
 
         bird_list = []
-        bird_dict = {}
+        
         for bird in birds:
+            bird_dict = {}
+            bird_dict['id'] = bird.id
             bird_dict['name'] = bird.bird_name
             bird_dict['coords'] = [bird.user_lat, bird.user_lng]
             bird_dict['date'] = bird.date_confirmed

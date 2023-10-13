@@ -7,13 +7,15 @@ import { submitLogout } from '../utils/submitLogout.js';
 import { useNavigate } from "react-router-dom";
 
 function MyBirdsPage(props) {
-    const [birds, setBirds] = useState(null)
+    const [birds, setBirds] = useState([])
 
     const getBirds = () => {
         axios.get(`/get_users_birds/`)
         .then( (response) => {
             try{
-                console.log('response from getting user birds ', response)
+                console.log('response from getting user birds ', response.data.birds)
+                setBirds((currentBirds) => currentBirds.push(...response.data.birds))
+                console.log(birds[0].name)
             }
             catch{}
         })
@@ -32,9 +34,6 @@ function MyBirdsPage(props) {
                 catch{}
             })
     }
-
-
-
 
     return(
         <div>
@@ -62,6 +61,23 @@ function MyBirdsPage(props) {
 
             <div>
                 <h2>Confirmed Birds</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Coordinates (lat, long)</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {/* {birds.map( (bird) => (
+                            <tr key=bird.id>
+                                <td>{bird.name}</td>
+                                <td>{bird.coords}</td>
+                            </tr>
+                        ))} */}
+                    </tbody>
+                </table>
             </div>
 
 
