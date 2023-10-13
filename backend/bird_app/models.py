@@ -12,14 +12,22 @@ class User(AbstractUser):
         verbose_name='email address',
         max_length=255,
         unique=True,
+        db_index=True,
     )
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username'] # Email & Password are required by default.
 
+    def __str__(self):
+        return self.email
+
 class Bird(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
     bird_name = models.CharField(max_length=255, blank=False, default="noname", validators=[MinLengthValidator(1, 'This field cannot be blank.')])
-    date_confirmed = models.DateField(auto_now_add=True)
+    date_confirmed = models.DateTimeField(auto_now_add=True)
     user_lat = models.DecimalField(max_digits=23, decimal_places=20, default=0.00)
     user_lng = models.DecimalField(max_digits=23, decimal_places=20, default=0.00)
-    data = models.JSONField(default={"data": "empty"})
+    data = models.JSONField(default=dict)
+    # data = models.JSONField(default={"data": "empty"})
+
+    def __str__(self):
+        return self.bird_name

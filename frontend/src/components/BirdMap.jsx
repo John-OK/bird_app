@@ -43,6 +43,7 @@ function BirdMap(props) {
 
         props.birdData.forEach( (bird) => {
             if (bird.id === event.target.value) {
+                birdToConfirm.user = props.user
                 birdToConfirm.bird_name = bird.en
                 birdToConfirm.user_lat = props.position[0]
                 birdToConfirm.user_lng = props.position[1]

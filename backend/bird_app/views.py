@@ -99,7 +99,7 @@ def sign_up(request):
         print("error")
         print(str(e))
         return HttpResponse(e)
-    return HttpResponse('hi')
+    return HttpResponse('Sign Up successful')
 
 # Use POST for logins because GET will show username and password in URL
 @api_view(['POST'])
@@ -191,25 +191,26 @@ def confirm_bird(request):
         new_bird.save()
     except:
         return JsonResponse({'message': 'Problems saving data.'})
-    #     # return JsonResponse(response)
+        # return JsonResponse(response)
     return JsonResponse({'message': 'All good.'})
 
 @api_view(['GET'])
 def get_users_birds(request):
     print("retrieving user's birds...")
     try:
+        user = User.objects.get(email=request.user)
+        birds = user.bird_set.all()
         # birds = Bird.objects.filter(user=request.user)
-        birds = Bird.objects.all()
+
         bird_list = []
-        bird = {}
-        for i in range(0, len(birds)):
-            user_coords = []
-            bird['bird_name'] = birds[i].bird_name
-            bird['date_confirmed'] = birds[i].date_confirmed
-            user_coords.append(birds[i].user_lat)
-            user_coords.append(birds[i].user_lng)
-            bird['user_coords'] = user_coords
-            birds_list.append(bird)
+        bird_dict = {}
+        for bird in birds:
+            bird_dict['name'] = bird.bird_name
+            bird_dict['coords'] = [bird.user_lat, bird.user_lng]
+            bird_dict['date'] = bird.date_confirmed
+            # bird_dict['data'] = bird.data
+            bird_list.append(bird_dict)
+        pp.pprint(bird_list)
         response = {'birds': bird_list}
     except:
         return JsonResponse(({'message': 'FAILED'}))
