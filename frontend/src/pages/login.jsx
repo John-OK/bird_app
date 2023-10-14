@@ -34,10 +34,7 @@ function LogInPage() {
                             <Nav>
                                 <Nav.Link href="/#/signup">
                                 Sign Up
-                                </Nav.Link>
-                                <Nav.Link onClick={submitLogout}>
-                                Log Out
-                                </Nav.Link>          
+                                </Nav.Link>         
                             </Nav>
                         </div>
                     </Navbar.Collapse>

@@ -101,18 +101,23 @@ function NavBarBC(props) {
 
             <div>
               <Nav>
-              <Nav.Link href="/#/myBirds">
+                {/* <Nav.Link href="/#/myBirds">
                   MyBirds
-                </Nav.Link>
-                <Nav.Link href="/#/signup">
-                  Sign Up
-                </Nav.Link>
-                <Nav.Link href="/#/login" >
-                  Log In
-                </Nav.Link>
-                <Nav.Link onClick={submitLogout}>
-                  Log Out
-                </Nav.Link>          
+                </Nav.Link> */}
+                {props.user ? (
+                  <Nav.Link onClick={submitLogout}>
+                    Log Out
+                  </Nav.Link>
+                ) : (
+                  <>
+                    <Nav.Link href="/#/login" >
+                      Log In
+                    </Nav.Link>
+                    <Nav.Link href="/#/signup">
+                      Sign Up
+                    </Nav.Link>
+                  </>
+                )}
               </Nav>
             </div>
           </Navbar.Collapse>
