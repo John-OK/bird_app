@@ -13,9 +13,14 @@ function MyBirdsPage(props) {
         axios.get(`/get_users_birds/`)
         .then( (response) => {
             try{
-                console.log('response from getting user birds ', response.data.birds)
+                console.log('response from getting user birds: ', response)
+                console.log('response.data: ', response.data)
+                console.log('response.data.birds: ', response.data.birds)
                 setBirds((currentBirds) => currentBirds.push(...response.data.birds))
+                console.log(birds[0])
                 console.log(birds[0].name)
+                console.log(`response.data.birds is Array? ${Array.isArray(response.data.birds)}`)
+                console.log(`response.data.birds[0] is Array? ${Array.isArray(response.data.birds[0])}`)
             }
             catch{}
         })
@@ -61,6 +66,8 @@ function MyBirdsPage(props) {
 
             <div>
                 <h2>Confirmed Birds</h2>
+                <h3>user's bird list: {birds}</h3>
+                <h4>typeof(birds): {typeof(birds)}</h4>
                 <table>
                     <thead>
                         <tr>

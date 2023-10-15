@@ -198,9 +198,7 @@ def confirm_bird(request):
 def get_users_birds(request):
     print("retrieving user's birds...")
     try:
-        user = User.objects.get(email=request.user)
-        birds = user.bird_set.all()
-        # birds = Bird.objects.filter(user=request.user)
+        birds = Bird.objects.filter(user=request.user)
 
         bird_list = []
         
@@ -208,11 +206,24 @@ def get_users_birds(request):
             bird_dict = {}
             bird_dict['id'] = bird.id
             bird_dict['name'] = bird.bird_name
-            bird_dict['coords'] = [bird.user_lat, bird.user_lng]
-            bird_dict['date'] = bird.date_confirmed
+
+            # 'user_lat' and user_lng' from DB do not parse to json, so convert to str()
+            bird_dict['coords'] = [f"{bird.user_lat:.4f}", f"{bird.user_lng:.4f}"]
+
+            # datetime type below ('date_confirmed' field from DB) does not parse to json,
+            # so must format as string first; thus, .strftime() used below
+            bird_dict['date'] = bird.date_confirmed.strftime("%A, %d %B, %Y %I:%M%p")
+
+            # FOR FUTURE USE: return Xeno-Canto data used to confirm bird
+            # NOTE: probably need to convert to a string
             # bird_dict['data'] = bird.data
+
             bird_list.append(bird_dict)
         pp.pprint(bird_list)
+        print(bird_list[0]['date'])
+        print(type(bird_list[0]['date']))
+        print(str(bird_list[0]['coords']))
+        print(type(bird_list))
         response = {'birds': bird_list}
     except:
         return JsonResponse(({'message': 'FAILED'}))
@@ -226,4 +237,3 @@ def delete_birds(request):
     except:
         return JsonResponse({'message': 'FAILED'})
     return JsonResponse({'message': 'BIRDS DELETED'})
-

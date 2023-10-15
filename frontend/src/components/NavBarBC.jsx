@@ -70,15 +70,6 @@ function NavBarBC(props) {
           setBoxLimits(response.data.box_limits)
         })
 }
-  
-
-  const submitLogout = function(event){
-    axios.post('/logout/')
-        .then((response)=>{
-        console.log('logout response from server: ', response)
-    })
-    document.location.href="/"
-}
 
   return (
     <div>
@@ -101,13 +92,15 @@ function NavBarBC(props) {
 
             <div>
               <Nav>
-                {/* <Nav.Link href="/#/myBirds">
-                  MyBirds
-                </Nav.Link> */}
                 {props.user ? (
-                  <Nav.Link onClick={submitLogout}>
-                    Log Out
-                  </Nav.Link>
+                  <>
+                    {/* <Nav.Link href="/#/myBirds">
+                      MyBirds
+                    </Nav.Link> */}
+                    <Nav.Link onClick={submitLogout}>
+                      Log Out
+                    </Nav.Link>
+                  </>
                 ) : (
                   <>
                     <Nav.Link href="/#/login" >

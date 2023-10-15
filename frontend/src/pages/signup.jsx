@@ -4,7 +4,6 @@ import axios from 'axios';
 // from NavBarBC
 import {Nav, Navbar, Offcanvas} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.css'
-import { submitLogout } from '../utils/submitLogout.js';
 
 function SignUpPage() {
     let navigate = useNavigate();

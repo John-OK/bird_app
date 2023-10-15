@@ -1,17 +1,11 @@
 import axios from 'axios';
-import { useNavigate } from "react-router-dom";
 
-
-
-const submitLogout = function(event){
-    const navigate = useNavigate();
-    axios.post('/logout')
+const submitLogout = function(event) {
+    axios.post('/logout/')
         .then((response)=>{
         console.log('logout response from server: ', response)
-        navigate("/")
-         
     })
-;
+    document.location.href="/"
 }
 
 export {submitLogout};

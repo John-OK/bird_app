@@ -4,13 +4,12 @@ import axios from 'axios';
 // from NavBarBC
 import {Nav, Navbar, Offcanvas} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.css'
-import { submitLogout } from '../utils/submitLogout.js';
 
 function LogInPage() {
     let navigate = useNavigate();
 
     const submitLogIn = function(event){
-        // LOGIC FOR CHECKING CORRECT PASS (BACKEND?) AND RETURNING PROPER RESPONSE (I.E., REDIRECT TO SEARCH, OR WRONG PASSWORD MSG)
+        // LOGIC FOR CHECKING CORRECT PASSWORD (BACKEND?) AND RETURNING PROPER RESPONSE (i.e., REDIRECT TO SEARCH, OR WRONG PASSWORD MSG)
         event.preventDefault();
         axios.post('/login/', {email: event.target[0].value, password: event.target[1].value})
             .then((response)=>{
