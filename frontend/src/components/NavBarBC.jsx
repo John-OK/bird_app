@@ -1,4 +1,4 @@
-import {Nav, Navbar, Offcanvas} from 'react-bootstrap';
+import {Nav, Navbar} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.css'
 import { submitLogout } from '../utils/submitLogout.js';
 import axios from 'axios'

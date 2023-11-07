@@ -1,10 +1,8 @@
 import axios from 'axios';
 import {useEffect, useState} from 'react';
-import BirdMap from '../components/BirdMap';
-import {Nav, Navbar, Offcanvas} from 'react-bootstrap';
+import {Nav, Navbar} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.css'
 import { submitLogout } from '../utils/submitLogout.js';
-import { useNavigate } from "react-router-dom";
 
 function MyBirdsPage(props) {
     const [birds, setBirds] = useState([])

@@ -1,5 +1,5 @@
-import React, {Component, useEffect, useState, useRef} from "react";
-import { MapContainer, TileLayer, Popup, useMap, Marker, Circle, Rectangle } from 'react-leaflet'
+import React from "react";
+import { MapContainer, TileLayer, Popup, Marker, Rectangle } from 'react-leaflet'
 import L from 'leaflet'
 import userPin from '../assets/icons/icons8-pin-64.png'
 import crane from '../assets/icons/icons8-crane-bird-50.png'
