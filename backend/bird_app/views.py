@@ -24,6 +24,7 @@ pp = pprint.PrettyPrinter(indent=2, depth=4)
 def get_ip(request):
     try:
         x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+        pp.pprint(x_forwarded_for)
         if x_forwarded_for:
             ip = x_forwarded_for.split(',')[0]
             print('HTTP_X_FORWARDED_FOR:', ip)
