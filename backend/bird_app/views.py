@@ -16,11 +16,6 @@ load_dotenv()
 
 pp = pprint.PrettyPrinter(indent=2, depth=4)
 
-# Get ip address of user.
-# NOTE: Before deployment, IP will be local server and not useable
-# for mapping purposes. Therefore, a fake ip must be hard coded in 
-# gelocate() prior to deployment.
-# LEARN: Need to understand what is happening here better
 def get_ip(request):
     try:
         x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
@@ -43,20 +38,21 @@ def update_user_coords(request):
     return HttpResponse('user coordinates updated in server')
 
 def geolocate(request):
-    # ip = get_ip(request) # ONLY USED AFTER DEPLOYMENT
+    if os.environ['env'] == 'prod':
+        ip = get_ip(request)
+    else:
+        # ip addresses for testing during development:
+        # ip = "92.119.141.215" # TM Granada
+        # ip = "208.185.59.34" # WeWork Chicago
+        # ip = "104.223.92.190" # Windscribe Atlanta Mountain
+        # ip = "206.217.143.141" # Windscribe Atlanta Piedmont
+        # ip = "23.19.122.235" # Windscribe Chicago Wrigley
+        ip = "185.253.99.155" # Windscribe Barcelona Batllo
+        # ip = "66.203.113.138" # Windscribe Santiago, Chile
+        # ip = "177.54.148.247" # Windscribe SP, Brasil (Pinacoteca)
+        # ip = "177.67.80.59" # Windscribe SP, Brasil (Mercadao)
 
-    # ip addresses for testing:
-    # ip = "92.119.141.215" # TM Granada
-    # ip = "208.185.59.34" # WeWork Chicago
-    # ip = "104.223.92.190" # Windscribe Atlanta Mountain
-    # ip = "206.217.143.141" # Windscribe Atlanta Piedmont
-    # ip = "23.19.122.235" # Windscribe Chicago Wrigley
-    ip = "185.253.99.155" # Windscribe Barcelona Batllo
-    # ip = "66.203.113.138" # Windscribe Santiago, Chile
-    # ip = "177.54.148.247" # Windscribe SP, Brasil (Pinacoteca)
-    # ip = "177.67.80.59" # Windscribe SP, Brasil (Mercadao)
-
-    print(f'***** IP ADDRESS FOR GEOLOCATE: {ip} *****')
+    print(f'***** IP ADDRESS TO USE FOR GEOLOCATION: {ip} *****')
 
     endpoint = f"https://ipgeolocation.abstractapi.com/v1/?api_key={os.environ['ABSTRACT_API_KEY']}&ip_address={ip}"
 
@@ -64,13 +60,6 @@ def geolocate(request):
     API_response = HTTP_Client.get(endpoint)
     responseJSON = API_response.json() # gets the JSON portion of the response
     # status_code = API_response.status_code # use to check status code and behave appropriately (i.e., respond to errors) TODO: implement this
-    # content = API_response.content # same as .json() but returns it as a "bytes object" LEARN: what are "bytes objects"
-
-    # pp.pprint(responseJSON) # print response in easy to read format
-    # save geolocation data to file for easy reading (alternative to pprint)
-    # with open(f'geolocation_data.json', 'w') as f:
-    #     json.dump(responseJSON, f, indent=2)
-    #     print('file saved')
 
     # update user_coords with lat/lng obtained from user's IP
     lat = responseJSON['latitude']
