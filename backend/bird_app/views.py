@@ -26,10 +26,13 @@ def get_ip(request):
         x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
         if x_forwarded_for:
             ip = x_forwarded_for.split(',')[0]
+            print('HTTP_X_FORWARDED_FOR:', ip)
         else:
             ip = request.META.get('REMOTE_ADDR')
+            print('REMOTE_ADDR:', ip)
     except:
         ip = ''
+        print('get_ip() failed')
     return ip
 
 # default user_coords
@@ -43,18 +46,7 @@ def update_user_coords(request):
     return HttpResponse('user coordinates updated in server')
 
 def geolocate(request):
-    ip = get_ip(request) # ONLY USED AFTER DEPLOYMENT
-
-    # ip addresses for testing:
-    # ip = "92.119.141.215" # TM Granada
-    # ip = "208.185.59.34" # WeWork Chicago
-    # ip = "104.223.92.190" # Windscribe Atlanta Mountain
-    # ip = "206.217.143.141" # Windscribe Atlanta Piedmont
-    # ip = "23.19.122.235" # Windscribe Chicago Wrigley
-    # ip = "185.253.99.155" # Windscribe Barcelona Batllo
-    # ip = "66.203.113.138" # Windscribe Santiago, Chile
-    # ip = "177.54.148.247" # Windscribe SP, Brasil (Pinacoteca)
-    # ip = "177.67.80.59" # Windscribe SP, Brasil (Mercadao)
+    ip = get_ip(request)
 
     print(f'***** IP ADDRESS FOR GEOLOCATE: {ip} *****')
 
@@ -63,10 +55,12 @@ def geolocate(request):
     # API call to Abstract to get coordinates of user's IP
     API_response = HTTP_Client.get(endpoint)
     responseJSON = API_response.json() # gets the JSON portion of the response
-    # status_code = API_response.status_code # use to check status code and behave appropriately (i.e., respond to errors) TODO: implement this
+    status_code = API_response.status_code # use to check status code and behave appropriately (i.e., respond to errors) TODO: implement this
+    print('status code:', status_code)
     # content = API_response.content # same as .json() but returns it as a "bytes object" LEARN: what are "bytes objects"
 
-    # pp.pprint(responseJSON) # print response in easy to read format
+    print("gelocate calls responseJSON:")
+    pp.pprint(responseJSON) # print response in easy to read format
     # save geolocation data to file for easy reading (alternative to pprint)
     # with open(f'geolocation_data.json', 'w') as f:
     #     json.dump(responseJSON, f, indent=2)
