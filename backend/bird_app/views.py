@@ -69,6 +69,13 @@ def geolocate(request):
     # update user_coords with lat/lng obtained from user's IP
     lat = responseJSON['latitude']
     print("lat:", lat)
+    
+    if lat == None:
+        user_coords[0] = 37.16000000001
+        user_coords[1] = -4.15
+        return JsonResponse({'coords': user_coords})
+        
+
     user_coords[0] = lat
     lng = responseJSON['longitude']
     user_coords[1] = lng
