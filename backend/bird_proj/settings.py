@@ -24,9 +24,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-q*+slm*q@rxv!n-d6vv51krhq!(mtee24dt=0$hvwp0%vedpf$'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['hellobirdie.2masterlight.site', 'hellobirdy.2masterlight.site']
+
+CSRF_TRUSTED_ORIGINS = ['hellobirdie.2masterlight.site', 'hellobirdy.2masterlight.site']
 
 
 # Application definition
