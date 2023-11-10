@@ -76,7 +76,7 @@ function NavBarBC(props) {
       <div>
         <Navbar bg="dark" variant="dark" sticky="top" expand="md" collapseOnSelect>
           <Navbar.Brand >
-            <a href="/">Bird Confirm&trade;</a>
+            <a href="/">HelloBirdie</a>
             <span> Welcome, {props.user ? props.user : "friend"}!</span>
           </Navbar.Brand>
           <Navbar.Toggle />
