@@ -1,3 +1,8 @@
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
 """
 Django settings for bird_proj project.
 
@@ -24,12 +29,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-q*+slm*q@rxv!n-d6vv51krhq!(mtee24dt=0$hvwp0%vedpf$'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+if os.environ['env'] == 'prod':
+    DEBUG = False
+    ALLOWED_HOSTS = ['hellobirdie.2masterlight.site', 'hellobirdy.2masterlight.site']
+    CSRF_TRUSTED_ORIGINS = ['https://hellobirdie.2masterlight.site', 'https://hellobirdy.2masterlight.site']
 
-ALLOWED_HOSTS = ['hellobirdie.2masterlight.site', 'hellobirdy.2masterlight.site']
-
-CSRF_TRUSTED_ORIGINS = ['https://hellobirdie.2masterlight.site', 'https://hellobirdy.2masterlight.site']
-
+elif os.environ['env'] == 'dev':
+    DEBUG = True
+    ALLOWED_HOSTS = []
 
 # Application definition
 

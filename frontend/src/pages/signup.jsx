@@ -36,7 +36,7 @@ function SignUpPage() {
             <div>
               <Navbar bg="dark" variant="dark" sticky="top" expand="md" collapseOnSelect>
                 <Navbar.Brand>
-                  <a href="/">Bird Confirm&trade;</a>
+                  <a href="/">HelloBirdie</a>
                 </Navbar.Brand>
                 <Navbar.Toggle />
                 <Navbar.Collapse>
