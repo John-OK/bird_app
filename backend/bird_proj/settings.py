@@ -28,7 +28,7 @@ DEBUG = False
 
 ALLOWED_HOSTS = ['hellobirdie.2masterlight.site', 'hellobirdy.2masterlight.site']
 
-CSRF_TRUSTED_ORIGINS = ['hellobirdie.2masterlight.site', 'hellobirdy.2masterlight.site']
+CSRF_TRUSTED_ORIGINS = ['https://hellobirdie.2masterlight.site', 'https://hellobirdy.2masterlight.site']
 
 
 # Application definition
