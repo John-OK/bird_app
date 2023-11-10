@@ -47,6 +47,7 @@ function NavBarBC(props) {
           try{
             const coords = response.data.coords
             if (coords[0] === 37.16000000001) {
+              console.log("Abstract call failed. Lat: ", coords[0])
               alert("Could not locate your position. Please enable location on  your device and allow location in your browser.")
             }
             setPosition(coords)
