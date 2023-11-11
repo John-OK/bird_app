@@ -156,6 +156,8 @@ function BirdMap(props) {
                                     (<i>{bird.gen} {bird.sp}</i>) <br />
                                     Date recorded: {bird.date} <br />
                                     <audio controls preload="auto">
+                                        <source src={bird.file} type="audio/wav" />
+                                        <source src={bird.file} type="audio/mpeg3" />
                                         <source src={bird.file} />
                                         <p>
                                             Audio playback not supported.
@@ -166,7 +168,13 @@ function BirdMap(props) {
                                     </audio> <br />
                                     Call notes: {bird.type} <br />
                                     Call quality (A to E): {bird.q} <br />
-                                    <a href={"https://search.brave.com/images?q=" + bird.en} target="_blank">Image search</a>
+                                    <a href=
+                                        {"https://search.brave.com/images?q=" +
+                                        bird.en + " (" + bird.gen + " " +
+                                        bird.sp + ")"}
+                                        target="_blank">
+                                            Image search
+                                    </a>
                                 </h5>
                                 <h3>
                                     {props.user && 
