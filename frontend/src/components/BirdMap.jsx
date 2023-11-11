@@ -155,7 +155,15 @@ function BirdMap(props) {
                                 <h5>
                                     (<i>{bird.gen} {bird.sp}</i>) <br />
                                     Date recorded: {bird.date} <br />
-                                    <a href={bird.file} target="_blank">Bird call link</a> <br />
+                                    <audio controls preload="auto">
+                                        <source src={bird.file} />
+                                        <p>
+                                            Audio playback not supported.
+                                            <a href={bird.file}>Download</a> the file,
+                                            or try a different browser.
+                                        </p>
+                                            
+                                    </audio> <br />
                                     Call notes: {bird.type} <br />
                                     Call quality (A to E): {bird.q} <br />
                                     <a href={"https://search.brave.com/images?q=" + bird.en} target="_blank">Image search</a>
