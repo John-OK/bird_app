@@ -1,4 +1,4 @@
-# [HelloBirdie])(https://hellobirdie.2masterlight.site/) (previously BirdConfirm) is now live! Try it out [here](https://hellobirdie.2masterlight.site/).
+# [HelloBirdie](https://hellobirdie.2masterlight.site/) (previously BirdConfirm) is now live! Try it out [here](https://hellobirdie.2masterlight.site/).
 
 ![Bird Confirm Banner](https://github.com/John-OK/bird_app/blob/master/github_assets/Eurasian_Sparrowhawk.jpg)
 - - -
