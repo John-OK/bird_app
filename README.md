@@ -1,6 +1,6 @@
 # [HelloBirdie](https://hellobirdie.2masterlight.site/) (previously Bird Confirm) is now live! Try it out [here](https://hellobirdie.2masterlight.site/).
 
-![Bird Confirm Banner](https://github.com/John-OK/bird_app/blob/master/github_assets/Eurasian_Sparrowhawk.jpg)
+![HelloBirdie Banner](https://github.com/John-OK/bird_app/blob/master/github_assets/Eurasian_Sparrowhawk.jpg)
 - - -
 A webapp to help confirm bird identification (mobile app coming!)
 
@@ -8,7 +8,7 @@ A webapp to help confirm bird identification (mobile app coming!)
 
 # Overview
 
-Bird Confirm was designed to help novice and experienced birders confirm the identification of birds they see in the field. It displays a map of the user's location and shows whether the bird they think they have identified (and entered in the search field) has been seen within 100 km of them by plotting all sightings of that bird on the map. Further confirmation is provided by the ability to play the bird's call/song and offering links to images of the bird.
+HelloBirdie was designed to help novice and experienced birders confirm the identification of birds they see in the field. It displays a map of the user's location and shows whether the bird they think they have identified (and entered in the search field) has been seen within 100 km of them by plotting all sightings of that bird on the map. Further confirmation is provided by the ability to play the bird's call/song and offering links to images of the bird.
 
 # Usage
 
@@ -21,14 +21,14 @@ Click on one of the icons to display a popup with links to play the bird call or
 ## Show all species seen within 100 km of your location
 Simply leave the search field blank and click "Check" to show all species seen within 100 km of your location. Click on each icon to see the name of the species and links to calls/songs and images.
 
-[See demonstrations of three use cases of bird confirm](https://github.com/John-OK/bird_app/blob/master/DEMO.md)
+[See demonstrations of three use cases of HelloBirdie](https://github.com/John-OK/bird_app/blob/master/DEMO.md)
 
 # About this project
-Bird Confirm started as a personal project for a 15-week full-stack coding intensive at [Code Platoon](https://www.codeplatoon.org/), an organization that serves veterans and military spouses by providing technical training and career placement.
+HelloBirdie started as a personal project for a 15-week full-stack coding intensive at [Code Platoon](https://www.codeplatoon.org/), an organization that serves veterans and military spouses by providing technical training and career placement.
 
 I continue to develop it and will add more features, deploy it, and create Android and iOS versions.
 
-## Bird Confirm uses the following technologies:
+## HelloBirdie uses the following technologies:
 - Front end:
    - JavaScript
    - React
