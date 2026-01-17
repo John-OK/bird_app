@@ -3,30 +3,35 @@ import {useEffect, useState} from 'react';
 import {Nav, Navbar} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.css'
 import { submitLogout } from '../utils/submitLogout.js';
+import BirdList from '../components/BirdList.jsx'
 
 function MyBirdsPage(props) {
     const [birds, setBirds] = useState([])
+    
+    useEffect( ()=> {
+        getBirds();
+    }, [])
 
     const getBirds = () => {
         axios.get(`/get_users_birds/`)
         .then( (response) => {
-            try{
-                console.log('response from getting user birds: ', response)
-                console.log('response.data: ', response.data)
-                console.log('response.data.birds: ', response.data.birds)
-                setBirds((currentBirds) => currentBirds.push(...response.data.birds))
+                // console.log('response from getting user birds: ', response)
+                // console.log('response.data: ', response.data)
+                // console.log('response.data.birds: ', response.data.birds)
+                // setBirds((currentBirds) => currentBirds.push(...response.data.birds))
+                setBirds(response.data.birds)
                 console.log(birds[0])
-                console.log(birds[0].name)
-                console.log(`response.data.birds is Array? ${Array.isArray(response.data.birds)}`)
-                console.log(`response.data.birds[0] is Array? ${Array.isArray(response.data.birds[0])}`)
-            }
-            catch{}
+                // console.log(birds[0].name)
+                // console.log(`response.data.birds is Array? ${Array.isArray(response.data.birds)}`)
+                // console.log(`response.data.birds[0] is Array? ${Array.isArray(response.data.birds[0])}`)
         })
+        // .then(response => {
+        //     console.log("birds=", birds)
+        //     console.log("birds 2 =", birds[0])
+        //     console.log("birds 1 =", birds[1])
+        // })
+        .catch(error => console.log(error))
     }
-
-    useEffect( ()=> {
-        getBirds();
-    }, [])
 
     const deleteBirds = () => {
         axios.delete('/delete_birds/')
@@ -63,9 +68,7 @@ function MyBirdsPage(props) {
             </div>
 
             <div>
-                <h2>Confirmed Birds</h2>
-                <h3>user's bird list: {birds}</h3>
-                <h4>typeof(birds): {typeof(birds)}</h4>
+                <h2>Saved Birds</h2>
                 <table>
                     <thead>
                         <tr>
@@ -83,6 +86,8 @@ function MyBirdsPage(props) {
                         ))} */}
                     </tbody>
                 </table>
+                <h1>Typeof(birds): { Array.isArray(birds) ? "Array" : "Not an array" }</h1>
+                <BirdList birds={birds} />
             </div>
 
 
