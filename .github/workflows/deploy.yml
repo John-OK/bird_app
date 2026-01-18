@@ -43,7 +43,7 @@ jobs:
             git switch production
             git reset --hard origin/production
 
-            "$VENV_DIR/bin/pip" install -r backend/requirements.txt
+            "$VENV_DIR/bin/pip" install -r requirements.txt
             "$VENV_DIR/bin/python" backend/manage.py migrate --noinput
 
             cd "$REPO_DIR/frontend"
@@ -51,5 +51,5 @@ jobs:
             /usr/local/bin/npm run build
 
             sudo systemctl restart hellobirdie.service
-            sudo systemctl status hellobirdie.service --no-pager -l
+            systemctl is-active hellobirdie.service
           EOF
