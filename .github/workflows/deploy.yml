@@ -2,6 +2,32 @@ name: Deploy (manual)
 
 on:
   workflow_dispatch:
+    inputs:
+      dry_run:
+        description: If true, connect to the VPS and show what would be deployed without changing anything
+        type: boolean
+        required: true
+        default: false
+      repo_dir:
+        description: Absolute path to the repo on the VPS
+        type: string
+        required: true
+        default: /home/john/websites/bird_app
+      venv_dir:
+        description: Absolute path to the Python virtualenv on the VPS
+        type: string
+        required: true
+        default: /home/john/websites/bird_app/.venv
+      npm_bin:
+        description: Absolute path to npm on the VPS
+        type: string
+        required: true
+        default: /usr/local/bin/npm
+      service_name:
+        description: systemd service name to restart after deployment
+        type: string
+        required: true
+        default: hellobirdie.service
 
 jobs:
   deploy_production:
@@ -27,29 +53,56 @@ jobs:
           VPS_HOST: ${{ secrets.VPS_HOST }}
           VPS_USER: ${{ secrets.VPS_USER }}
           VPS_PORT: ${{ secrets.VPS_PORT }}
+          DRY_RUN: ${{ inputs.dry_run }}
+          REPO_DIR: ${{ inputs.repo_dir }}
+          VENV_DIR: ${{ inputs.venv_dir }}
+          NPM_BIN: ${{ inputs.npm_bin }}
+          SERVICE_NAME: ${{ inputs.service_name }}
         run: |
           set -euo pipefail
           PORT="$VPS_PORT"
           if [ -z "$PORT" ]; then PORT=22; fi
 
-          ssh -p "$PORT" "$VPS_USER@$VPS_HOST" <<'EOF'
+          ssh -p "$PORT" "$VPS_USER@$VPS_HOST" "REPO_DIR='$REPO_DIR' VENV_DIR='$VENV_DIR' NPM_BIN='$NPM_BIN' SERVICE_NAME='$SERVICE_NAME' DRY_RUN='$DRY_RUN' bash -s" <<'EOF'
             set -euo pipefail
 
-            REPO_DIR="/home/john/websites/bird_app"
-            VENV_DIR="/home/john/websites/bird_app/.venv"
+            DEPLOY_BRANCH="production"
+
+            echo "repo_dir=$REPO_DIR"
+            echo "venv_dir=$VENV_DIR"
+            echo "npm_bin=$NPM_BIN"
+            echo "service_name=$SERVICE_NAME"
+            echo "deploy_branch=$DEPLOY_BRANCH"
+            echo "dry_run=$DRY_RUN"
+
+            if [ "$DRY_RUN" = "true" ]; then
+              cd "$REPO_DIR"
+              echo "Current HEAD: $(git rev-parse --short HEAD)"
+              echo "Working tree:"
+              git status --porcelain || true
+
+              echo "Remote $DEPLOY_BRANCH:"
+              git ls-remote origin "refs/heads/$DEPLOY_BRANCH" || true
+
+              echo "Service active?:"
+              systemctl is-active "$SERVICE_NAME" || true
+
+              echo "Dry run complete (no changes applied)."
+              exit 0
+            fi
 
             cd "$REPO_DIR"
-            git fetch origin production
-            git switch production
-            git reset --hard origin/production
+            git fetch origin "$DEPLOY_BRANCH"
+            git switch "$DEPLOY_BRANCH"
+            git reset --hard "origin/$DEPLOY_BRANCH"
 
-            "$VENV_DIR/bin/pip" install -r requirements.txt
+            "$VENV_DIR/bin/python" -m pip install -r requirements.txt
             "$VENV_DIR/bin/python" backend/manage.py migrate --noinput
 
             cd "$REPO_DIR/frontend"
-            /usr/local/bin/npm ci
-            /usr/local/bin/npm run build
+            "$NPM_BIN" ci
+            "$NPM_BIN" run build
 
-            sudo systemctl restart hellobirdie.service
-            systemctl is-active hellobirdie.service
+            sudo systemctl restart "$SERVICE_NAME"
+            systemctl is-active "$SERVICE_NAME"
           EOF
