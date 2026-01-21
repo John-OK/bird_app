@@ -3,11 +3,12 @@ name: CI
 on:
   push:
     branches:
-      - master
+      - main
       - production
   pull_request:
     branches:
-      - master
+      - main
+      - production
 
 jobs:
   backend_sanity:
