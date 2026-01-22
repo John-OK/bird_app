@@ -60,7 +60,7 @@ All work should be done in a short-lived branch off `main`:
 - GitHub Actions workflow: `.github/workflows/ci.yml`
 - Runs on:
   - pushes to `main` and `production`
-  - pull requests targeting `main`
+  - pull requests targeting `main` and `production`
 - Jobs:
   - backend syntax check (`python -m compileall backend`)
   - frontend build (`npm ci` + `npm run build`)
@@ -89,3 +89,35 @@ All work should be done in a short-lived branch off `main`:
 ## Current work
 
 - Next feature/bugfix to tackle: fix "My Birds" page behavior
+
+### Plan for the "My Birds" bug
+
+1. Identify the failing boundary
+   - Check browser console and network requests (status code + response payload)
+   - Determine whether the issue is frontend rendering/state, backend API, auth/session, or data
+2. Lock the bug in with a regression test (TDD)
+   - Prefer a backend pytest test if the issue is in the API response, permissions, or data
+   - Prefer a frontend test if the issue is rendering/state (only if the frontend has a test harness)
+3. Implement the smallest fix
+   - Make the minimal code change that satisfies the test
+4. Verify end-to-end
+   - Re-test the My Birds page in the browser
+   - Confirm CI remains green
+
+## AI assistant collaboration guidelines
+
+When using an AI assistant on this project, prefer a teach-first approach:
+
+1. Ask clarifying questions before proposing changes.
+2. Guide the user through the steps to complete the task, rather than completing the task end-to-end.
+3. Do not provide code unless the user explicitly asks for code.
+4. Follow a TDD workflow when fixing bugs:
+   - Reproduce the issue.
+   - Identify the failing boundary.
+   - Add a regression test.
+   - Make the smallest change to pass the test.
+   - Refactor with tests staying green.
+5. Encourage debugging habits:
+   - Use breakpoints and the Debug Console to inspect state.
+   - Use browser DevTools for frontend issues.
+   - Prefer small, incremental commits.
