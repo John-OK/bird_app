@@ -28,7 +28,6 @@ function MyBirdsPage(props) {
   const deleteBirds = () => {
     axios.delete("/delete_birds/").then((response) => {
       try {
-        console.log("response from deleting user birds", response);
       } catch {}
     });
   };
