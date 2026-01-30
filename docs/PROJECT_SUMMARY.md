@@ -33,6 +33,11 @@ HelloBirdie is a Django + React/Vite web app that helps birders confirm bird ide
 - Environment variables live in `backend/.env` (not tracked)
 - Template file: `backend/.env.example`
 
+Local frontend options:
+
+- Production-like: `npm run build` generates frontend assets into `backend/static/` and Django serves them.
+- Developer UX: `npm run dev` runs Vite on `http://localhost:5173` and proxies backend API requests to Django.
+
 ### Production
 
 - Site hosted under `hellobirdie.2masterlight.site`
@@ -88,21 +93,71 @@ All work should be done in a short-lived branch off `main`:
 
 ## Current work
 
-- Next feature/bugfix to tackle: fix "My Birds" page behavior
+### Recent accomplishments
 
-### Plan for the "My Birds" bug
+- Fixed the "My Birds" page rendering for both:
+  - empty state (no saved birds)
+  - table state (saved birds)
+- Added frontend regression tests for `MyBirdsPage` using Vitest + React Testing Library.
+- Improved local development workflow:
+  - Vite dev server proxies backend endpoints to Django for cookie/session auth.
+  - Django `dev` settings allow Vite origin for CSRF.
 
-1. Identify the failing boundary
-   - Check browser console and network requests (status code + response payload)
-   - Determine whether the issue is frontend rendering/state, backend API, auth/session, or data
-2. Lock the bug in with a regression test (TDD)
-   - Prefer a backend pytest test if the issue is in the API response, permissions, or data
-   - Prefer a frontend test if the issue is rendering/state (only if the frontend has a test harness)
-3. Implement the smallest fix
-   - Make the minimal code change that satisfies the test
-4. Verify end-to-end
-   - Re-test the My Birds page in the browser
-   - Confirm CI remains green
+### Next priorities (most impactful first)
+
+1. Search results UX (map-first) and density handling
+   - Add clustering for dense results at lower zoom levels
+   - Add a side panel list for results (common name + scientific name, call quality, call notes/type)
+   - Add hover-to-preview behavior (hover list item or map marker shows popup)
+2. Map/search visualization consistency (bug + polish)
+   - Investigate intermittent “search bounding box shifts west” issue
+   - Make the search radius visualization circular (not rectangular)
+   - Ensure only birds inside the search radius are displayed
+3. Saved birds UX + data model
+   - Improve table styling (spacing, borders, alignment, responsive layout)
+   - Add per-row delete button (delete individual saved bird record)
+   - Add saved bird fields (scientific name, notes) and make all fields editable for now
+   - Clarify save behavior and messaging (e.g., “Saving bird at your current location.”)
+   - Consider “quick save” vs “detailed save” flow
+4. Authentication UX modernization
+   - Replace page navigation for login/signup with a more modern UX (e.g., modal)
+   - Improve form validation and error handling
+   - Review security posture (session handling, CSRF behavior, rate limiting, password policy)
+   - Optional: evaluate SSO options under strict privacy constraints
+5. Search center UX
+   - Default center should be “current location” unless explicitly changed
+   - Allow the user to set a new search center (click-to-set and/or “use map center” button)
+   - Ensure panning/zooming does not automatically change the search center without explicit action
+   - If location cannot be determined, provide a way for the user to pick a location
+6. Geolocation fallback reliability
+   - When browser geolocation is denied, use IP-based geolocation reliably
+   - Investigate Abstract API failure (“max retries exceeded”) and switch provider if needed
+
+### Decisions and constraints
+
+- Search radius: default to 100km; user can change it
+- Search center: default to “current location” unless explicitly changed
+- Saved birds editing: user can edit any field (for now)
+- SSO: major providers acceptable only if we do not add trackers to the page or degrade user privacy/security
+
+### Suggested saved bird fields
+
+- Common name
+- Scientific name
+- Saved coordinates (user location at time of save; optionally allow adjustment)
+- Date/time saved
+- Notes (free text)
+- Optional: call quality
+- Optional: call notes/type
+- Optional: source recording URL (Xeno-Canto) and recording ID
+
+### Remaining open questions
+
+- Search radius controls: should radius be adjusted via a side panel control, a settings modal, or both?
+- Location selection fallback: if user location and IP location fail, which flow is preferred?
+  - map click-to-set
+  - search for a place name (city/state/country)
+  - direct lat/lng entry
 
 ## AI assistant collaboration guidelines
 

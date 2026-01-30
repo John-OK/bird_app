@@ -19,14 +19,19 @@ pp = pprint.PrettyPrinter(indent=2, depth=4)
 
 def get_ip(request):
     try:
-        x_forwarded_for = request.META.get("HTTP_X_FORWARDED_FOR")
-        pp.pprint(x_forwarded_for)
-        if x_forwarded_for:
-            ip = x_forwarded_for.split(",")[0]
-            print("HTTP_X_FORWARDED_FOR:", ip)
+        x_real_ip = request.META.get("HTTP_X_REAL_IP")
+        if x_real_ip:
+            ip = x_real_ip
+            print("HTTP_X_REAL_IP:", ip)
         else:
-            ip = request.META.get("REMOTE_ADDR")
-            print("REMOTE_ADDR:", ip)
+            x_forwarded_for = request.META.get("HTTP_X_FORWARDED_FOR")
+            pp.pprint(x_forwarded_for)
+            if x_forwarded_for:
+                ip = x_forwarded_for.split(",")[-1].strip()
+                print("HTTP_X_FORWARDED_FOR:", ip)
+            else:
+                ip = request.META.get("REMOTE_ADDR")
+                print("REMOTE_ADDR:", ip)
     except:
         ip = ""
         print("get_ip() failed")
