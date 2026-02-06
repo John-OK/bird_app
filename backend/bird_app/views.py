@@ -200,6 +200,26 @@ def find_birds(request, bird_name):
 def find_birds_post(request):
     search_type = request.data.get("search_type")
     term = request.data.get("term", "")
+    coords = request.data.get("coords")
+    if coords is None:
+        validated_coords = user_coords
+    elif (
+        not isinstance(coords, list)
+        or len(coords) != 2
+        or not isinstance(coords[0], (int, float))
+        or not isinstance(coords[1], (int, float))
+    ):
+        return JsonResponse(
+            {
+                "error": {
+                    "code": "invalid_coords",
+                    "message": "coords must be a list of two numbers [lat, lng]",
+                }
+            },
+            status=400,
+        )
+    else:
+        validated_coords = coords
 
     if not search_type:
         return JsonResponse(
@@ -215,10 +235,10 @@ def find_birds_post(request):
     print(
         f"received POST request to find birds. search_type={search_type} term='{term}'"
     )
-    print(f"user_coords: {user_coords}")
+    print(f"validated_coords: {validated_coords}")
 
     filtered_data = get_bird_data(
-        request, user_coords, term or "ALL", search_type=search_type
+        request, validated_coords, term or "ALL", search_type=search_type
     )
     return JsonResponse(filtered_data)
 
