@@ -10,7 +10,6 @@ import L from "leaflet";
 import userPin from "../assets/icons/icons8-pin-64.png";
 import crane from "../assets/icons/icons8-crane-bird-50.png";
 import binos from "../assets/icons/icons8-binoculars-80.png";
-import geoLocation from "../utils/geoLocation";
 import axios from "axios";
 
 const userIcon = new L.icon({
@@ -39,8 +38,6 @@ function BirdMap(props) {
   //     const ZOOM_LEVEL = 9;
   //     const mapRef = useRef();
   const IMAGE_SEARCH_URL = "https://search.brave.com/images?q=";
-
-  const location = geoLocation();
 
   const confirmBird = function (event) {
     event.preventDefault();
@@ -108,24 +105,13 @@ function BirdMap(props) {
           url={url}
         />
 
-        {location.loaded && !location.error ? (
-          <Marker
-            position={[location.coords.lat, location.coords.lng]}
-            icon={userIcon}
-          >
-            <Popup>
-              <h6>
-                Your location <br />
-              </h6>
-            </Popup>
-          </Marker>
-        ) : (
-          <Marker position={props.position} icon={binosIcon}>
-            <Popup>
-              <h5>Your estimated location</h5>
-            </Popup>
-          </Marker>
-        )}
+        <Marker position={props.position} icon={userIcon}>
+          <Popup>
+            <h6>
+              Your location <br />
+            </h6>
+          </Popup>
+        </Marker>
 
         {
           props.birdData && (

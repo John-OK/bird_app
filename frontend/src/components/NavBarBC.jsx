@@ -4,59 +4,11 @@ import { submitLogout } from "../utils/submitLogout.js";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import BirdMap from "./BirdMap.jsx";
-
-function normalizeTerm(term, searchType) {
-  let normalized = (term || "").trim();
-  normalized = normalized.replace(/[ʻ]/g, "");
-  normalized = normalized.replace(/[’‘ʼ]/g, "'");
-  normalized = normalized.replace(/[–—‑]/g, "-");
-  normalized = normalized.replace(/\s+/g, " ");
-
-  if (searchType === "common") {
-    normalized = normalized.replace(/\bsaint\b\.?/gi, "St.");
-    normalized = normalized.replace(/\bst\b\.?/gi, "St.");
-  }
-
-  return normalized;
-}
-
-function validateTerm(term, searchType) {
-  if (!term) {
-    if (
-      searchType === "common" ||
-      searchType === "genus" ||
-      searchType === "species"
-    ) {
-      return "Search term cannot be empty.";
-    }
-    return null;
-  }
-
-  if (searchType === "genus") {
-    if (!/^[A-Za-z]+$/.test(term)) {
-      return "Genus must contain only letters A-Z (no spaces or punctuation).";
-    }
-    return null;
-  }
-
-  if (searchType === "species") {
-    if (!/^[A-Za-z]+( [A-Za-z]+)?$/.test(term)) {
-      return "Species must be one or two words using only letters A-Z (e.g. 'subbuteo' or 'Falco subbuteo').";
-    }
-    return null;
-  }
-
-  if (searchType === "common") {
-    if (!/^[\p{L}\p{M} .\-']+$/u.test(term)) {
-      return "Search contains invalid characters. Allowed special characters are: -, ', .";
-    }
-  }
-
-  return null;
-}
+import { normalizeTerm, validateTerm } from "../utils/searchValidation.js";
+import useUserLocation from "../hooks/useUserLocation.js";
 
 function NavBarBC(props) {
-  const [position, setPosition] = useState(null);
+  const { position, isSearchEnabled, locationMessage } = useUserLocation();
   const [birdData, setBirdData] = useState(null);
   const [boxLimits, setBoxLimits] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -68,7 +20,6 @@ function NavBarBC(props) {
 
   useEffect(() => {
     props.whoAmI();
-    getUserLocation();
   }, []);
 
   const activeSearchType = commonName.trim()
@@ -90,55 +41,8 @@ function NavBarBC(props) {
 
   const normalizedTerm = normalizeTerm(rawTerm, activeSearchType);
   const liveValidationError = validateTerm(normalizedTerm, activeSearchType);
-  const isSubmitDisabled = Boolean(liveValidationError) || loading;
-
-  function geolocationSuccess(position) {
-    const coords = [position.coords.latitude, position.coords.longitude];
-    console.log("User location is (lat, long): " + coords);
-    const user_coords = { coords: coords };
-    setPosition(coords);
-    axios.post("/update_user_coords/", user_coords).then((response) => {
-      console.log(`update_user_coords response from server: ${response.data}`);
-    });
-  }
-
-  function geolocationError(error) {
-    if (error.code === 1) {
-      alert(
-        "Allow geolocation access for better results. Please check location permissions.",
-      );
-      alert("Falling back to coarse location method");
-      getUserLocationFallback();
-    } else {
-      alert("Cannot get your current position.");
-    }
-  }
-
-  function getUserLocation() {
-    navigator.geolocation.getCurrentPosition(
-      geolocationSuccess,
-      geolocationError,
-    );
-  }
-
-  function getUserLocationFallback() {
-    axios.get("/geolocate/").then((response) => {
-      try {
-        const coords = response.data.coords;
-        setPosition(coords);
-        console.log(response);
-        console.log("position[0]: ", position[0]);
-        if (position[0] === 37.16000000001) {
-          console.log("Abstract call failed. Lat: ", coords[0]);
-          alert(
-            "Could not locate your position. Please enable location on your device and allow location in your browser.",
-          );
-        }
-      } catch {
-        setPosition([37.746, -119.59]);
-      } // Yosemite Village
-    });
-  }
+  const isSubmitDisabled =
+    Boolean(liveValidationError) || loading || !isSearchEnabled;
 
   const checkBird = (event) => {
     event.preventDefault();
@@ -176,7 +80,7 @@ function NavBarBC(props) {
 
     console.log(`request to check. search_type=${search_type} term=${term}`);
     axios
-      .post("/find_birds/", { search_type, term })
+      .post("/find_birds/", { search_type, term, coords: position })
       .then((response) => {
         console.log("response follows:");
         console.log(response);
@@ -321,14 +225,12 @@ function NavBarBC(props) {
         </Navbar>
       </div>
       <div>
-        {position && (
-          <BirdMap
-            position={position}
-            birdData={birdData}
-            boxLimits={boxLimits}
-            user={props.user}
-          />
-        )}
+        <BirdMap
+          position={position || [12.5, 12.5]}
+          birdData={birdData}
+          boxLimits={boxLimits}
+          user={props.user}
+        />
       </div>
     </div>
   );
