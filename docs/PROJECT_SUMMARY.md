@@ -107,86 +107,94 @@ All work should be done in a short-lived branch off `main`:
 
 ### Next priorities (most impactful first)
 
-1. Map: intermittent search bounding box shifts west (In Progress)
-   - Symptom: after a search, the map’s blue bounding box (and/or results) intermittently appears shifted west of where it should be.
-   - Data flow / where this comes from:
-     - Frontend:
-       - `frontend/src/components/NavBarBC.jsx` `checkBird()` calls `POST /find_birds/` and stores `response.data.box_limits` in `boxLimits`.
-       - `frontend/src/components/BirdMap.jsx` renders `<Rectangle bounds={props.boxLimits} ... />`.
-     - Backend:
-       - `backend/bird_app/views.py` `find_birds_post()` calls `get_bird_data(...)`.
-       - `backend/bird_app/xeno_canto_processing.py` `get_bird_data()` computes `box_limits = [[min_lat, min_long], [max_lat, max_long]]` from `get_radius_limits()`.
-   - Useful existing debug output:
-     - `backend/bird_app/views.py` prints `user_coords` for each `/find_birds/` request.
-     - `backend/bird_app/xeno_canto_processing.py` prints `radius limits` and the `box string` it sends to Xeno-Canto.
-   - Leading hypotheses (to confirm/deny):
-     - Backend uses a process-wide global `user_coords` list that is updated by `POST /update_user_coords/`.
-       - Race: user searches before `/update_user_coords/` completes.
-       - Contention: another request overwrote `user_coords` (not per-user).
-     - Frontend fallbacks update UI `position`, but may not update backend `user_coords`.
-       - That means the UI `position` can diverge from backend `user_coords`, producing a “shifted” bounding box.
-     - Longitude math edge cases (dateline / sign issues) in `calc_coord_limits()` / `meridian_correction()`.
-   - Repro / investigation checklist:
-     - Hard refresh then immediately run a search (before the location update finishes).
-     - Deny geolocation permission and then search (forces the fallback path).
-     - Compare:
-       - Frontend `position` vs backend `user_coords` at the moment `find_birds_post()` runs.
-       - Backend-calculated `radius_limits` and emitted `box_limits`.
-     - If confirmed as a `user_coords`/race issue, likely fixes include:
-       - Send `coords` with the `/find_birds/` request (avoid global mutable server state).
-       - Disable search until location update has completed successfully.
-2. Geolocation fallback: IP geolocation fallback reliability (Abstract failures) + alternative provider
-   - When browser geolocation is denied, use IP-based geolocation reliably
-   - Investigate Abstract API failure (“max retries exceeded”) and switch provider if needed
-3. Auth modernization: replace login/signup pages with modal-based flow
+1. ✅ **RESOLVED:** Map: intermittent search bounding box shifts west
+   - **Solution implemented (PR1 + PR2):**
+     - Backend: `/find_birds/` now accepts `coords` in request body with validation (backward compatible)
+     - Frontend: Created `useUserLocation` hook for location state management
+     - Frontend: `checkBird()` now sends `coords` with every search request
+     - Frontend: Search disabled until location available
+     - Frontend: Extracted validation utilities to `searchValidation.js`
+   - **Result:** Bounding box now appears in correct location, no more westward shift
+   - **Remaining cleanup (PR5):** Remove backend global `user_coords` and `/update_user_coords/` endpoint
+
+2. Geolocation fallback: Fix IP geolocation fallback reliability (Abstract API failures)
+   - **Issue:** Abstract API returns "max retries exceeded" errors
+   - **Impact:** When browser geolocation denied, IP fallback fails, leaving users without location
+   - **Solution:** Investigate Abstract API issues and/or switch to alternative provider (ipapi.co, ip-api.com, etc.)
+   - **Priority:** High - affects users who deny browser location permission
+
+3. Map UX: Implement flyTo animation on location determination
+   - **Current behavior:** Map stays at initial `[12.5, 12.5]` view even after location determined
+   - **Desired behavior:**
+     - Initial state: Center `[12.5, 12.5]`, zoom level 2 (world view)
+     - After location success: Animate (`map.flyTo()`) to user location, zoom level 9 (shows search radius)
+   - **Implementation:** Add `useEffect` in `BirdMap.jsx` that watches `position` changes and triggers flyTo animation
+   - **Priority:** Medium - improves UX but not blocking functionality
+
+4. Backend cleanup: Remove deprecated location endpoints and global state
+   - Remove global `user_coords` variable from `backend/bird_app/views.py`
+   - Remove `/update_user_coords/` endpoint (no longer used by frontend)
+   - Make `/geolocate/` fully stateless (if not already)
+   - Update/remove related tests
+   - **Depends on:** PR2 merged and deployed
+   - **Priority:** Low - cleanup only, no functional impact
+
+5. Frontend cleanup: Standardize on fetch API (remove axios dependency)
+   - Replace all `axios` calls with native `fetch` API
+   - Remove `axios` from `package.json` dependencies
+   - Files to update: `NavBarBC.jsx`, `BirdMap.jsx`, `submitLogout.js`
+   - **Benefits:** Smaller bundle size, one less dependency, use web standard
+   - **Priority:** Low - cleanup only, no functional impact
+
+6. Auth modernization: replace login/signup pages with modal-based flow
    - Replace page navigation for login/signup with a more modern UX (e.g., modal)
-4. Saved birds: saved birds table styling improvements
+7. Saved birds: saved birds table styling improvements
    - Improve table styling (spacing, borders, alignment, responsive layout)
-5. Saved birds: delete individual saved bird record
+8. Saved birds: delete individual saved bird record
    - Add per-row delete button (delete individual saved bird record)
-6. Map: circular search radius visualization + filter results to circle
+9. Map: circular search radius visualization + filter results to circle
    - Make the search radius visualization circular (not rectangular)
    - Ensure only birds inside the search radius are displayed
-7. UI/UX: add a loading spinner during API calls
-   - Add loading indicators for long-running requests (search + saved birds)
-8. Deactivate “Confirm that bird” button after bird is confirmed
-   - Prevent double-click/double-save
-   - Replace with a clear “Saved” state (or disable with helper text)
-9. Indicate logged-in user's bird sightings and adjust UI elements to reflect this
-   - Visually differentiate “already saved” sightings from new sightings
-   - Ensure action buttons reflect current saved/unsaved state
-10. Map: cluster dense bird results on map
+10. UI/UX: add a loading spinner during API calls
+    - Add loading indicators for long-running requests (search + saved birds)
+11. Deactivate “Confirm that bird” button after bird is confirmed
+    - Prevent double-click/double-save
+    - Replace with a clear “Saved” state (or disable with helper text)
+12. Indicate logged-in user's bird sightings and adjust UI elements to reflect this
+    - Visually differentiate “already saved” sightings from new sightings
+    - Ensure action buttons reflect current saved/unsaved state
+13. Map: cluster dense bird results on map
     - Cluster dense results at lower zoom levels
     - Ensure popups and “confirm bird” behavior still work on clustered markers
-11. Search Results: results side panel (common + scientific name, quality, notes/type)
+14. Search Results: results side panel (common + scientific name, quality, notes/type)
     - Add a side panel list for results while keeping the map as the primary view
     - List items should show at least:
       - common name + scientific name
       - call quality
       - call notes/type
     - Clicking a list item should focus the corresponding marker (and/or open its popup)
-12. Map: hover map marker to preview popup
+15. Map: hover map marker to preview popup
     - Add hover-to-preview behavior (hover list item or map marker shows popup)
     - Mobile fallback: tap-to-preview
-13. Saved birds: add editable fields: scientific name + notes (+ optional metadata)
+16. Saved birds: add editable fields: scientific name + notes (+ optional metadata)
     - Store scientific name + notes for a saved bird
     - Allow editing existing saved bird records
-14. Auth modernization: security review: CSRF/session + rate limiting + password policy
+17. Auth modernization: security review: CSRF/session + rate limiting + password policy
     - Review CSRF + session cookie behavior in both dev (Vite proxy) and production (nginx + gunicorn)
     - Add rate limiting for login/signup endpoints
     - Confirm password policy requirements
-15. Auth modernization: evaluate SSO with strict privacy constraints
+18. Auth modernization: evaluate SSO with strict privacy constraints
     - Keep the “no trackers / no privacy regression” constraint explicit in the implementation approach
-16. Search center: explicit “set search center” UX
+19. Search center: explicit “set search center” UX
     - Allow the user to set a new search center (click-to-set and/or “use map center” button)
     - Ensure panning/zooming does not automatically change the search center without explicit action
     - If location cannot be determined, provide a way for the user to pick a location
-17. Auth modernization: improve form validation and error handling
+20. Auth modernization: improve form validation and error handling
     - Improve client-side validation (fast feedback)
     - Improve server error display (clear, user-friendly messaging)
-18. Saved birds: clarify save behavior and messaging (e.g., “Saving bird at your current location.”)
+21. Saved birds: clarify save behavior and messaging (e.g., “Saving bird at your current location.”)
     - Consider showing the saved timestamp + coordinates in the UI as confirmation
-19. Saved birds: consider “quick save” vs “custom save” flow
+22. Saved birds: consider “quick save” vs “custom save” flow
     - Decide whether “quick save” is the default path, with “edit details” as an optional follow-up
 
 ### Later (backlog ideas)
