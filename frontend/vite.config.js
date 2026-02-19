@@ -38,10 +38,6 @@ export default defineConfig(({ command }) => {
           target: "http://127.0.0.1:8000",
           changeOrigin: false,
         },
-        "/update_user_coords/": {
-          target: "http://127.0.0.1:8000",
-          changeOrigin: false,
-        },
         "/find_birds/": {
           target: "http://127.0.0.1:8000",
           changeOrigin: false,
