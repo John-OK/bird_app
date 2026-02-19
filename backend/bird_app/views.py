@@ -1,7 +1,7 @@
-from django.shortcuts import render
-from django.http import HttpResponse, JsonResponse, HttpRequest
+from django.http import HttpResponse, JsonResponse
 from django.contrib.auth import authenticate, login, logout
 from django.core import serializers
+from django.core.cache import cache
 from rest_framework.decorators import api_view
 from django.views.decorators.csrf import csrf_exempt
 from .models import User, Bird
@@ -11,6 +11,10 @@ import json
 from .xeno_canto_processing import get_bird_data
 import os
 from dotenv import load_dotenv
+
+# Default coordinates for legacy find_birds GET endpoint
+# TODO: Refactor find_birds() to require coords parameter
+DEFAULT_COORDS = [37.16, -4.15]
 
 load_dotenv()
 
@@ -38,19 +42,70 @@ def get_ip(request):
     return ip
 
 
-# default user_coords
-user_coords = [37.16, -4.15]
+def try_iplocate(ip):
+    """
+    Try to get coordinates from IPLocate.io API.
+    Returns (latitude, longitude) tuple.
+    Raises exception on failure.
+    """
+    endpoint = f"https://www.iplocate.io/api/lookup/{ip}?apikey={os.environ['IPLOCATE_API_KEY']}"
+    response = HTTP_Client.get(endpoint)
+    data = response.json()
+
+    lat = data["latitude"]
+    lng = data["longitude"]
+
+    if lat is None or lng is None:
+        raise ValueError("IPLocate.io returned null coordinates")
+
+    return (float(lat), float(lng))
 
 
-@api_view(["POST"])
-def update_user_coords(request):
-    user_coords[0] = request.data["coords"][0]
-    user_coords[1] = request.data["coords"][1]
+def try_ipgeolocation(ip):
+    """
+    Try to get coordinates from ipgeolocation.io API.
+    Returns (latitude, longitude) tuple.
+    Raises exception on failure.
+    """
+    endpoint = f"https://api.ipgeolocation.io/ipgeo?apiKey={os.environ['IPGEOLOCATION_API_KEY']}&ip={ip}"
 
-    return HttpResponse("user coordinates updated in server")
+    response = HTTP_Client.get(endpoint)
+    data = response.json()
+
+    lat = data["latitude"]
+    lng = data["longitude"]
+
+    if lat is None or lng is None:
+        raise ValueError("ipgeolocation.io returned null coordinates")
+
+    return (float(lat), float(lng))
+
+
+def try_abstract(ip):
+    """
+    Try to get coordinates from Abstract API.
+    Returns (latitude, longitude) tuple.
+    Raises exception on failure.
+    """
+    endpoint = f"https://ip-intelligence.abstractapi.com/v1/?api_key={os.environ['ABSTRACT_API_KEY']}&ip_address={ip}"
+    response = HTTP_Client.get(endpoint)
+    data = response.json()
+
+    lat = data["location"]["latitude"]
+    lng = data["location"]["longitude"]
+
+    if lat is None or lng is None:
+        raise ValueError("Abstract API returned null coordinates")
+
+    return (float(lat), float(lng))
 
 
 def geolocate(request):
+    """
+    Get user's geolocation from IP address with fallback cascade.
+    Tries IPLocate.io -> ipgeolocation.io -> Abstract API.
+    Rate limited to 20 requests per minute per IP.
+    """
     if os.environ["env"] == "prod":
         ip = get_ip(request)
     else:
@@ -65,30 +120,46 @@ def geolocate(request):
         # ip = "177.54.148.247" # Windscribe SP, Brasil (Pinacoteca)
         # ip = "177.67.80.59" # Windscribe SP, Brasil (Mercadao)
 
-    print(f"***** IP ADDRESS TO USE FOR GEOLOCATION: {ip} *****")
+    cache_key = f"geolocation_ratelimit_{ip}"
+    request_count = cache.get(cache_key, 0)
 
-    endpoint = f"https://ipgeolocation.abstractapi.com/v1/?api_key={os.environ['ABSTRACT_API_KEY']}&ip_address={ip}"
+    if request_count >= 20:
+        return JsonResponse(
+            {"error": "Rate limit exceeded. Please try again later."}, status=429
+        )
 
-    # API call to Abstract to get coordinates of user's IP
-    API_response = HTTP_Client.get(endpoint)
-    responseJSON = API_response.json()  # gets the JSON portion of the response
-    # status_code = API_response.status_code # use to check status code and behave appropriately (i.e., respond to errors) TODO: implement this
+    cache.set(cache_key, request_count + 1, timeout=600)
 
-    # update user_coords with lat/lng obtained from user's IP
-    lat = responseJSON["latitude"]
-    print("lat:", lat)
+    lat = None
+    lng = None
 
-    if lat == None:
-        user_coords[0] = 37.16000000001
-        user_coords[1] = -4.15
-        return JsonResponse({"coords": user_coords})
+    # Try IPLocate.io (primary)
+    try:
+        lat, lng = try_iplocate(ip)
+        print(f"✓ IPLocate.io succeeded: {lat}, {lng}")
+    except Exception as e:
+        print(f"✗ IPLocate.io failed: {e}")
 
-    user_coords[0] = lat
-    lng = responseJSON["longitude"]
-    user_coords[1] = lng
-    print("user_coords:", user_coords)
+        # Try ipgeolocation.io (fallback 1)
+        try:
+            lat, lng = try_ipgeolocation(ip)
+            print(f"✓ ipgeolocation.io succeeded: {lat}, {lng}")
+        except Exception as e:
+            print(f"✗ ipgeolocation.io failed: {e}")
 
-    return JsonResponse({"coords": user_coords})
+            # Try Abstract API (fallback 2)
+            try:
+                lat, lng = try_abstract(ip)
+                print(f"✓ Abstract API succeeded: {lat}, {lng}")
+            except Exception as e:
+                print(f"✗ Abstract API failed: {e}")
+
+                return JsonResponse(
+                    {"error": "Unable to determine location from IP address"},
+                    status=500,
+                )
+
+    return JsonResponse({"coords": [lat, lng]})
 
 
 def send_the_homepage(request):
@@ -189,10 +260,10 @@ def who_am_i(request):
 
 def find_birds(request, bird_name):
     print(f"received request to get data on '{bird_name}' from xeno-canto.")
-    print(f"user_coords: {user_coords}")
+    print(f"user_coords: {DEFAULT_COORDS}")
 
     # call to get_bird_data in xeno_canto_processing module
-    filtered_data = get_bird_data(request, user_coords, bird_name)
+    filtered_data = get_bird_data(request, DEFAULT_COORDS, bird_name)
     return JsonResponse(filtered_data)
 
 
@@ -202,7 +273,15 @@ def find_birds_post(request):
     term = request.data.get("term", "")
     coords = request.data.get("coords")
     if coords is None:
-        validated_coords = user_coords
+        return JsonResponse(
+            {
+                "error": {
+                    "code": "missing_parameter",
+                    "message": "coords is required",
+                }
+            },
+            status=400,
+        )
     elif (
         not isinstance(coords, list)
         or len(coords) != 2
