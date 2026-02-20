@@ -1,16 +1,16 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import {
   MapContainer,
   TileLayer,
   Popup,
   Marker,
   Rectangle,
+  useMap,
 } from "react-leaflet";
 import L from "leaflet";
 import userPin from "../assets/icons/icons8-pin-64.png";
 import crane from "../assets/icons/icons8-crane-bird-50.png";
 import binos from "../assets/icons/icons8-binoculars-80.png";
-import geoLocation from "../utils/geoLocation";
 import axios from "axios";
 
 const userIcon = new L.icon({
@@ -35,12 +35,7 @@ const binosIcon = new L.icon({
 });
 
 function BirdMap(props) {
-  //     const [center, setCenter] = useState({ lat: 39.240, lng: -5.740});
-  //     const ZOOM_LEVEL = 9;
-  //     const mapRef = useRef();
   const IMAGE_SEARCH_URL = "https://search.brave.com/images?q=";
-
-  const location = geoLocation();
 
   const confirmBird = function (event) {
     event.preventDefault();
@@ -64,24 +59,6 @@ function BirdMap(props) {
     });
   };
 
-  // const handleFlyTo = () => {
-  //     console.log('Fly To')
-  //     const { current = {} } = mapRef;
-  //     const { leafletElement: map } = current;
-  //     map.setView([0, 0])
-  // }
-
-  // const showLocation = () => {
-  //     if( location.loaded && !location.error ) {
-  //         mapRef.current.leafletElement.flyTo(
-  //             [location.coords.lat, location.coords.lng],
-  //             zoom=9,
-  //             {animate: true})
-  //     }else{
-  //         alert(location.error.message)
-  //     }
-  // }
-
   const url = `https://tile.openstreetmap.org/{z}/{x}/{y}.png`;
   // `https://{s}.tile.thunderforest.com/cycle/{z}/{x}/{y}.png?apikey=${import.meta.env.VITE_THUNDER_FOREST_API_KEY}`
   // `https://{s}.tile.thunderforest.com/transport/{z}/{x}/{y}.png?apikey=${import.meta.env.VITE_THUNDER_FOREST_API_KEY}`
@@ -95,37 +72,47 @@ function BirdMap(props) {
   // `https://{s}.tile.thunderforest.com/atlas/{z}/{x}/{y}.png?apikey=${import.meta.env.VITE_THUNDER_FOREST_API_KEY}`
   // `https://basemap.nationalmap.gov/arcgis/rest/services/USGSTopo/MapServer/tile/{z}/{y}/{x}`
 
+  function FlyToLocation({ position }) {
+    const map = useMap();
+    const hasFlownTo = useRef(false);
+
+    useEffect(() => {
+      // Only fly to position if it's not the default fallback [12.5, 12.5]
+      const isDefaultPosition =
+        position && position[0] === 12.5 && position[1] === 12.5;
+
+      if (position && !hasFlownTo.current && !isDefaultPosition) {
+        map.flyTo(position, 9, {
+          animate: true,
+          duration: 1.5,
+        });
+        hasFlownTo.current = true;
+      }
+    }, [position, map]);
+
+    return null;
+  }
+
   return (
     <div>
-      <MapContainer
-        className="map"
-        center={props.position}
-        zoom={9} // Zoom level 9 encompasses 100 km radius @ 890px height
-        //style in css
-      >
+      <MapContainer className="map" center={[12.5, 12.5]} zoom={3}>
+        <FlyToLocation position={props.position} />
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url={url}
         />
 
-        {location.loaded && !location.error ? (
-          <Marker
-            position={[location.coords.lat, location.coords.lng]}
-            icon={userIcon}
-          >
-            <Popup>
-              <h6>
-                Your location <br />
-              </h6>
-            </Popup>
-          </Marker>
-        ) : (
-          <Marker position={props.position} icon={binosIcon}>
-            <Popup>
-              <h5>Your estimated location</h5>
-            </Popup>
-          </Marker>
-        )}
+        {/* Only show user marker when we have a real position (not default fallback) */}
+        {props.position &&
+          !(props.position[0] === 12.5 && props.position[1] === 12.5) && (
+            <Marker position={props.position} icon={userIcon}>
+              <Popup>
+                <h6>
+                  Your location <br />
+                </h6>
+              </Popup>
+            </Marker>
+          )}
 
         {
           props.birdData && (

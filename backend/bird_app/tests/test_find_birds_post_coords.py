@@ -27,16 +27,8 @@ def test_find_birds_post_uses_request_coords_when_provided(monkeypatch):
     assert called["user_coords"] == expected_coords
 
 
-def test_find_birds_post_uses_views_global_user_coords_when_not_provided(monkeypatch):
+def test_find_birds_post_returns_400_when_coords_not_provided():
     client = APIClient()
-    expected_coords = views.user_coords
-    called = {}
-
-    def stub_get_bird_data(request, user_coords, bird_name, search_type=None):
-        called["user_coords"] = user_coords
-        return {"ok": True}
-
-    monkeypatch.setattr(views, "get_bird_data", stub_get_bird_data)
 
     response = client.post(
         "/find_birds/",
@@ -47,8 +39,10 @@ def test_find_birds_post_uses_views_global_user_coords_when_not_provided(monkeyp
         format="json",
     )
 
-    assert response.status_code == 200
-    assert called["user_coords"] == expected_coords
+    assert response.status_code == 400
+    assert "error" in response.json()
+    assert response.json()["error"]["code"] == "missing_parameter"
+    assert "coords is required" in response.json()["error"]["message"]
 
 
 def test_find_birds_post_returns_400_when_coords_is_empty_list():
