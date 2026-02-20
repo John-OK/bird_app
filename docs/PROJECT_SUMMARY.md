@@ -129,17 +129,19 @@ All work should be done in a short-lived branch off `main`:
      - Backend: Created `DEFAULT_COORDS` constant for legacy `find_birds()` GET endpoint
      - Tests: Added comprehensive test suite (`test_geolocate.py`) with 5 tests covering fallback cascade and rate limiting
      - Tests: Updated `test_find_birds_post_coords.py` to expect 400 error when coords not provided
-     - Docs: Created `MOCKING_GUIDE.md` explaining Python mocking with `unittest.mock` and `pytest`
    - **Result:** Reliable IP geolocation with automatic failover, no race conditions
    - **Note:** Production `.env` updated with `IPLOCATE_API_KEY` and `IPGEOLOCATION_API_KEY`
 
-3. Map UX: Implement flyTo animation on location determination
-   - **Current behavior:** Map stays at initial `[12.5, 12.5]` view even after location determined
-   - **Desired behavior:**
-     - Initial state: Center `[12.5, 12.5]`, zoom level 2 (world view)
-     - After location success: Animate (`map.flyTo()`) to user location, zoom level 9 (shows search radius)
-   - **Implementation:** Add `useEffect` in `BirdMap.jsx` that watches `position` changes and triggers flyTo animation
-   - **Priority:** Medium - improves UX but not blocking functionality
+3. ✅ **RESOLVED:** Map UX: Implement flyTo animation on location determination
+   - **Solution implemented (PR: feat/map-flyto-animation):**
+     - Frontend: Created `FlyToLocation` component using `useMap()` hook
+     - Frontend: Map initializes at zoom level 3, center `[12.5, 12.5]`
+     - Frontend: `FlyToLocation` watches `position` changes and triggers smooth `flyTo` animation
+     - Frontend: Animation only triggers once when real position is determined (ignores default fallback `[12.5, 12.5]`)
+     - Frontend: User location marker only appears after real position is determined
+     - Frontend: Uses `useRef` to prevent multiple animations
+     - Animation: 1.5 second duration, flies from initial view to user location at zoom level 9
+   - **Result:** Smooth, professional map animation on location determination, improved UX
 
 4. Frontend cleanup: Standardize on fetch API (remove axios dependency)
    - Replace all `axios` calls with native `fetch` API
