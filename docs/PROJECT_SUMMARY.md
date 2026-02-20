@@ -142,6 +142,14 @@ All work should be done in a short-lived branch off `main`:
      - Frontend: Uses `useRef` to prevent multiple animations
      - Animation: 1.5 second duration, flies from initial view to user location at zoom level 9
    - **Result:** Smooth, professional map animation on location determination, improved UX
+   - **HOTFIX (production bug):**
+     - **Bug:** IP geolocation fallback caused white screen crash with "Invalid LatLng object: (undefined, undefined)"
+     - **Root cause:** Backend returns `{coords: [lat, lng]}` but frontend was accessing `data.latitude` and `data.longitude`, resulting in `undefined` coordinates
+     - **Additional issue:** React StrictMode caused `useEffect` to run twice, triggering both success and error callbacks, with IP fallback overwriting browser geolocation
+     - **Fix 1:** Updated `useUserLocation.js` to parse `data.coords` array instead of `data.latitude/longitude`
+     - **Fix 2:** Added `useRef` to track if browser geolocation succeeded, preventing IP fallback from overwriting precise location
+     - **Files changed:** `frontend/src/hooks/useUserLocation.js`
+     - **Result:** IP geolocation fallback works correctly, browser geolocation takes precedence when available
 
 4. Frontend cleanup: Standardize on fetch API (remove axios dependency)
    - Replace all `axios` calls with native `fetch` API
