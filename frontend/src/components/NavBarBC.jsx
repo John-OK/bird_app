@@ -10,7 +10,7 @@ import useUserLocation from "../hooks/useUserLocation.js";
 function NavBarBC(props) {
   const { position, isSearchEnabled, locationMessage } = useUserLocation();
   const [birdData, setBirdData] = useState(null);
-  const [boxLimits, setBoxLimits] = useState(null);
+  const [radius, setRadius] = useState(null);
   const [loading, setLoading] = useState(false);
   const [commonName, setCommonName] = useState("");
   const [genus, setGenus] = useState("");
@@ -93,7 +93,7 @@ function NavBarBC(props) {
         }
         const nearbyBirds = response.data.filtered_data.filtered_birds;
         setBirdData(nearbyBirds);
-        setBoxLimits(response.data.box_limits);
+        setRadius(response.data.radius);
         if (nearbyBirds.length === 0) {
           setSearchStatus("No recordings found in your area.");
         } else {
@@ -228,7 +228,7 @@ function NavBarBC(props) {
         <BirdMap
           position={position || [12.5, 12.5]}
           birdData={birdData}
-          boxLimits={boxLimits}
+          radius={radius}
           user={props.user}
         />
       </div>

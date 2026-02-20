@@ -4,7 +4,7 @@ import {
   TileLayer,
   Popup,
   Marker,
-  Rectangle,
+  Circle,
   useMap,
 } from "react-leaflet";
 import L from "leaflet";
@@ -114,16 +114,14 @@ function BirdMap(props) {
             </Marker>
           )}
 
-        {
-          props.birdData && (
-            <Rectangle
-              bounds={props.boxLimits}
-              pathOptions={{ fillColor: "blue", fillOpacity: 0.125 }}
-              weight={0.3}
-            />
-          )
-          // {/* <Circle center={props.position} radius={100000} /> */}
-        }
+        {props.birdData && (
+          <Circle
+            center={props.position}
+            radius={100000}
+            pathOptions={{ fillColor: "blue", fillOpacity: 0.125 }}
+            weight={0.3}
+          />
+        )}
 
         {props.birdData &&
           props.birdData.map((bird) => {

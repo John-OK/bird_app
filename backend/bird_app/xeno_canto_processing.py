@@ -1,7 +1,6 @@
 import requests as HTTP_Client
 from django.http import JsonResponse
-from .sphere_math import distance_on_unit_sphere as degree_to_km
-import json
+from .sphere_math import distance_on_unit_sphere
 import pprint
 import os
 import re
@@ -123,7 +122,7 @@ def get_radius_limits(coords, radius=100):
         long2 = long1 + 1
 
     # Number of kms in 1 degree of longitude at user's latitude
-    kms_per_deg_long = degree_to_km(lat, long1, lat, long2)
+    kms_per_deg_long = distance_on_unit_sphere(lat, long1, lat, long2)
 
     # Avoid divide by zero errors when user at 90 degrees latitude (0 km/deg)
     if kms_per_deg_long < 0.02:
@@ -134,44 +133,47 @@ def get_radius_limits(coords, radius=100):
     return radius_limits
 
 
-# Can filter through API. Keep this code to use if API filtering is poor
-# # Filter for birds within set radius (default 100 kms) of user
-# def get_birds_within_radius(user_coords, records):
-#     radius_limits = get_radius_limits(user_coords)
-#     min_lat = radius_limits['min_lat']
-#     max_lat = radius_limits['max_lat']
-#     min_long = radius_limits['min_long']
-#     max_long = radius_limits['max_long']
+def filter_by_circular_distance(birds, user_coords, radius_km):
+    """
+    Filter birds to only include those within radius_km of user_coords.
 
-#     birds_in_radius = []
+    Args:
+        birds: List of bird recording dictionaries from Xeno-Canto API
+        user_coords: [lat, lng] of user's location
+        radius_km: Maximum distance in kilometers
 
-#     # pp.pprint(records)
-#     for record in records:
-#         # if record's lat and lng are not null, check if bird within radius
-#         if record['lat'] and record['lng'] and (
-#             float(record['lat']) >= min_lat
-#             and float(record['lat']) <= max_lat
-#             and float(record['lng']) >= min_long
-#             and float(record['lng']) <= max_long
-#             ):
-#             birds_in_radius.append([record['lat'], record['lng']])
-#     return birds_in_radius
+    Returns:
+        List of birds within the circular radius
+    """
+    user_lat = user_coords[0]
+    user_lng = user_coords[1]
 
+    filtered_birds = []
 
-# Filter birds: keep for further filtering in future
-def filter_bird_data(data):
-    records = data["recordings"]
+    for bird in birds:
+        if not bird.get("lat") or not bird.get("lon"):
+            continue
+        try:
+            bird_lat = float(bird["lat"])
+            bird_lng = float(bird["lon"])
+        except (ValueError, TypeError):
+            continue
 
-    ## Unnecessary if using API's box filtering
-    # birds_in_radius = get_birds_within_radius(user_coords, records)
-    # print(f"birds in radius: {birds_in_radius}")
+        distance = distance_on_unit_sphere(
+            user_lat, user_lng, bird_lat, bird_lng, units="km"
+        )
 
-    return {"filtered_birds": records}
+        if distance <= radius_km:
+            filtered_birds.append(bird)
+
+    return filtered_birds
 
 
 def get_bird_data(request, user_coords, bird_name, search_type=None):
+    RADIUS_KM = 100
+
     # Get limits of radius around user
-    radius_limits = get_radius_limits(user_coords)
+    radius_limits = get_radius_limits(user_coords, radius=RADIUS_KM)
     print(f"radius limits: {radius_limits}")
 
     # Write box query string conforming to xeno-canto's requirements
@@ -250,10 +252,11 @@ def get_bird_data(request, user_coords, bird_name, search_type=None):
         f"request returned {num_recordings} recordings of {num_species} different species"
     )
 
-    # save data for future use
-    # with open(f'bird_data_{bird_name}.json', 'w') as f:
-    #     json.dump(responseJSON, f, indent=2)
-    #     print('file saved')
+    birds_in_circle = filter_by_circular_distance(
+        responseJSON["recordings"], user_coords, RADIUS_KM
+    )
 
-    filtered_data = filter_bird_data(responseJSON)
-    return {"filtered_data": filtered_data, "box_limits": box_limits}
+    return {
+        "filtered_data": {"filtered_birds": birds_in_circle},
+        "radius": RADIUS_KM * 1000,
+    }
