@@ -164,9 +164,20 @@ All work should be done in a short-lived branch off `main`:
    - Improve table styling (spacing, borders, alignment, responsive layout)
 7. Saved birds: delete individual saved bird record
    - Add per-row delete button (delete individual saved bird record)
-8. Map: circular search radius visualization + filter results to circle
-   - Make the search radius visualization circular (not rectangular)
-   - Ensure only birds inside the search radius are displayed
+8. ✅ **RESOLVED:** Map: circular search radius visualization + filter results to circle
+   - **Solution implemented (PR: feat/circular-search-radius):**
+     - Frontend: Replaced `Rectangle` with `Circle` component in `BirdMap.jsx`
+     - Frontend: Updated `NavBarBC.jsx` to handle `radius` prop instead of `boxLimits`
+     - Frontend: Circle displays at 100km radius (100000 meters) centered on user location
+     - Backend: Added `filter_by_circular_distance()` function in `xeno_canto_processing.py`
+     - Backend: Filters birds by great circle distance using `distance_on_unit_sphere()`
+     - Backend: Two-stage filtering: box query to Xeno-Canto API (required), then circular distance filter
+     - Backend: Handles missing/invalid bird coordinates gracefully
+     - Backend: Returns `radius` in meters for frontend Circle component
+     - Backend: Removed unused `filter_bird_data()` function (YAGNI)
+     - Backend: Fixed coordinate key names (`"lon"` not `"lng"` per Xeno-Canto API)
+     - Backend: Cleaned up imports (removed alias, use `distance_on_unit_sphere` directly)
+   - **Result:** Professional circular radius visualization, accurate distance-based filtering, improved UX
 9. UI/UX: add a loading spinner during API calls
    - Add loading indicators for long-running requests (search + saved birds)
 10. Deactivate “Confirm that bird” button after bird is confirmed
