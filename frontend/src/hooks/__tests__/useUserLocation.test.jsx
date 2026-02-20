@@ -74,8 +74,7 @@ describe("useUserLocation", () => {
         ok: true,
         json: () =>
           Promise.resolve({
-            latitude: 37.7749,
-            longitude: -122.4194,
+            coords: [37.7749, -122.4194],
           }),
       }),
     );
