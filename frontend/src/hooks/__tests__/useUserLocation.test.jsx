@@ -2,8 +2,17 @@ import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 import { renderHook, waitFor } from "@testing-library/react";
 import useUserLocation from "../useUserLocation";
 
+vi.mock("axios", () => ({
+  default: {
+    get: vi.fn(),
+  },
+}));
+
+import axios from "axios";
+
 beforeEach(() => {
   vi.clearAllMocks();
+  axios.get.mockClear();
 
   vi.stubGlobal("navigator", {
     geolocation: {
@@ -69,15 +78,11 @@ describe("useUserLocation", () => {
       },
     });
 
-    global.fetch = vi.fn(() =>
-      Promise.resolve({
-        ok: true,
-        json: () =>
-          Promise.resolve({
-            coords: [37.7749, -122.4194],
-          }),
-      }),
-    );
+    axios.get.mockResolvedValueOnce({
+      data: {
+        coords: [37.7749, -122.4194],
+      },
+    });
 
     const { result } = renderHook(() => useUserLocation());
 
@@ -89,7 +94,7 @@ describe("useUserLocation", () => {
     expect(result.current.locationStatus).toBe("success");
     expect(result.current.isSearchEnabled).toBe(true);
     expect(mockGetPosition).toHaveBeenCalledTimes(1);
-    expect(global.fetch).toHaveBeenCalledWith("/geolocate/");
+    expect(axios.get).toHaveBeenCalledWith("/geolocate/");
   });
 
   it("sets error state when both browser and IP geolocation fail", async () => {
@@ -106,7 +111,7 @@ describe("useUserLocation", () => {
       },
     });
 
-    global.fetch = vi.fn(() => Promise.reject(new Error("Network error")));
+    axios.get.mockRejectedValueOnce(new Error("Network error"));
 
     const { result } = renderHook(() => useUserLocation());
 

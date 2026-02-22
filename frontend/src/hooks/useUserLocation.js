@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import axios from "axios";
 
 function useUserLocation() {
   const [position, setPosition] = useState(null);
@@ -23,11 +24,11 @@ function useUserLocation() {
         console.error("Geolocation error:", error);
 
         if (!hasPosition.current) {
-          fetch("/geolocate/")
-            .then((response) => response.json())
-            .then((data) => {
-              if (data.coords && data.coords.length === 2) {
-                setPosition(data.coords);
+          axios
+            .get("/geolocate/")
+            .then((response) => {
+              if (response.data.coords && response.data.coords.length === 2) {
+                setPosition(response.data.coords);
                 setPositionSource("coarse");
                 setLocationStatus("success");
                 setLocationMessage("Location determined via IP");
