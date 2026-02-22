@@ -151,12 +151,18 @@ All work should be done in a short-lived branch off `main`:
      - **Files changed:** `frontend/src/hooks/useUserLocation.js`
      - **Result:** IP geolocation fallback works correctly, browser geolocation takes precedence when available
 
-4. Frontend cleanup: Standardize on fetch API (remove axios dependency)
-   - Replace all `axios` calls with native `fetch` API
-   - Remove `axios` from `package.json` dependencies
-   - Files to update: `NavBarBC.jsx`, `BirdMap.jsx`, `submitLogout.js`
-   - **Benefits:** Smaller bundle size, one less dependency, use web standard
-   - **Priority:** Low - cleanup only, no functional impact
+4. ✅ **RESOLVED:** Frontend cleanup: Standardize on Axios (convert fetch to axios)
+   - **Decision:** Keep Axios as the standard HTTP client library
+   - **Rationale:**
+     - Axios handles Django CSRF tokens automatically via global config
+     - Better error handling (rejects on HTTP errors, fetch does not)
+     - Automatic JSON transformation (no manual `.json()` calls)
+     - Cleaner, more maintainable code
+     - Bundle size impact negligible (~15.4 KB gzipped, 6% of React-DOM)
+     - Switching to fetch would require 2-3 hours with high risk, zero user benefit
+   - **Action taken:** Convert `useUserLocation.js` from fetch to axios for consistency
+   - **Files changed:** `frontend/src/hooks/useUserLocation.js`, `frontend/src/hooks/__tests__/useUserLocation.test.jsx`
+   - **Result:** All HTTP requests now use Axios consistently across the codebase
 
 5. Auth modernization: replace login/signup pages with modal-based flow
    - Replace page navigation for login/signup with a more modern UX (e.g., modal)
