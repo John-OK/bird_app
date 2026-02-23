@@ -54,6 +54,10 @@ export default defineConfig(({ command }) => {
           target: "http://127.0.0.1:8000",
           changeOrigin: false,
         },
+        "/delete_bird/": {
+          target: "http://127.0.0.1:8000",
+          changeOrigin: false,
+        },
       },
     },
     plugins: [react()],
