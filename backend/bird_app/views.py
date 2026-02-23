@@ -384,3 +384,15 @@ def delete_birds(request):
     except:
         return JsonResponse({"message": "FAILED"})
     return JsonResponse({"message": "BIRDS DELETED"})
+
+
+@api_view(["DELETE"])
+def delete_bird(request, bird_id):
+    try:
+        bird = Bird.objects.get(id=bird_id, user=request.user)
+        bird.delete()
+        return JsonResponse({"message": "BIRD DELETED"})
+    except Bird.DoesNotExist:
+        return JsonResponse({"error": "Bird not found"}, status=404)
+    except Exception as e:
+        return JsonResponse({"error": str(e)}, status=500)
