@@ -121,6 +121,47 @@ npm install
 npm run build
 ```
 
+# Environment Variables
+
+HelloBirdie requires API keys for various services. You'll need to create `.env` files in both the backend and frontend directories.
+
+## Backend Environment Variables
+
+1. Copy the example file:
+
+```bash
+cp backend/.env.example backend/.env
+```
+
+2. Edit `backend/.env` and replace the placeholder values with your actual API keys:
+
+- `env` - Set to `"dev"` for local development or `"prod"` for production
+- `IPLOCATE_API_KEY` - Sign up at [iplocate.io](https://www.iplocate.io/)
+- `IPGEOLOCATION_API_KEY` - Sign up at [ipgeolocation.io](https://ipgeolocation.io/)
+- `ABSTRACT_API_KEY` - Sign up at [abstractapi.com](https://www.abstractapi.com/)
+- `XC_API_KEY` - (Optional) Sign up at [xeno-canto.org](https://xeno-canto.org/)
+
+## Frontend Environment Variables
+
+1. Copy the example file:
+
+```bash
+cp frontend/.env.example frontend/.env
+```
+
+2. Edit `frontend/.env` and add your Thunder Forest API key:
+
+- `VITE_THUNDER_FOREST_API_KEY` - Sign up at [thunderforest.com](https://www.thunderforest.com/)
+  - **Important:** Configure domain restrictions in your Thunder Forest dashboard to limit key usage to your domain
+  - Note: This key will be visible in the browser, so domain restrictions are essential for security
+
+## Security Notes
+
+- **NEVER commit `.env` files to git** - they contain secrets
+- The `.gitignore` file is configured to exclude `.env` files
+- Always use `.env.example` files as templates (with placeholder values, not real keys)
+- Rotate API keys immediately if you suspect they've been exposed
+
 # Future Features
 
 - Web App
