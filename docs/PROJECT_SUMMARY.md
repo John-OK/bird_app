@@ -237,8 +237,13 @@ All work should be done in a short-lived branch off `main`:
 - Allow only necessary external resources (maps, APIs, CDNs)
 - Test CSP doesn't break functionality
 - Add CSP violation reporting endpoint
+- **Configure Thunder Forest API key domain restrictions:**
+  - Log into Thunder Forest dashboard
+  - Add domain restriction to API key (e.g., `hellobirdie.com`, `*.hellobirdie.com`)
+  - Test that key works from your domain but not from other domains
+  - Document the restriction in frontend/.env.example
 
-**Rationale:** Protect against XSS and injection attacks across entire application
+**Rationale:** Protect against XSS and injection attacks across entire application. Domain restrictions prevent API key abuse if exposed in browser.
 
 **Note:** This is application-wide security, not covered by Auth overhaul.
 
