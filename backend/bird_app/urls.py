@@ -1,5 +1,6 @@
 from django.urls import path
 from . import views
+from bird_app.views_csp import csp_violation_report
 
 urlpatterns = [
     path("", views.send_the_homepage),
@@ -14,4 +15,5 @@ urlpatterns = [
     path("get_users_birds/", views.get_users_birds),
     path("delete_birds/", views.delete_birds),
     path("delete_bird/<int:bird_id>/", views.delete_bird),
+    path("csp-violation-report/", csp_violation_report, name="csp_violation_report"),
 ]
