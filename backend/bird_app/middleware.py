@@ -49,7 +49,7 @@ class CSPMiddleware:
                 "'self'",
                 "https://tile.openstreetmap.org",
                 "https://*.tile.thunderforest.com",
-                "data",
+                "data:",
             ],
             "connect-src": [
                 "'self'",
@@ -59,7 +59,11 @@ class CSPMiddleware:
                 "https://ip-intelligence.abstractapi.com",
             ],
             "font-src": ["'self'"],
-            "frame-src": ["'none"],
+            "media-src": [
+                "'self'",
+                "https://xeno-canto.org",
+            ],
+            "frame-src": ["'none'"],
             "object-src": ["'none'"],
             "base-uri": ["'self'"],
             "form-action": ["'self'"],
