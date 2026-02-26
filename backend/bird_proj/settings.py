@@ -63,6 +63,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "bird_app.middleware.CSPMiddleware",
 ]
 
 ROOT_URLCONF = "bird_proj.urls"
