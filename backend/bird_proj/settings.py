@@ -77,6 +77,9 @@ MIDDLEWARE = [
     "bird_app.middleware.CSPMiddleware",
 ]
 
+# Referrer Policy - Allow referer for external resources like OpenStreetMap tiles
+SECURE_REFERRER_POLICY = "strict-origin-when-cross-origin"
+
 ROOT_URLCONF = "bird_proj.urls"
 
 TEMPLATES = [
