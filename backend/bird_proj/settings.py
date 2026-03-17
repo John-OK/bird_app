@@ -32,10 +32,21 @@ SECRET_KEY = "django-insecure-q*+slm*q@rxv!n-d6vv51krhq!(mtee24dt=0$hvwp0%vedpf$
 # SECURITY WARNING: don't run with debug turned on in production!
 if os.environ["env"] == "prod":
     DEBUG = False
-    ALLOWED_HOSTS = ["hellobirdie.2masterlight.site", "hellobirdy.2masterlight.site"]
+    ALLOWED_HOSTS = [
+        "hellobirdie.2masterlight.site",
+        "hellobirdy.2masterlight.site",
+        "hellobirdie.2masterlight.com",
+        "www.hellobirdie.2masterlight.com",
+        "hellobirdy.2masterlight.com",
+        "www.hellobirdy.2masterlight.com",
+    ]
     CSRF_TRUSTED_ORIGINS = [
         "https://hellobirdie.2masterlight.site",
         "https://hellobirdy.2masterlight.site",
+        "https://hellobirdie.2masterlight.com",
+        "https://www.hellobirdie.2masterlight.com",
+        "https://hellobirdy.2masterlight.com",
+        "https://www.hellobirdy.2masterlight.com",
     ]
 
 elif os.environ["env"] == "dev":
