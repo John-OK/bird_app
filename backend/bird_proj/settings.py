@@ -31,16 +31,12 @@ SECRET_KEY = os.environ.get("SECRET_KEY", "django-insecure-fallback-for-local-de
 if os.environ["env"] == "prod":
     DEBUG = False
     ALLOWED_HOSTS = [
-        "hellobirdie.2masterlight.site",
-        "hellobirdy.2masterlight.site",
         "hellobirdie.2masterlight.com",
         "www.hellobirdie.2masterlight.com",
         "hellobirdy.2masterlight.com",
         "www.hellobirdy.2masterlight.com",
     ]
     CSRF_TRUSTED_ORIGINS = [
-        "https://hellobirdie.2masterlight.site",
-        "https://hellobirdy.2masterlight.site",
         "https://hellobirdie.2masterlight.com",
         "https://www.hellobirdie.2masterlight.com",
         "https://hellobirdy.2masterlight.com",
@@ -148,6 +144,7 @@ USE_TZ = True
 
 STATIC_URL = "static/"
 STATICFILES_DIRS = [BASE_DIR / "static"]
+STATIC_ROOT = BASE_DIR / "staticfiles"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
